@@ -17,11 +17,6 @@ android {
     }
 
     defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-
         val localProperties: File = project.rootProject.file("local.properties")
         val properties = Properties()
         properties.load(localProperties.inputStream())
@@ -30,12 +25,6 @@ android {
         buildConfigField(type = "String", name = "SUNSETHUE_API_KEY", value = sunsethueApiKey)
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11

@@ -22,5 +22,6 @@ dependencyResolutionManagement {
 rootProject.name = "SunRating"
 include(":app")
 include(":network")
+include(":database")
 include(":domain")
 include(":data")
