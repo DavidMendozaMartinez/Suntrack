@@ -1,7 +1,9 @@
 package com.davidmendozamartinez.sunrating.di.data
 
 import com.davidmendozamartinez.data.event.DefaultEventRepository
+import com.davidmendozamartinez.data.place.DefaultPlaceRepository
 import com.davidmendozamartinez.domain.event.EventRepository
+import com.davidmendozamartinez.domain.place.PlaceRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,4 +16,8 @@ interface RepositoryModule {
     @Singleton
     @Binds
     fun bindEventRepository(impl: DefaultEventRepository): EventRepository
+
+    @Singleton
+    @Binds
+    fun bindPlaceRepository(impl: DefaultPlaceRepository): PlaceRepository
 }
