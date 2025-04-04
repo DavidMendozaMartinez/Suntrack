@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class DefaultEventRepository @Inject constructor(
     private val eventRemoteDataSource: EventRemoteDataSource,
+    private val eventLocalDataSource: EventLocalDataSource,
 ) : EventRepository {
     override suspend fun syncUpcomingEvents(
         latitude: String,
@@ -16,9 +17,9 @@ class DefaultEventRepository @Inject constructor(
             latitude = latitude,
             longitude = longitude,
         )
+
+        eventLocalDataSource.upsertEvents(events = events, overwrite = true)
     }
 
-    override fun getUpcomingEventsFlow(): Flow<List<Event>> {
-        TODO("Not yet implemented")
-    }
+    override fun getUpcomingEventsFlow(): Flow<List<Event>> = eventLocalDataSource.getUpcomingEventsFlow()
 }

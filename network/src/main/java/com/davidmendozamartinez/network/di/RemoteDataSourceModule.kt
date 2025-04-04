@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface DataSourceModule {
+interface RemoteDataSourceModule {
     @Singleton
     @Binds
     fun bindEventRemoteDataSource(impl: DefaultEventRemoteDataSource): EventRemoteDataSource
