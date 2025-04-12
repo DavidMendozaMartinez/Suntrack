@@ -27,8 +27,9 @@ enum class EventTypeDTO {
     SUNSET,
 }
 
-fun EventDTO.toEvent(): Event? = try {
+fun EventDTO.toEvent(placeId: String): Event? = try {
     Event(
+        placeId = placeId,
         type = type.toEventType(),
         quality = requireNotNull(value = quality),
         time = Instant.parse(input = time),

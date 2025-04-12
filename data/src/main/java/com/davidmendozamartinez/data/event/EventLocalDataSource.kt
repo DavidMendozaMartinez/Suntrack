@@ -9,5 +9,5 @@ interface EventLocalDataSource {
         overwrite: Boolean,
     )
 
-    fun getUpcomingEventsFlow(): Flow<List<Event>>
+    fun getUpcomingEventsFlow(placeId: String): Flow<List<Event>>
 }

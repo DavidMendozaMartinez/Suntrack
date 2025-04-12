@@ -4,6 +4,8 @@ import com.davidmendozamartinez.domain.place.model.Place
 import kotlinx.coroutines.flow.Flow
 
 interface PlaceLocalDataSource {
+    suspend fun getPlaces(): List<Place>
+
     suspend fun upsertPlace(place: Place)
 
     suspend fun deletePlace(placeId: String)

@@ -7,8 +7,8 @@ import retrofit2.http.Query
 interface SunsethueService {
     @GET("forecast")
     suspend fun getForecast(
-        @Query("latitude") latitude: String,
-        @Query("longitude") longitude: String,
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
     ): ForecastDTO
 
     companion object {

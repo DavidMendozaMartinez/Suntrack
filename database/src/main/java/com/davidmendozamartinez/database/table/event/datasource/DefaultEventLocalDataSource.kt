@@ -22,8 +22,8 @@ class DefaultEventLocalDataSource @Inject constructor(
         overwrite = overwrite,
     )
 
-    override fun getUpcomingEventsFlow(): Flow<List<Event>> = eventDao
-        .getUpcomingEventsFlow(start = Clock.System.now().toEpochMilliseconds())
+    override fun getUpcomingEventsFlow(placeId: String): Flow<List<Event>> = eventDao
+        .getUpcomingEventsFlow(placeId = placeId, start = Clock.System.now().toEpochMilliseconds())
         .distinctUntilChanged()
         .map { entities -> entities.map { it.toEvent() } }
 }

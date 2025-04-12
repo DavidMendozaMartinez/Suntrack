@@ -9,8 +9,11 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface EventDao {
-    @Query("SELECT * FROM event WHERE time_millis > :start")
-    fun getUpcomingEventsFlow(start: Long): Flow<List<EventEntity>>
+    @Query("SELECT * FROM event WHERE place_id = :placeId AND time_millis > :start")
+    fun getUpcomingEventsFlow(
+        placeId: String,
+        start: Long,
+    ): Flow<List<EventEntity>>
 
     @Upsert
     suspend fun upsertEvents(entities: List<EventEntity>)

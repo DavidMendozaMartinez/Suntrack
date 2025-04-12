@@ -11,6 +11,9 @@ interface PlaceDao {
     @Query("SELECT * FROM place")
     fun getPlacesFlow(): Flow<List<PlaceEntity>>
 
+    @Query("SELECT * FROM place")
+    suspend fun getPlaces(): List<PlaceEntity>
+
     @Upsert
     suspend fun upsertPlace(entity: PlaceEntity)
 
