@@ -2,12 +2,14 @@ package com.davidmendozamartinez.framework.database.table.event.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.davidmendozamartinez.domain.event.model.Event
 import com.davidmendozamartinez.domain.event.model.EventType
 import kotlinx.datetime.Instant
 
-@Entity(tableName = "event", primaryKeys = ["place_id", "time_millis"])
+@Entity(tableName = "event")
 data class EventEntity(
+    @PrimaryKey @ColumnInfo(name = "id") val id: String,
     @ColumnInfo(name = "place_id") val placeId: String,
     @ColumnInfo(name = "time_millis") val timeMillis: Long,
     @ColumnInfo(name = "type") val type: EventTypeEntity,
@@ -20,6 +22,7 @@ enum class EventTypeEntity {
 }
 
 fun Event.toEventEntity(): EventEntity = EventEntity(
+    id = id,
     placeId = placeId,
     timeMillis = time.toEpochMilliseconds(),
     type = type.toEventTypeEntity(),
@@ -27,10 +30,11 @@ fun Event.toEventEntity(): EventEntity = EventEntity(
 )
 
 fun EventEntity.toEvent(): Event = Event(
+    id = id,
     placeId = placeId,
+    time = Instant.fromEpochMilliseconds(epochMilliseconds = timeMillis),
     type = type.toEventType(),
     quality = quality,
-    time = Instant.fromEpochMilliseconds(epochMilliseconds = timeMillis),
 )
 
 private fun EventType.toEventTypeEntity(): EventTypeEntity = when (this) {

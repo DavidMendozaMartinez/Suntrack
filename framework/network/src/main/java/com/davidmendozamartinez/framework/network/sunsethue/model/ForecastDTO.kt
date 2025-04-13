@@ -29,10 +29,11 @@ enum class EventTypeDTO {
 
 fun EventDTO.toEvent(placeId: String): Event? = try {
     Event(
+        id = Event.generateUUID(placeId = placeId, time = time),
         placeId = placeId,
+        time = Instant.parse(input = time),
         type = type.toEventType(),
         quality = requireNotNull(value = quality),
-        time = Instant.parse(input = time),
     )
 } catch (expected: IllegalArgumentException) {
     null
