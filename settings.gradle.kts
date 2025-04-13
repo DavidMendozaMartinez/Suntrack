@@ -23,5 +23,6 @@ rootProject.name = "SunRating"
 include(":app")
 include(":network")
 include(":database")
+include(":location")
 include(":domain")
 include(":data")

@@ -41,6 +41,7 @@ android {
 dependencies {
     implementation(project(":network"))
     implementation(project(":database"))
+    implementation(project(":location"))
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
