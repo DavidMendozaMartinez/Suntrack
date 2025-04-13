@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmendozamartinez.database"
+    namespace = "com.davidmendozamartinez.framework.database"
     compileSdk = 35
 
     compileOptions {

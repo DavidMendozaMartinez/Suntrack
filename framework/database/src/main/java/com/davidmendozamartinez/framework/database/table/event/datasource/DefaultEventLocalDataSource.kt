@@ -1,10 +1,10 @@
-package com.davidmendozamartinez.database.table.event.datasource
+package com.davidmendozamartinez.framework.database.table.event.datasource
 
 import com.davidmendozamartinez.data.event.EventLocalDataSource
-import com.davidmendozamartinez.database.table.event.dao.EventDao
-import com.davidmendozamartinez.database.table.event.model.toEvent
-import com.davidmendozamartinez.database.table.event.model.toEventEntity
 import com.davidmendozamartinez.domain.event.model.Event
+import com.davidmendozamartinez.framework.database.table.event.dao.EventDao
+import com.davidmendozamartinez.framework.database.table.event.model.toEvent
+import com.davidmendozamartinez.framework.database.table.event.model.toEventEntity
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged

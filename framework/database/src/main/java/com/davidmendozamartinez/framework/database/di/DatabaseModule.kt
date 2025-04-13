@@ -1,8 +1,8 @@
-package com.davidmendozamartinez.database.di
+package com.davidmendozamartinez.framework.database.di
 
 import android.content.Context
 import androidx.room.Room
-import com.davidmendozamartinez.database.AppDatabase
+import com.davidmendozamartinez.framework.database.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

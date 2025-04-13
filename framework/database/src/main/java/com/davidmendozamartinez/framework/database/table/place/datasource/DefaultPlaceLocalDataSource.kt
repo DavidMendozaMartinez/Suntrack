@@ -1,10 +1,10 @@
-package com.davidmendozamartinez.database.table.place.datasource
+package com.davidmendozamartinez.framework.database.table.place.datasource
 
 import com.davidmendozamartinez.data.place.PlaceLocalDataSource
-import com.davidmendozamartinez.database.table.place.dao.PlaceDao
-import com.davidmendozamartinez.database.table.place.model.toPlace
-import com.davidmendozamartinez.database.table.place.model.toPlaceEntity
 import com.davidmendozamartinez.domain.place.model.Place
+import com.davidmendozamartinez.framework.database.table.place.dao.PlaceDao
+import com.davidmendozamartinez.framework.database.table.place.model.toPlace
+import com.davidmendozamartinez.framework.database.table.place.model.toPlaceEntity
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged

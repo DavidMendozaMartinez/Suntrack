@@ -1,10 +1,10 @@
-package com.davidmendozamartinez.database.table.event.dao
+package com.davidmendozamartinez.framework.database.table.event.dao
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
-import com.davidmendozamartinez.database.table.event.model.EventEntity
+import com.davidmendozamartinez.framework.database.table.event.model.EventEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
