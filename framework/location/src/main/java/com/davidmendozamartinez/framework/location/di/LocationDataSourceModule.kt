@@ -1,7 +1,7 @@
-package com.davidmendozamartinez.location.di
+package com.davidmendozamartinez.framework.location.di
 
 import com.davidmendozamartinez.data.location.LocationDataSource
-import com.davidmendozamartinez.location.datasource.DefaultLocationDataSource
+import com.davidmendozamartinez.framework.location.datasource.DefaultLocationDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

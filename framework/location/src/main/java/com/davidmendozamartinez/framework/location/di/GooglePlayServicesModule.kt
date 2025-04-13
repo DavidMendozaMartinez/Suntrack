@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.location.di
+package com.davidmendozamartinez.framework.location.di
 
 import android.content.Context
 import com.google.android.gms.location.FusedLocationProviderClient

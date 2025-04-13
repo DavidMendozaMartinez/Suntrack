@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.location.datasource
+package com.davidmendozamartinez.framework.location.datasource
 
 import android.location.Location
 import com.davidmendozamartinez.data.location.LocationDataSource

@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmendozamartinez.schedule"
+    namespace = "com.davidmendozamartinez.framework.location"
     compileSdk = 35
 
     compileOptions {
@@ -22,6 +22,7 @@ dependencies {
     api(project(":data"))
 
     implementation(libs.hilt.android)
-
+    implementation(libs.play.services.location)
+    implementation(libs.kotlinx.coroutines.play.services)
     kapt(libs.hilt.android.compiler)
 }

@@ -21,9 +21,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "SunRating"
 include(":app")
-include(":framework:database")
-include(":framework:network")
-include(":location")
-include(":schedule")
-include(":domain")
 include(":data")
+include(":domain")
+include(":framework:database")
+include(":framework:location")
+include(":framework:network")
+include(":framework:schedule")
