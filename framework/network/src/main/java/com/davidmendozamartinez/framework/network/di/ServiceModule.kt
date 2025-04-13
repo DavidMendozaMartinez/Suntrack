@@ -1,6 +1,6 @@
-package com.davidmendozamartinez.network.di
+package com.davidmendozamartinez.framework.network.di
 
-import com.davidmendozamartinez.network.sunsethue.service.SunsethueService
+import com.davidmendozamartinez.framework.network.sunsethue.service.SunsethueService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

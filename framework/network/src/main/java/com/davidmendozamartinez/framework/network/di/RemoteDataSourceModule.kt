@@ -1,7 +1,7 @@
-package com.davidmendozamartinez.network.di
+package com.davidmendozamartinez.framework.network.di
 
 import com.davidmendozamartinez.data.event.EventRemoteDataSource
-import com.davidmendozamartinez.network.sunsethue.datasource.DefaultEventRemoteDataSource
+import com.davidmendozamartinez.framework.network.sunsethue.datasource.DefaultEventRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

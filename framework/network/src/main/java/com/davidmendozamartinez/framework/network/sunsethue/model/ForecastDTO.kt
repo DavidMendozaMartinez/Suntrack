@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.network.sunsethue.model
+package com.davidmendozamartinez.framework.network.sunsethue.model
 
 import com.davidmendozamartinez.domain.event.model.Event
 import com.davidmendozamartinez.domain.event.model.EventType

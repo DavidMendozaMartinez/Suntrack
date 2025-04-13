@@ -1,6 +1,6 @@
-package com.davidmendozamartinez.network.sunsethue.service
+package com.davidmendozamartinez.framework.network.sunsethue.service
 
-import com.davidmendozamartinez.network.sunsethue.model.ForecastDTO
+import com.davidmendozamartinez.framework.network.sunsethue.model.ForecastDTO
 import retrofit2.http.GET
 import retrofit2.http.Query
 

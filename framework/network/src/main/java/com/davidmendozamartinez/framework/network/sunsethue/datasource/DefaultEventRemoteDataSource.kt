@@ -1,11 +1,11 @@
-package com.davidmendozamartinez.network.sunsethue.datasource
+package com.davidmendozamartinez.framework.network.sunsethue.datasource
 
 import com.davidmendozamartinez.data.event.EventRemoteDataSource
 import com.davidmendozamartinez.domain.event.model.Event
 import com.davidmendozamartinez.domain.place.model.Place
-import com.davidmendozamartinez.network.sunsethue.model.ForecastDTO
-import com.davidmendozamartinez.network.sunsethue.model.toEvent
-import com.davidmendozamartinez.network.sunsethue.service.SunsethueService
+import com.davidmendozamartinez.framework.network.sunsethue.model.ForecastDTO
+import com.davidmendozamartinez.framework.network.sunsethue.model.toEvent
+import com.davidmendozamartinez.framework.network.sunsethue.service.SunsethueService
 import javax.inject.Inject
 
 class DefaultEventRemoteDataSource @Inject constructor(

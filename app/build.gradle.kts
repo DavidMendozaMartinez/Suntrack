@@ -39,8 +39,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":network"))
     implementation(project(":framework:database"))
+    implementation(project(":framework:network"))
     implementation(project(":location"))
 
     implementation(libs.hilt.android)

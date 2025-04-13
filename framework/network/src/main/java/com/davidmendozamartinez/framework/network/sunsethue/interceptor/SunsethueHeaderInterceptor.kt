@@ -1,6 +1,6 @@
-package com.davidmendozamartinez.network.sunsethue.interceptor
+package com.davidmendozamartinez.framework.network.sunsethue.interceptor
 
-import com.davidmendozamartinez.network.BuildConfig
+import com.davidmendozamartinez.framework.network.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
 import okhttp3.Request

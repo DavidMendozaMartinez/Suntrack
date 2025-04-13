@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmendozamartinez.network"
+    namespace = "com.davidmendozamartinez.framework.network"
     compileSdk = 35
 
     buildFeatures {
