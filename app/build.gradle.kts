@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":framework:database"))
     implementation(project(":framework:location"))
     implementation(project(":framework:network"))
+    implementation(project(":framework:notification"))
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)

@@ -1,0 +1,15 @@
+<resources>
+    <string name="notification_channel_sunrise_alert_name">Sunrise alerts</string>
+    <string name="notification_channel_sunrise_alert_description">Get notified moments before sunrise</string>
+    <string name="notification_channel_sunset_alert_name">Sunset alerts</string>
+    <string name="notification_channel_sunset_alert_description">Get notified moments before sunset</string>
+
+    <string name="notification_sunrise_default_content_title">Sunrise at %1$s in %2$s</string>
+    <string name="notification_sunrise_default_content_text">The sun will rise at %1$s in %2$s. Catch the moment if you can.</string>
+    <string name="notification_sunrise_quality_content_title">Beautiful sunrise at %1$s in %2$s</string>
+    <string name="notification_sunrise_quality_content_text">A beautiful sunrise is coming in %2$s! It starts at %1$s — don’t miss it.</string>
+    <string name="notification_sunset_default_content_title">Sunset at %1$s in %2$s</string>
+    <string name="notification_sunset_default_content_text">The sun will set at %1$s in %2$s. Take a moment to enjoy it.</string>
+    <string name="notification_sunset_quality_content_title">Golden sunset at %1$s in %2$s</string>
+    <string name="notification_sunset_quality_content_text">The sunset is looking amazing today in %2$s. It begins at %1$s.</string>
+</resources>
