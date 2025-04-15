@@ -9,4 +9,6 @@ android {
 
 dependencies {
     api(project(":data"))
+
+    implementation(project(":common"))
 }
