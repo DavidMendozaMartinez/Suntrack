@@ -12,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class GooglePlayServicesModule {
+class GooglePlayServicesLocationModule {
     @Singleton
     @Provides
     fun provideFusedLocationProviderClient(
