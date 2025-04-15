@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmendozamartinez.framework.network"
+    namespace = "com.davidmendozamartinez.sunrating.framework.network"
 
     buildFeatures {
         buildConfig = true

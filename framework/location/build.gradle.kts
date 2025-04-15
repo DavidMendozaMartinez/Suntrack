@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmendozamartinez.framework.location"
+    namespace = "com.davidmendozamartinez.sunrating.framework.location"
 }
 
 dependencies {

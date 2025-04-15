@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmendozamartinez.framework.database"
+    namespace = "com.davidmendozamartinez.sunrating.framework.database"
 }
 
 dependencies {

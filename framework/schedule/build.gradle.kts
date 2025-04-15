@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmendozamartinez.framework.schedule"
+    namespace = "com.davidmendozamartinez.sunrating.framework.schedule"
 }
 
 dependencies {

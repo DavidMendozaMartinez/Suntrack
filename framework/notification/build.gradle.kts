@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.davidmendozamartinez.framework.notification"
+    namespace = "com.davidmendozamartinez.sunrating.framework.notification"
 }
 
 dependencies {
