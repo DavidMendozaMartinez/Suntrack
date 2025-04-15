@@ -14,6 +14,8 @@ import kotlinx.datetime.Clock
 class DefaultEventLocalDataSource @Inject constructor(
     private val eventDao: EventDao,
 ) : EventLocalDataSource {
+    override suspend fun getEvent(id: String): Event? = eventDao.getEvent(id = id)?.toEvent()
+
     override suspend fun upsertEvents(
         events: List<Event>,
         overwrite: Boolean,

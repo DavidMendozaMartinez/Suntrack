@@ -15,6 +15,9 @@ interface EventDao {
         start: Long,
     ): Flow<List<EventEntity>>
 
+    @Query("SELECT * FROM event WHERE id = :id")
+    suspend fun getEvent(id: String): EventEntity?
+
     @Upsert
     suspend fun upsertEvents(entities: List<EventEntity>)
 

@@ -15,6 +15,8 @@ class DefaultEventRepository @Inject constructor(
     private val eventLocalDataSource: EventLocalDataSource,
     private val placeLocalDataSource: PlaceLocalDataSource,
 ) : EventRepository {
+    override suspend fun getEvent(id: String): Event? = eventLocalDataSource.getEvent(id = id)
+
     override suspend fun syncUpcomingEvents(): Result<Unit> = runCatching {
         val places: List<Place> = placeLocalDataSource.getPlaces()
         val events: List<Event> = coroutineScope {
