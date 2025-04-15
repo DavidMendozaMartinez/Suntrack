@@ -34,5 +34,10 @@ gradlePlugin {
             id = "sunrating.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
+
+        register("hilt") {
+            id = "sunrating.hilt"
+            implementationClass = "HiltConventionPlugin"
+        }
     }
 }

@@ -1,7 +1,6 @@
 plugins {
     id("sunrating.android.library")
-    alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.hilt.android)
+    id("sunrating.hilt")
     alias(libs.plugins.ksp)
 }
 
@@ -12,11 +11,8 @@ android {
 dependencies {
     api(project(":data"))
 
-    implementation(libs.hilt.android)
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
-
-    kapt(libs.hilt.android.compiler)
 
     ksp(libs.room.compiler)
 }

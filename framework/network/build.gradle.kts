@@ -2,8 +2,7 @@ import java.util.Properties
 
 plugins {
     id("sunrating.android.library")
-    alias(libs.plugins.hilt.android)
-    alias(libs.plugins.kotlin.kapt)
+    id("sunrating.hilt")
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -27,11 +26,8 @@ android {
 dependencies {
     api(project(":data"))
 
-    implementation(libs.hilt.android)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.kotlinx.serialization)
-
-    kapt(libs.hilt.android.compiler)
 }
