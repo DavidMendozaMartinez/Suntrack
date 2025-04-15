@@ -23,6 +23,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "SunRating"
 include(":app")
+include(":common")
 include(":data")
 include(":domain")
 include(":framework:database")
