@@ -1,8 +1,8 @@
 package com.davidmendozamartinez.framework.database.di
 
 import com.davidmendozamartinez.framework.database.AppDatabase
-import com.davidmendozamartinez.framework.database.table.event.dao.EventDao
-import com.davidmendozamartinez.framework.database.table.place.dao.PlaceDao
+import com.davidmendozamartinez.framework.database.entity.event.dao.EventDao
+import com.davidmendozamartinez.framework.database.entity.place.dao.PlaceDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

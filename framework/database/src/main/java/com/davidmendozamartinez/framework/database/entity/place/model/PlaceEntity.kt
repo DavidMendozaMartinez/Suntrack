@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.framework.database.table.place.model
+package com.davidmendozamartinez.framework.database.entity.place.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

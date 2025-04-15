@@ -1,9 +1,9 @@
-package com.davidmendozamartinez.framework.database.table.place.dao
+package com.davidmendozamartinez.framework.database.entity.place.dao
 
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.davidmendozamartinez.framework.database.table.place.model.PlaceEntity
+import com.davidmendozamartinez.framework.database.entity.place.model.PlaceEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -2,8 +2,8 @@ package com.davidmendozamartinez.framework.database.di
 
 import com.davidmendozamartinez.data.event.EventLocalDataSource
 import com.davidmendozamartinez.data.place.PlaceLocalDataSource
-import com.davidmendozamartinez.framework.database.table.event.datasource.DefaultEventLocalDataSource
-import com.davidmendozamartinez.framework.database.table.place.datasource.DefaultPlaceLocalDataSource
+import com.davidmendozamartinez.framework.database.entity.event.datasource.DefaultEventLocalDataSource
+import com.davidmendozamartinez.framework.database.entity.place.datasource.DefaultPlaceLocalDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

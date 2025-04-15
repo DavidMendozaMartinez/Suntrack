@@ -2,10 +2,10 @@ package com.davidmendozamartinez.framework.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.davidmendozamartinez.framework.database.table.event.dao.EventDao
-import com.davidmendozamartinez.framework.database.table.event.model.EventEntity
-import com.davidmendozamartinez.framework.database.table.place.dao.PlaceDao
-import com.davidmendozamartinez.framework.database.table.place.model.PlaceEntity
+import com.davidmendozamartinez.framework.database.entity.event.dao.EventDao
+import com.davidmendozamartinez.framework.database.entity.event.model.EventEntity
+import com.davidmendozamartinez.framework.database.entity.place.dao.PlaceDao
+import com.davidmendozamartinez.framework.database.entity.place.model.PlaceEntity
 
 @Database(
     entities = [

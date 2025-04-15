@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.framework.database.table.event.model
+package com.davidmendozamartinez.framework.database.entity.event.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
