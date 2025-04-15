@@ -13,12 +13,12 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             apply(plugin = "com.android.library")
             apply(plugin = "org.jetbrains.kotlin.android")
 
-            configureAndroidLibrary()
-            configureKotlinAndroidProject()
+            configureLibraryExtension()
+            configureKotlinAndroidProjectExtension()
         }
     }
 
-    private fun Project.configureAndroidLibrary() {
+    private fun Project.configureLibraryExtension() {
         extensions.configure<LibraryExtension> {
             compileSdk = 35
 
@@ -37,7 +37,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
         }
     }
 
-    private fun Project.configureKotlinAndroidProject() {
+    private fun Project.configureKotlinAndroidProjectExtension() {
         extensions.configure<KotlinAndroidProjectExtension> {
             compilerOptions {
                 jvmTarget.set(JvmTarget.JVM_11)

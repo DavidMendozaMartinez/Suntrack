@@ -29,5 +29,10 @@ gradlePlugin {
             id = "sunrating.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+
+        register("jvmLibrary") {
+            id = "sunrating.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }
