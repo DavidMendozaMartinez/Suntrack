@@ -22,7 +22,8 @@ dependencies {
     api(project(":data"))
 
     implementation(libs.hilt.android)
-    implementation(libs.play.services.location)
     implementation(libs.kotlinx.coroutines.play.services)
+    implementation(libs.play.services.location)
+
     kapt(libs.hilt.android.compiler)
 }

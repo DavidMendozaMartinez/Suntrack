@@ -38,11 +38,11 @@ dependencies {
     api(project(":data"))
 
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
-
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.okhttp.logging.interceptor)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.kotlinx.serialization)
-    implementation(libs.okhttp.logging.interceptor)
+
+    kapt(libs.hilt.android.compiler)
 }

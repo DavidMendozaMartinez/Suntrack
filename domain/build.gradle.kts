@@ -13,6 +13,6 @@ kotlin {
 }
 
 dependencies {
-    implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.datetime)
 }
