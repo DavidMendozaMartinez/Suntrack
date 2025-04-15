@@ -1,4 +1,5 @@
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.ApplicationExtension
+import com.davidmendozamartinez.sunrating.BuildDefaults
 import com.davidmendozamartinez.sunrating.addCommonKotlinDependencies
 import com.davidmendozamartinez.sunrating.configureCommonExtension
 import com.davidmendozamartinez.sunrating.configureKotlinAndroidProjectExtension
@@ -7,13 +8,17 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 
-class AndroidLibraryConventionPlugin : Plugin<Project> {
+class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-            apply(plugin = "com.android.library")
+            apply(plugin = "com.android.application")
             apply(plugin = "org.jetbrains.kotlin.android")
 
-            configureCommonExtension<LibraryExtension>()
+            configureCommonExtension<ApplicationExtension> {
+                defaultConfig {
+                    targetSdk = BuildDefaults.AndroidSdk.TARGET
+                }
+            }
             configureKotlinAndroidProjectExtension()
 
             dependencies {

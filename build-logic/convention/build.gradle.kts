@@ -25,6 +25,11 @@ dependencies {
 
 gradlePlugin {
     plugins {
+        register("androidApplication") {
+            id = "sunrating.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+
         register("androidLibrary") {
             id = "sunrating.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
