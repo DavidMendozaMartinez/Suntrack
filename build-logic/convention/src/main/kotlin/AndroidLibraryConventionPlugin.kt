@@ -1,9 +1,11 @@
 import com.android.build.gradle.LibraryExtension
+import com.davidmendozamartinez.sunrating.addCommonKotlinDependencies
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidProjectExtension
 
@@ -15,6 +17,10 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
 
             configureLibraryExtension()
             configureKotlinAndroidProjectExtension()
+
+            dependencies {
+                addCommonKotlinDependencies()
+            }
         }
     }
 

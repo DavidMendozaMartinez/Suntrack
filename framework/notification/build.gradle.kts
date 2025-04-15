@@ -12,7 +12,6 @@ dependencies {
     api(project(":data"))
 
     implementation(libs.hilt.android)
-    implementation(libs.kotlinx.datetime)
 
     kapt(libs.hilt.android.compiler)
 }

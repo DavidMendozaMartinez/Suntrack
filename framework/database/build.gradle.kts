@@ -13,7 +13,6 @@ dependencies {
     api(project(":data"))
 
     implementation(libs.hilt.android)
-    implementation(libs.kotlinx.datetime)
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
 
