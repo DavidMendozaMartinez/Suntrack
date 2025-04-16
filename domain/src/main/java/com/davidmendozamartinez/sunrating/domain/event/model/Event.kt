@@ -1,11 +1,12 @@
 package com.davidmendozamartinez.sunrating.domain.event.model
 
+import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import java.util.UUID
 import kotlinx.datetime.Instant
 
 data class Event(
     val id: String,
-    val placeId: String,
+    val place: Place,
     val time: Instant,
     val type: EventType,
     val quality: Float,

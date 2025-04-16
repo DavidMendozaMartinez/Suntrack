@@ -2,6 +2,7 @@ package com.davidmendozamartinez.sunrating.framework.network.sunsethue.model
 
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
+import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import kotlinx.datetime.Instant
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -27,10 +28,10 @@ enum class EventTypeDTO {
     SUNSET,
 }
 
-fun EventDTO.toEvent(placeId: String): Event? = try {
+fun EventDTO.toEvent(place: Place): Event? = try {
     Event(
-        id = Event.generateUUID(placeId = placeId, time = time),
-        placeId = placeId,
+        id = Event.generateUUID(placeId = place.id, time = time),
+        place = place,
         time = Instant.parse(input = time),
         type = type.toEventType(),
         quality = requireNotNull(value = quality),

@@ -24,7 +24,7 @@ data class EventAlertNotificationUiState(val event: Event) : NotificationUiState
                 else -> R.string.notification_sunset_default_content_title
             }
         }
-        return context.getString(resId, event.time.toLocalTime().format(), event.placeId)
+        return context.getString(resId, event.time.toLocalTime().format(), event.place.name)
     }
 
     override fun getContentText(context: Context): String {
@@ -39,6 +39,6 @@ data class EventAlertNotificationUiState(val event: Event) : NotificationUiState
                 else -> R.string.notification_sunset_default_content_text
             }
         }
-        return context.getString(resId, event.time.toLocalTime().format(), event.placeId)
+        return context.getString(resId, event.time.toLocalTime().format(), event.place.name)
     }
 }

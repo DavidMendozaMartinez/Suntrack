@@ -16,6 +16,6 @@ class DefaultEventRemoteDataSource @Inject constructor(
             latitude = place.latitude,
             longitude = place.longitude,
         )
-        return forecast.data.mapNotNull { it.toEvent(placeId = place.id) }
+        return forecast.data.mapNotNull { it.toEvent(place = place) }
     }
 }
