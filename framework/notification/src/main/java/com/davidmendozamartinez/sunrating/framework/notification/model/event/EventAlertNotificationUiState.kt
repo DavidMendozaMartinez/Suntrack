@@ -1,6 +1,8 @@
 package com.davidmendozamartinez.sunrating.framework.notification.model.event
 
 import android.content.Context
+import com.davidmendozamartinez.sunrating.common.extension.format
+import com.davidmendozamartinez.sunrating.common.extension.toLocalTime
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
 import com.davidmendozamartinez.sunrating.domain.event.model.QualityCategory
@@ -22,7 +24,7 @@ data class EventAlertNotificationUiState(val event: Event) : NotificationUiState
                 else -> R.string.notification_sunset_default_content_title
             }
         }
-        return context.getString(resId, event.time.toString(), event.placeId)
+        return context.getString(resId, event.time.toLocalTime().format(), event.placeId)
     }
 
     override fun getContentText(context: Context): String {
@@ -37,6 +39,6 @@ data class EventAlertNotificationUiState(val event: Event) : NotificationUiState
                 else -> R.string.notification_sunset_default_content_text
             }
         }
-        return context.getString(resId, event.time.toString(), event.placeId)
+        return context.getString(resId, event.time.toLocalTime().format(), event.placeId)
     }
 }
