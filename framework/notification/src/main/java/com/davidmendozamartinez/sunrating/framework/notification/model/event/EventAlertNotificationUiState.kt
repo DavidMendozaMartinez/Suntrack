@@ -8,9 +8,10 @@ import com.davidmendozamartinez.sunrating.domain.event.model.EventType
 import com.davidmendozamartinez.sunrating.domain.event.model.QualityCategory
 import com.davidmendozamartinez.sunrating.framework.notification.R
 import com.davidmendozamartinez.sunrating.framework.notification.model.NotificationUiState
+import kotlinx.datetime.Clock
 
 data class EventAlertNotificationUiState(val event: Event) : NotificationUiState {
-    override val id: Int = event.time.hashCode() // TODO: [future]
+    override val id: Int = "event_alert_${event.id}_${Clock.System.now()}".hashCode()
 
     override fun getContentTitle(context: Context): String {
         val resId: Int = when (event.type) {
