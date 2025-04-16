@@ -1,6 +1,6 @@
 package com.davidmendozamartinez.sunrating.framework.network.di
 
-import com.davidmendozamartinez.sunrating.data.event.EventRemoteDataSource
+import com.davidmendozamartinez.sunrating.data.event.datasource.EventRemoteDataSource
 import com.davidmendozamartinez.sunrating.framework.network.sunsethue.datasource.DefaultEventRemoteDataSource
 import dagger.Binds
 import dagger.Module

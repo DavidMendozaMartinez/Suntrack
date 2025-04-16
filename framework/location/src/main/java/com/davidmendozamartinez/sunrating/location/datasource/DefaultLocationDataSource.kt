@@ -1,7 +1,7 @@
 package com.davidmendozamartinez.sunrating.location.datasource
 
 import android.location.Location
-import com.davidmendozamartinez.sunrating.data.location.LocationDataSource
+import com.davidmendozamartinez.sunrating.data.location.datasource.LocationDataSource
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource

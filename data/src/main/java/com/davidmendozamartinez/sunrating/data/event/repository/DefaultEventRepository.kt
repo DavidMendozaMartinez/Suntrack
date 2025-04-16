@@ -1,6 +1,8 @@
-package com.davidmendozamartinez.sunrating.data.event
+package com.davidmendozamartinez.sunrating.data.event.repository
 
-import com.davidmendozamartinez.sunrating.data.place.PlaceLocalDataSource
+import com.davidmendozamartinez.sunrating.data.event.datasource.EventLocalDataSource
+import com.davidmendozamartinez.sunrating.data.event.datasource.EventRemoteDataSource
+import com.davidmendozamartinez.sunrating.data.place.datasource.PlaceLocalDataSource
 import com.davidmendozamartinez.sunrating.domain.event.EventRepository
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.place.model.Place

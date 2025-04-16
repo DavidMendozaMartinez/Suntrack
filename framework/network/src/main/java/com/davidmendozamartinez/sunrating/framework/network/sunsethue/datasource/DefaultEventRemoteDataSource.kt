@@ -1,6 +1,6 @@
 package com.davidmendozamartinez.sunrating.framework.network.sunsethue.datasource
 
-import com.davidmendozamartinez.sunrating.data.event.EventRemoteDataSource
+import com.davidmendozamartinez.sunrating.data.event.datasource.EventRemoteDataSource
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import com.davidmendozamartinez.sunrating.framework.network.sunsethue.model.ForecastDTO

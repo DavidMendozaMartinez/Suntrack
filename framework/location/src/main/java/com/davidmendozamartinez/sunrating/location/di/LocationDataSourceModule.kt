@@ -1,6 +1,6 @@
 package com.davidmendozamartinez.sunrating.location.di
 
-import com.davidmendozamartinez.sunrating.data.location.LocationDataSource
+import com.davidmendozamartinez.sunrating.data.location.datasource.LocationDataSource
 import com.davidmendozamartinez.sunrating.location.datasource.DefaultLocationDataSource
 import dagger.Binds
 import dagger.Module

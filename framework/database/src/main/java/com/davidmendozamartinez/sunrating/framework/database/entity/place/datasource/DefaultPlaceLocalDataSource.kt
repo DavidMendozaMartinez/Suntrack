@@ -1,6 +1,6 @@
 package com.davidmendozamartinez.sunrating.framework.database.entity.place.datasource
 
-import com.davidmendozamartinez.sunrating.data.place.PlaceLocalDataSource
+import com.davidmendozamartinez.sunrating.data.place.datasource.PlaceLocalDataSource
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import com.davidmendozamartinez.sunrating.framework.database.entity.place.dao.PlaceDao
 import com.davidmendozamartinez.sunrating.framework.database.entity.place.model.toPlace

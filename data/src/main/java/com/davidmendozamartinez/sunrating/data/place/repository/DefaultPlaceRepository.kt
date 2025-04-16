@@ -1,5 +1,6 @@
-package com.davidmendozamartinez.sunrating.data.place
+package com.davidmendozamartinez.sunrating.data.place.repository
 
+import com.davidmendozamartinez.sunrating.data.place.datasource.PlaceLocalDataSource
 import com.davidmendozamartinez.sunrating.domain.place.PlaceRepository
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import javax.inject.Inject

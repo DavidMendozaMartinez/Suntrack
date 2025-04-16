@@ -1,7 +1,7 @@
 package com.davidmendozamartinez.sunrating.framework.database.di
 
-import com.davidmendozamartinez.sunrating.data.event.EventLocalDataSource
-import com.davidmendozamartinez.sunrating.data.place.PlaceLocalDataSource
+import com.davidmendozamartinez.sunrating.data.event.datasource.EventLocalDataSource
+import com.davidmendozamartinez.sunrating.data.place.datasource.PlaceLocalDataSource
 import com.davidmendozamartinez.sunrating.framework.database.entity.event.datasource.DefaultEventLocalDataSource
 import com.davidmendozamartinez.sunrating.framework.database.entity.place.datasource.DefaultPlaceLocalDataSource
 import dagger.Binds

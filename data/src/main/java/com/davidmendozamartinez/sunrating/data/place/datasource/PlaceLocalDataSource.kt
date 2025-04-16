@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.sunrating.data.place
+package com.davidmendozamartinez.sunrating.data.place.datasource
 
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import kotlinx.coroutines.flow.Flow
