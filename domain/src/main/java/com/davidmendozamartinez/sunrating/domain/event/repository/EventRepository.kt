@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.sunrating.domain.event
+package com.davidmendozamartinez.sunrating.domain.event.repository
 
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import kotlinx.coroutines.flow.Flow

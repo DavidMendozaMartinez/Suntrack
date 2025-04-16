@@ -1,8 +1,8 @@
 package com.davidmendozamartinez.sunrating.data.location.repository
 
 import com.davidmendozamartinez.sunrating.data.location.datasource.LocationDataSource
-import com.davidmendozamartinez.sunrating.domain.location.Location
-import com.davidmendozamartinez.sunrating.domain.location.LocationRepository
+import com.davidmendozamartinez.sunrating.domain.location.repository.Location
+import com.davidmendozamartinez.sunrating.domain.location.repository.LocationRepository
 import javax.inject.Inject
 
 class DefaultLocationRepository @Inject constructor(

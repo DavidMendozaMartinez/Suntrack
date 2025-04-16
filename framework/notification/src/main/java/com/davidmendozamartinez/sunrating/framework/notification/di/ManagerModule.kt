@@ -1,6 +1,6 @@
 package com.davidmendozamartinez.sunrating.framework.notification.di
 
-import com.davidmendozamartinez.sunrating.domain.notification.NotificationManager
+import com.davidmendozamartinez.sunrating.domain.notification.manager.NotificationManager
 import com.davidmendozamartinez.sunrating.framework.notification.manager.DefaultNotificationManager
 import dagger.Binds
 import dagger.Module

@@ -3,9 +3,9 @@ package com.davidmendozamartinez.sunrating.di.data
 import com.davidmendozamartinez.sunrating.data.event.repository.DefaultEventRepository
 import com.davidmendozamartinez.sunrating.data.location.repository.DefaultLocationRepository
 import com.davidmendozamartinez.sunrating.data.place.repository.DefaultPlaceRepository
-import com.davidmendozamartinez.sunrating.domain.event.EventRepository
-import com.davidmendozamartinez.sunrating.domain.location.LocationRepository
-import com.davidmendozamartinez.sunrating.domain.place.PlaceRepository
+import com.davidmendozamartinez.sunrating.domain.event.repository.EventRepository
+import com.davidmendozamartinez.sunrating.domain.location.repository.LocationRepository
+import com.davidmendozamartinez.sunrating.domain.place.repository.PlaceRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

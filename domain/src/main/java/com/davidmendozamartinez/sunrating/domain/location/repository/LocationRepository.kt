@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.sunrating.domain.location
+package com.davidmendozamartinez.sunrating.domain.location.repository
 
 typealias Location = Pair<Double, Double>
 

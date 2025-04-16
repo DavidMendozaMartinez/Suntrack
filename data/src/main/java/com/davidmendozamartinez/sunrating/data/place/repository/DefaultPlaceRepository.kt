@@ -1,8 +1,8 @@
 package com.davidmendozamartinez.sunrating.data.place.repository
 
 import com.davidmendozamartinez.sunrating.data.place.datasource.PlaceLocalDataSource
-import com.davidmendozamartinez.sunrating.domain.place.PlaceRepository
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
+import com.davidmendozamartinez.sunrating.domain.place.repository.PlaceRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 

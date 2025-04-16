@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.sunrating.domain.notification
+package com.davidmendozamartinez.sunrating.domain.notification.manager
 
 import com.davidmendozamartinez.sunrating.domain.notification.model.Notification
 import com.davidmendozamartinez.sunrating.domain.notification.model.NotificationChannel

@@ -1,7 +1,7 @@
 package com.davidmendozamartinez.sunrating.framework.notification.manager
 
 import android.content.Context
-import com.davidmendozamartinez.sunrating.domain.notification.NotificationManager
+import com.davidmendozamartinez.sunrating.domain.notification.manager.NotificationManager
 import com.davidmendozamartinez.sunrating.domain.notification.model.Notification
 import com.davidmendozamartinez.sunrating.domain.notification.model.NotificationChannel
 import com.davidmendozamartinez.sunrating.framework.notification.model.NotificationChannelUiState
