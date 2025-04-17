@@ -1,4 +1,4 @@
-import com.davidmendozamartinez.sunrating.addKotlinCommonDependencies
+import com.davidmendozamartinez.sunrating.addCommonKotlinDependencies
 import com.davidmendozamartinez.sunrating.configureJavaPluginExtension
 import com.davidmendozamartinez.sunrating.configureKotlinJvmProjectExtension
 import org.gradle.api.Plugin
@@ -16,7 +16,7 @@ class JvmLibraryConventionPlugin : Plugin<Project> {
             configureKotlinJvmProjectExtension()
 
             dependencies {
-                addKotlinCommonDependencies()
+                addCommonKotlinDependencies()
             }
         }
     }

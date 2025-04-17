@@ -1,5 +1,5 @@
 import com.android.build.gradle.LibraryExtension
-import com.davidmendozamartinez.sunrating.addKotlinCommonDependencies
+import com.davidmendozamartinez.sunrating.addCommonKotlinDependencies
 import com.davidmendozamartinez.sunrating.configureCommonExtension
 import com.davidmendozamartinez.sunrating.configureKotlinAndroidProjectExtension
 import org.gradle.api.Plugin
@@ -17,7 +17,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             configureKotlinAndroidProjectExtension()
 
             dependencies {
-                addKotlinCommonDependencies()
+                addCommonKotlinDependencies()
             }
         }
     }

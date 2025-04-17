@@ -1,6 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
 import com.davidmendozamartinez.sunrating.BuildDefaults
-import com.davidmendozamartinez.sunrating.addKotlinCommonDependencies
+import com.davidmendozamartinez.sunrating.addCommonKotlinDependencies
 import com.davidmendozamartinez.sunrating.configureCommonExtension
 import com.davidmendozamartinez.sunrating.configureKotlinAndroidProjectExtension
 import org.gradle.api.Plugin
@@ -22,7 +22,7 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             configureKotlinAndroidProjectExtension()
 
             dependencies {
-                addKotlinCommonDependencies()
+                addCommonKotlinDependencies()
             }
         }
     }
