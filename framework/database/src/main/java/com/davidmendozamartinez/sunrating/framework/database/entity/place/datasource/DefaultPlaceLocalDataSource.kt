@@ -15,12 +15,20 @@ class DefaultPlaceLocalDataSource @Inject constructor(
 ) : PlaceLocalDataSource {
     override suspend fun getPlaces(): List<Place> = placeDao.getPlaces().map { it.toPlace() }
 
+    override suspend fun getFirstAvailablePlaceIdSortedByName(excludedIds: List<String>): String? =
+        placeDao.getFirstAvailablePlaceIdSortedByName(excludedIds = excludedIds)
+
     override suspend fun upsertPlace(place: Place) = placeDao.upsertPlace(entity = place.toPlaceEntity())
 
-    override suspend fun deletePlace(placeId: String) = placeDao.deletePlace(placeId = placeId)
+    override suspend fun deletePlace(id: String) = placeDao.deletePlace(id = id)
 
-    override fun getPlacesFlow(): Flow<List<Place>> = placeDao
-        .getPlacesFlow()
+    override fun getPlacesSortedByNameFlow(): Flow<List<Place>> = placeDao
+        .getPlacesSortedByNameFlow()
         .distinctUntilChanged()
         .map { entities -> entities.map { it.toPlace() } }
+
+    override fun getPlaceFlow(id: String): Flow<Place?> = placeDao
+        .getPlaceFlow(id = id)
+        .distinctUntilChanged()
+        .map { it?.toPlace() }
 }

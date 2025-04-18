@@ -6,9 +6,13 @@ import kotlinx.coroutines.flow.Flow
 interface PlaceLocalDataSource {
     suspend fun getPlaces(): List<Place>
 
+    suspend fun getFirstAvailablePlaceIdSortedByName(excludedIds: List<String>): String?
+
     suspend fun upsertPlace(place: Place)
 
-    suspend fun deletePlace(placeId: String)
+    suspend fun deletePlace(id: String)
 
-    fun getPlacesFlow(): Flow<List<Place>>
+    fun getPlacesSortedByNameFlow(): Flow<List<Place>>
+
+    fun getPlaceFlow(id: String): Flow<Place?>
 }

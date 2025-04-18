@@ -10,7 +10,11 @@ interface PlaceRepository {
         longitude: Double,
     ): Result<Unit>
 
-    suspend fun deletePlace(placeId: String)
+    suspend fun setCurrentPlace(id: String): Result<Unit>
 
-    fun getPlacesFlow(): Flow<List<Place>>
+    suspend fun deletePlace(id: String): Result<Unit>
+
+    fun getPlacesSortedByNameFlow(): Flow<List<Place>>
+
+    fun getCurrentPlaceFlow(): Flow<Place?>
 }

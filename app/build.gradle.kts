@@ -32,6 +32,7 @@ dependencies {
     implementation(project(":framework:location"))
     implementation(project(":framework:network"))
     implementation(project(":framework:notification"))
+    implementation(project(":framework:preferences"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
