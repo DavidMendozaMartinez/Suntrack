@@ -1,7 +1,9 @@
 package com.davidmendozamartinez.sunrating.framework.preferences.di
 
 import com.davidmendozamartinez.sunrating.data.place.datasource.PlacePreferencesDataSource
+import com.davidmendozamartinez.sunrating.data.settings.datasource.NotificationSettingsPreferencesDataSource
 import com.davidmendozamartinez.sunrating.framework.preferences.DefaultPlacePreferencesDataSource
+import com.davidmendozamartinez.sunrating.framework.preferences.settings.datasource.DefaultNotificationSettingsPreferencesDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,4 +16,10 @@ interface PreferencesDataSourceModule {
     @Singleton
     @Binds
     fun bindPlacePreferencesDataSource(impl: DefaultPlacePreferencesDataSource): PlacePreferencesDataSource
+
+    @Singleton
+    @Binds
+    fun bindNotificationSettingsPreferencesDataSource(
+        impl: DefaultNotificationSettingsPreferencesDataSource,
+    ): NotificationSettingsPreferencesDataSource
 }
