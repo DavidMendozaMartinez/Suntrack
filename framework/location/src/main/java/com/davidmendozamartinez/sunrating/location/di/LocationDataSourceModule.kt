@@ -13,5 +13,5 @@ import javax.inject.Singleton
 interface LocationDataSourceModule {
     @Singleton
     @Binds
-    fun bindLocationDataSource(impl: DefaultLocationDataSource): LocationDataSource
+    fun bindLocationDataSource(default: DefaultLocationDataSource): LocationDataSource
 }

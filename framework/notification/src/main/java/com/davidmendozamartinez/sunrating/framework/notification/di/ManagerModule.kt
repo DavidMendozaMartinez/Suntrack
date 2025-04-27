@@ -13,5 +13,5 @@ import javax.inject.Singleton
 interface ManagerModule {
     @Singleton
     @Binds
-    fun bindNotificationManager(impl: DefaultNotificationManager): NotificationManager
+    fun bindNotificationManager(default: DefaultNotificationManager): NotificationManager
 }

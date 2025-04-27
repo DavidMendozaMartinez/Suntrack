@@ -15,9 +15,9 @@ import javax.inject.Singleton
 interface LocalDataSourceModule {
     @Singleton
     @Binds
-    fun bindEventLocalDataSource(impl: DefaultEventLocalDataSource): EventLocalDataSource
+    fun bindEventLocalDataSource(default: DefaultEventLocalDataSource): EventLocalDataSource
 
     @Singleton
     @Binds
-    fun bindPlaceLocalDataSource(impl: DefaultPlaceLocalDataSource): PlaceLocalDataSource
+    fun bindPlaceLocalDataSource(default: DefaultPlaceLocalDataSource): PlaceLocalDataSource
 }

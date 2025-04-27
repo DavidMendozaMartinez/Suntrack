@@ -13,5 +13,5 @@ import javax.inject.Singleton
 interface RemoteDataSourceModule {
     @Singleton
     @Binds
-    fun bindEventRemoteDataSource(impl: DefaultEventRemoteDataSource): EventRemoteDataSource
+    fun bindEventRemoteDataSource(default: DefaultEventRemoteDataSource): EventRemoteDataSource
 }

@@ -15,11 +15,11 @@ import javax.inject.Singleton
 interface PreferencesDataSourceModule {
     @Singleton
     @Binds
-    fun bindPlacePreferencesDataSource(impl: DefaultPlacePreferencesDataSource): PlacePreferencesDataSource
+    fun bindPlacePreferencesDataSource(default: DefaultPlacePreferencesDataSource): PlacePreferencesDataSource
 
     @Singleton
     @Binds
     fun bindNotificationSettingsPreferencesDataSource(
-        impl: DefaultNotificationSettingsPreferencesDataSource,
+        default: DefaultNotificationSettingsPreferencesDataSource,
     ): NotificationSettingsPreferencesDataSource
 }

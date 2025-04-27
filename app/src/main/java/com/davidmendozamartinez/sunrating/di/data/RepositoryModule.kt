@@ -19,17 +19,17 @@ import javax.inject.Singleton
 interface RepositoryModule {
     @Singleton
     @Binds
-    fun bindEventRepository(impl: DefaultEventRepository): EventRepository
+    fun bindEventRepository(default: DefaultEventRepository): EventRepository
 
     @Singleton
     @Binds
-    fun bindPlaceRepository(impl: DefaultPlaceRepository): PlaceRepository
+    fun bindPlaceRepository(default: DefaultPlaceRepository): PlaceRepository
 
     @Singleton
     @Binds
-    fun bindLocationRepository(impl: DefaultLocationRepository): LocationRepository
+    fun bindLocationRepository(default: DefaultLocationRepository): LocationRepository
 
     @Singleton
     @Binds
-    fun bindNotificationSettingsRepository(impl: DefaultNotificationSettingsRepository): NotificationSettingsRepository
+    fun bindNotificationSettingsRepository(default: DefaultNotificationSettingsRepository): NotificationSettingsRepository
 }
