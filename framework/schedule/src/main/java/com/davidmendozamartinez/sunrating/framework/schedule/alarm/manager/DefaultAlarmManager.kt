@@ -13,20 +13,17 @@ class DefaultAlarmManager @Inject constructor(
     @ApplicationContext private val context: Context,
     private val androidAlarmManager: AndroidAlarmManager,
 ) : AlarmManager {
-    override fun schedule(
-        alarm: Alarm,
-        triggerAtMillis: Long,
-    ) {
+    override fun schedule(alarm: Alarm) {
         if (AndroidAlarmManagerCompat.canScheduleExactAlarms(androidAlarmManager)) {
             androidAlarmManager.setExact(
                 AndroidAlarmManager.RTC_WAKEUP,
-                triggerAtMillis,
+                alarm.triggerAt.toEpochMilliseconds(),
                 alarm.toPendingIntent(context = context),
             )
         } else {
             androidAlarmManager.set(
                 AndroidAlarmManager.RTC_WAKEUP,
-                triggerAtMillis,
+                alarm.triggerAt.toEpochMilliseconds(),
                 alarm.toPendingIntent(context = context),
             )
         }
