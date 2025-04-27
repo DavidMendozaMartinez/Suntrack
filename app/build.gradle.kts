@@ -33,6 +33,7 @@ dependencies {
     implementation(project(":framework:network"))
     implementation(project(":framework:notification"))
     implementation(project(":framework:preferences"))
+    implementation(project(":framework:schedule"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

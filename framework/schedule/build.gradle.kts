@@ -11,4 +11,5 @@ dependencies {
     api(project(":data"))
 
     implementation(project(":common"))
+    implementation(libs.androidx.core.ktx)
 }
