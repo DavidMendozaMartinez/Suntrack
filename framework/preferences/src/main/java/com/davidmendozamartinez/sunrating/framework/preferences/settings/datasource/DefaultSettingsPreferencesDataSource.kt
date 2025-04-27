@@ -4,7 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.MutablePreferences
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
-import com.davidmendozamartinez.sunrating.data.settings.datasource.NotificationSettingsPreferencesDataSource
+import com.davidmendozamartinez.sunrating.data.settings.datasource.SettingsPreferencesDataSource
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
 import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertNotificationSettings
 import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertNotificationSettingsDefaults
@@ -17,9 +17,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
-class DefaultNotificationSettingsPreferencesDataSource @Inject constructor(
+class DefaultSettingsPreferencesDataSource @Inject constructor(
     private val dataStore: DataStore<Preferences>,
-) : NotificationSettingsPreferencesDataSource {
+) : SettingsPreferencesDataSource {
     override suspend fun getEventAlertNotificationSettings(eventType: EventType): EventAlertNotificationSettings {
         val preferences: Preferences = dataStore.data.first()
         val keys: EventAlertNotificationSettingsPreferencesKeys = eventType.toEventAlertNotificationSettingsPreferencesKeys()

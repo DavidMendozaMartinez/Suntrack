@@ -3,11 +3,11 @@ package com.davidmendozamartinez.sunrating.di.data
 import com.davidmendozamartinez.sunrating.data.event.repository.DefaultEventRepository
 import com.davidmendozamartinez.sunrating.data.location.repository.DefaultLocationRepository
 import com.davidmendozamartinez.sunrating.data.place.repository.DefaultPlaceRepository
-import com.davidmendozamartinez.sunrating.data.settings.repository.DefaultNotificationSettingsRepository
+import com.davidmendozamartinez.sunrating.data.settings.repository.DefaultSettingsRepository
 import com.davidmendozamartinez.sunrating.domain.event.repository.EventRepository
 import com.davidmendozamartinez.sunrating.domain.location.repository.LocationRepository
 import com.davidmendozamartinez.sunrating.domain.place.repository.PlaceRepository
-import com.davidmendozamartinez.sunrating.domain.settings.repository.NotificationSettingsRepository
+import com.davidmendozamartinez.sunrating.domain.settings.repository.SettingsRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -31,5 +31,5 @@ interface RepositoryModule {
 
     @Singleton
     @Binds
-    fun bindNotificationSettingsRepository(default: DefaultNotificationSettingsRepository): NotificationSettingsRepository
+    fun bindSettingsRepository(default: DefaultSettingsRepository): SettingsRepository
 }

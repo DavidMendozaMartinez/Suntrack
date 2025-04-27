@@ -1,10 +1,10 @@
-package com.davidmendozamartinez.sunrating.data.settings.datasource
+package com.davidmendozamartinez.sunrating.domain.settings.repository
 
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
 import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertNotificationSettings
 import kotlinx.coroutines.flow.Flow
 
-interface NotificationSettingsPreferencesDataSource {
+interface SettingsRepository {
     suspend fun getEventAlertNotificationSettings(eventType: EventType): EventAlertNotificationSettings
 
     suspend fun setEventAlertNotificationSettings(
