@@ -35,6 +35,7 @@ fun EventDTO.toEvent(place: Place): Event? = try {
         time = Instant.parse(input = time),
         type = type.toEventType(),
         quality = requireNotNull(value = quality),
+        alarm = null,
     )
 } catch (expected: IllegalArgumentException) {
     null

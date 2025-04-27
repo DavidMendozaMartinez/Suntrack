@@ -59,6 +59,7 @@ fun EventWithPlaceRelation.toEvent(): Event = Event(
     time = Instant.fromEpochMilliseconds(epochMilliseconds = event.timeMillis),
     type = event.type.toEventType(),
     quality = event.quality,
+    alarm = null,
 )
 
 private fun EventType.toEventTypeEntity(): EventTypeEntity = when (this) {

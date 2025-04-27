@@ -1,5 +1,6 @@
 package com.davidmendozamartinez.sunrating.domain.event.model
 
+import com.davidmendozamartinez.sunrating.domain.alarm.model.Alarm
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import java.util.UUID
 import kotlinx.datetime.Instant
@@ -10,6 +11,7 @@ data class Event(
     val time: Instant,
     val type: EventType,
     val quality: Float,
+    val alarm: Alarm.EventAlertAlarm?,
 ) {
     val qualityCategory: QualityCategory = QualityCategory.from(quality = quality)
 
