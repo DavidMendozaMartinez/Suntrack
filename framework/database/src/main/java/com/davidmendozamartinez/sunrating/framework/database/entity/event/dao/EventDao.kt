@@ -4,8 +4,9 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
+import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.EventAlertAlarmEntity
 import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.EventEntity
-import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.EventWithPlaceRelation
+import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.EventWithPlaceAndAlarmRelation
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,24 +16,35 @@ interface EventDao {
     fun getUpcomingEventsFlow(
         placeId: String,
         start: Long,
-    ): Flow<List<EventWithPlaceRelation>>
+    ): Flow<List<EventWithPlaceAndAlarmRelation>>
 
     @Transaction
     @Query("SELECT * FROM event WHERE id = :id")
-    suspend fun getEvent(id: String): EventWithPlaceRelation?
+    suspend fun getEvent(id: String): EventWithPlaceAndAlarmRelation?
 
     @Upsert
     suspend fun upsertEvents(entities: List<EventEntity>)
 
+    @Upsert
+    suspend fun upsertEventAlertAlarms(entities: List<EventAlertAlarmEntity>)
+
     @Transaction
     suspend fun upsertEvents(
-        entities: List<EventEntity>,
+        eventEntities: List<EventEntity>,
+        alarmEntities: List<EventAlertAlarmEntity>,
         overwrite: Boolean,
     ) {
-        if (overwrite) deleteEvents()
-        upsertEvents(entities = entities)
+        if (overwrite) {
+            deleteEventAlertAlarms()
+            deleteEvents()
+        }
+        upsertEvents(entities = eventEntities)
+        upsertEventAlertAlarms(entities = alarmEntities)
     }
 
     @Query("DELETE FROM event")
     suspend fun deleteEvents()
+
+    @Query("DELETE FROM event_alert_alarm")
+    suspend fun deleteEventAlertAlarms()
 }

@@ -4,6 +4,7 @@ import com.davidmendozamartinez.sunrating.data.event.datasource.EventLocalDataSo
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.framework.database.entity.event.dao.EventDao
 import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.toEvent
+import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.toEventAlertAlarmEntity
 import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.toEventEntity
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +21,8 @@ class DefaultEventLocalDataSource @Inject constructor(
         events: List<Event>,
         overwrite: Boolean,
     ) = eventDao.upsertEvents(
-        entities = events.map { it.toEventEntity() },
+        eventEntities = events.map { it.toEventEntity() },
+        alarmEntities = events.mapNotNull { it.alarm?.toEventAlertAlarmEntity() },
         overwrite = overwrite,
     )
 

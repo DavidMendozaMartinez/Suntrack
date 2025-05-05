@@ -31,13 +31,18 @@ data class EventEntity(
     @ColumnInfo(name = "quality") val quality: Float,
 )
 
-data class EventWithPlaceRelation(
+data class EventWithPlaceAndAlarmRelation(
     @Embedded val event: EventEntity,
     @Relation(
         parentColumn = "place_id",
         entityColumn = "id"
     )
-    val place: PlaceEntity
+    val place: PlaceEntity,
+    @Relation(
+        parentColumn = "id",
+        entityColumn = "event_id"
+    )
+    val alarm: EventAlertAlarmEntity?
 )
 
 enum class EventTypeEntity {
@@ -53,13 +58,13 @@ fun Event.toEventEntity(): EventEntity = EventEntity(
     quality = quality,
 )
 
-fun EventWithPlaceRelation.toEvent(): Event = Event(
+fun EventWithPlaceAndAlarmRelation.toEvent(): Event = Event(
     id = event.id,
     place = place.toPlace(),
     time = Instant.fromEpochMilliseconds(epochMilliseconds = event.timeMillis),
     type = event.type.toEventType(),
     quality = event.quality,
-    alarm = null,
+    alarm = alarm?.toEventAlertAlarm(),
 )
 
 private fun EventType.toEventTypeEntity(): EventTypeEntity = when (this) {
