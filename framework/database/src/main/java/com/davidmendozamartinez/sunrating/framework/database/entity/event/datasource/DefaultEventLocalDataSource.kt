@@ -1,9 +1,11 @@
 package com.davidmendozamartinez.sunrating.framework.database.entity.event.datasource
 
 import com.davidmendozamartinez.sunrating.data.event.datasource.EventLocalDataSource
+import com.davidmendozamartinez.sunrating.domain.alarm.model.Alarm
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.framework.database.entity.event.dao.EventDao
 import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.toEvent
+import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.toEventAlertAlarm
 import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.toEventAlertAlarmEntity
 import com.davidmendozamartinez.sunrating.framework.database.entity.event.model.toEventEntity
 import javax.inject.Inject
@@ -16,6 +18,10 @@ class DefaultEventLocalDataSource @Inject constructor(
     private val eventDao: EventDao,
 ) : EventLocalDataSource {
     override suspend fun getEvent(id: String): Event? = eventDao.getEvent(id = id)?.toEvent()
+
+    override suspend fun getEventAlertAlarms(): List<Alarm.EventAlertAlarm> = eventDao
+        .getEventAlertAlarms()
+        .map { it.toEventAlertAlarm() }
 
     override suspend fun upsertEvents(
         events: List<Event>,

@@ -1,10 +1,13 @@
 package com.davidmendozamartinez.sunrating.data.event.datasource
 
+import com.davidmendozamartinez.sunrating.domain.alarm.model.Alarm
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import kotlinx.coroutines.flow.Flow
 
 interface EventLocalDataSource {
     suspend fun getEvent(id: String): Event?
+
+    suspend fun getEventAlertAlarms(): List<Alarm.EventAlertAlarm>
 
     suspend fun upsertEvents(
         events: List<Event>,

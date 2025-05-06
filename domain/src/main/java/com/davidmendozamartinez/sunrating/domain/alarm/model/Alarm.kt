@@ -1,5 +1,6 @@
 package com.davidmendozamartinez.sunrating.domain.alarm.model
 
+import java.util.UUID
 import kotlinx.datetime.Instant
 
 sealed interface Alarm {
@@ -10,5 +11,12 @@ sealed interface Alarm {
         override val requestCode: Int,
         override val triggerAt: Instant,
         val eventId: String,
-    ) : Alarm
+    ) : Alarm {
+        companion object {
+            fun generateRequestCode(
+                triggerAt: Instant,
+                eventId: String,
+            ): Int = UUID.nameUUIDFromBytes("$triggerAt,$eventId".toByteArray()).hashCode()
+        }
+    }
 }

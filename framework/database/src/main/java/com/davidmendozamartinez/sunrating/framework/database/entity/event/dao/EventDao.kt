@@ -22,6 +22,9 @@ interface EventDao {
     @Query("SELECT * FROM event WHERE id = :id")
     suspend fun getEvent(id: String): EventWithPlaceAndAlarmRelation?
 
+    @Query("SELECT * FROM event_alert_alarm")
+    suspend fun getEventAlertAlarms(): List<EventAlertAlarmEntity>
+
     @Upsert
     suspend fun upsertEvents(entities: List<EventEntity>)
 

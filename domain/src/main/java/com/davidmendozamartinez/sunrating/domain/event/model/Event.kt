@@ -3,6 +3,7 @@ package com.davidmendozamartinez.sunrating.domain.event.model
 import com.davidmendozamartinez.sunrating.domain.alarm.model.Alarm
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import java.util.UUID
+import kotlin.time.Duration
 import kotlinx.datetime.Instant
 
 data class Event(
@@ -14,6 +15,14 @@ data class Event(
     val alarm: Alarm.EventAlertAlarm?,
 ) {
     val qualityCategory: QualityCategory = QualityCategory.from(quality = quality)
+
+    fun setAlarm(advance: Duration): Event = copy(
+        alarm = Alarm.EventAlertAlarm(
+            requestCode = Alarm.EventAlertAlarm.generateRequestCode(eventId = id, triggerAt = time - advance),
+            triggerAt = time - advance,
+            eventId = id,
+        )
+    )
 
     companion object {
         fun generateUUID(
