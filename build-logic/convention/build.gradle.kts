@@ -40,6 +40,11 @@ gradlePlugin {
             implementationClass = "JvmLibraryConventionPlugin"
         }
 
+        register("feature") {
+            id = "sunrating.feature"
+            implementationClass = "FeatureConventionPlugin"
+        }
+
         register("hilt") {
             id = "sunrating.hilt"
             implementationClass = "HiltConventionPlugin"
