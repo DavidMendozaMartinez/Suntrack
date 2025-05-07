@@ -44,5 +44,10 @@ gradlePlugin {
             id = "sunrating.hilt"
             implementationClass = "HiltConventionPlugin"
         }
+
+        register("compose") {
+            id = "sunrating.compose"
+            implementationClass = "ComposeConventionPlugin"
+        }
     }
 }
