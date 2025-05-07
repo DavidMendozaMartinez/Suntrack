@@ -24,6 +24,7 @@ android {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":feature:events"))
     implementation(project(":framework:database"))
     implementation(project(":framework:location"))
     implementation(project(":framework:network"))
