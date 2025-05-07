@@ -5,8 +5,8 @@ import com.davidmendozamartinez.sunrating.data.event.datasource.EventRemoteDataS
 import com.davidmendozamartinez.sunrating.data.place.datasource.PlaceLocalDataSource
 import com.davidmendozamartinez.sunrating.data.settings.datasource.SettingsPreferencesDataSource
 import com.davidmendozamartinez.sunrating.domain.alarm.manager.AlarmManager
-import com.davidmendozamartinez.sunrating.domain.alarm.model.Alarm
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
+import com.davidmendozamartinez.sunrating.domain.event.model.EventOverwritePolicy
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
 import com.davidmendozamartinez.sunrating.domain.event.repository.EventRepository
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
@@ -30,11 +30,10 @@ class DefaultEventRepository @Inject constructor(
         val events: List<Event> = coroutineScope {
             places.map { async { eventRemoteDataSource.getUpcomingEvents(place = it) } }.awaitAll().flatten()
         }
-
         val eventsWithAlarm: List<Event> = events.setAlarms()
-        adjustAlarms(latest = eventsWithAlarm.mapNotNull { it.alarm }, current = eventLocalDataSource.getEventAlertAlarms())
 
-        eventLocalDataSource.upsertEvents(events = eventsWithAlarm, overwrite = true)
+        alarmManager.reset(latest = eventsWithAlarm.mapNotNull { it.alarm }, current = eventLocalDataSource.getEventAlertAlarms())
+        eventLocalDataSource.upsertEvents(events = eventsWithAlarm, overwritePolicy = EventOverwritePolicy.OverwriteAll)
     }
 
     override fun getUpcomingEventsFlow(placeId: String): Flow<List<Event>> = eventLocalDataSource
@@ -43,18 +42,6 @@ class DefaultEventRepository @Inject constructor(
     private suspend fun List<Event>.setAlarms(): List<Event> = groupBy { it.type }
         .flatMap { (type: EventType, events: List<Event>) ->
             val settings = settingsPreferencesDataSource.getEventAlertNotificationSettings(eventType = type)
-            val qualityThreshold: Float = settings.qualityThreshold ?: return@flatMap events
-            events.map { event -> if (event.quality >= qualityThreshold) event.setAlarm(advance = settings.advance) else event }
+            events.map { event -> event.setAlarm(settings = settings) }
         }
-
-    private fun adjustAlarms(
-        latest: List<Alarm.EventAlertAlarm>,
-        current: List<Alarm.EventAlertAlarm>
-    ) {
-        val alarmsToCancel: List<Alarm.EventAlertAlarm> = current - latest.toSet()
-        val alarmsToSchedule: List<Alarm.EventAlertAlarm> = latest - current.toSet()
-
-        alarmsToSchedule.forEach { alarmManager.schedule(alarm = it) }
-        alarmsToCancel.forEach { alarmManager.cancel(alarm = it) }
-    }
 }

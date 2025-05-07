@@ -2,8 +2,8 @@ package com.davidmendozamartinez.sunrating.domain.event.model
 
 import com.davidmendozamartinez.sunrating.domain.alarm.model.Alarm
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
+import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertNotificationSettings
 import java.util.UUID
-import kotlin.time.Duration
 import kotlinx.datetime.Instant
 
 data class Event(
@@ -16,12 +16,16 @@ data class Event(
 ) {
     val qualityCategory: QualityCategory = QualityCategory.from(quality = quality)
 
-    fun setAlarm(advance: Duration): Event = copy(
-        alarm = Alarm.EventAlertAlarm(
-            requestCode = Alarm.EventAlertAlarm.generateRequestCode(eventId = id, triggerAt = time - advance),
-            triggerAt = time - advance,
-            eventId = id,
-        )
+    fun setAlarm(settings: EventAlertNotificationSettings): Event = copy(
+        alarm = if (settings.qualityThreshold != null && quality >= settings.qualityThreshold) {
+            Alarm.EventAlertAlarm(
+                requestCode = Alarm.EventAlertAlarm.generateRequestCode(eventId = id, triggerAt = time - settings.advance),
+                triggerAt = time - settings.advance,
+                eventId = id,
+            )
+        } else {
+            null
+        }
     )
 
     companion object {
@@ -53,4 +57,12 @@ enum class QualityCategory {
             else -> EXCELLENT
         }
     }
+}
+
+sealed interface EventOverwritePolicy {
+    data object NoOverwrite : EventOverwritePolicy
+
+    data object OverwriteAll : EventOverwritePolicy
+
+    data class OverwriteByType(val type: EventType) : EventOverwritePolicy
 }
