@@ -32,4 +32,15 @@ class DefaultAlarmManager @Inject constructor(
     override fun cancel(alarm: Alarm) {
         androidAlarmManager.cancel(alarm.toPendingIntent(context = context))
     }
+
+    override fun reset(
+        latest: List<Alarm>,
+        current: List<Alarm>,
+    ) {
+        val alarmsToCancel: List<Alarm> = current - latest.toSet()
+        val alarmsToSchedule: List<Alarm> = latest - current.toSet()
+
+        alarmsToCancel.forEach { cancel(alarm = it) }
+        alarmsToSchedule.forEach { schedule(alarm = it) }
+    }
 }

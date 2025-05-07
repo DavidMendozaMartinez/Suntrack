@@ -6,4 +6,9 @@ interface AlarmManager {
     fun schedule(alarm: Alarm)
 
     fun cancel(alarm: Alarm)
+
+    fun reset(
+        latest: List<Alarm>,
+        current: List<Alarm>,
+    )
 }
