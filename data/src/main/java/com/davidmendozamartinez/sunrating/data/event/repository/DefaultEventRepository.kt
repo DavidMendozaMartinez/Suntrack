@@ -43,7 +43,7 @@ class DefaultEventRepository @Inject constructor(
     private suspend fun List<Event>.setAlarms(): List<Event> = groupBy { it.type }
         .flatMap { (type: EventType, events: List<Event>) ->
             val settings = settingsPreferencesDataSource.getEventAlertNotificationSettings(eventType = type)
-            val qualityThreshold: Float = settings.qualityThreshold ?: return events
+            val qualityThreshold: Float = settings.qualityThreshold ?: return@flatMap events
             events.map { event -> if (event.quality >= qualityThreshold) event.setAlarm(advance = settings.advance) else event }
         }
 

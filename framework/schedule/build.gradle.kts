@@ -9,7 +9,11 @@ android {
 
 dependencies {
     api(project(":data"))
+    api(libs.work.runtime.ktx)
+    api(libs.hilt.work)
 
     implementation(project(":common"))
     implementation(libs.androidx.core.ktx)
+
+    kapt(libs.hilt.compiler)
 }
