@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import com.davidmendozamartinez.sunrating.feature.events.EventsNavigation
 import com.davidmendozamartinez.sunrating.feature.events.EventsRoute
 import com.davidmendozamartinez.sunrating.feature.events.eventsScreen
+import com.davidmendozamartinez.sunrating.feature.places.navigateToPlaces
+import com.davidmendozamartinez.sunrating.feature.places.placesScreen
 
 @Composable
 fun SunRatingNavHost(
@@ -21,10 +23,12 @@ fun SunRatingNavHost(
         eventsScreen(
             onNavigationEvent = {
                 when (it) {
-                    is EventsNavigation.Places -> Unit // TODO(future)
+                    is EventsNavigation.Places -> navController.navigateToPlaces()
                     is EventsNavigation.Settings -> Unit // TODO(future)
                 }
             },
         )
+
+        placesScreen()
     }
 }
