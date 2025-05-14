@@ -1,11 +1,12 @@
 package com.davidmendozamartinez.sunrating.common.extension
 
-import java.time.ZoneId
+
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import kotlinx.datetime.Instant
+import java.time.format.TextStyle
+import java.util.Locale
+import kotlinx.datetime.DayOfWeek
 import kotlinx.datetime.LocalTime
-import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toJavaLocalTime
 
 /**
@@ -16,9 +17,6 @@ fun LocalTime.format(): String = DateTimeFormatter
     .ofLocalizedTime(FormatStyle.SHORT)
     .format(toJavaLocalTime())
 
-fun Instant.format(
-    zone: ZoneId = ZoneId.systemDefault(),
-): String = DateTimeFormatter
-    .ofLocalizedDateTime(FormatStyle.SHORT)
-    .withZone(zone)
-    .format(toJavaInstant())
+fun DayOfWeek.format(
+    locale: Locale = Locale.getDefault(),
+): String = getDisplayName(TextStyle.SHORT, locale)
