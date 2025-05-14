@@ -23,7 +23,7 @@ class EventSynchronizerWorker @AssistedInject constructor(
     appContext = context,
     params = workerParams,
 ) {
-    override suspend fun doWork(): Result = eventRepository.syncUpcomingEvents().fold(
+    override suspend fun doWork(): Result = eventRepository.syncEvents().fold(
         onSuccess = { Result.success() },
         onFailure = { Result.retry() },
     )

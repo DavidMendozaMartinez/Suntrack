@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 interface EventRepository {
     suspend fun getEvent(id: String): Event?
 
-    suspend fun syncUpcomingEvents(): Result<Unit>
+    suspend fun syncEvents(): Result<Unit>
 
-    fun getUpcomingEventsFlow(placeId: String): Flow<List<Event>>
+    fun getEventsFlow(placeId: String): Flow<List<Event>>
 }

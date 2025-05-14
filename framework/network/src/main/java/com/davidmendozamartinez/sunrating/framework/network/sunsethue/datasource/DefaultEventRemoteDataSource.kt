@@ -11,7 +11,7 @@ import javax.inject.Inject
 class DefaultEventRemoteDataSource @Inject constructor(
     private val sunsethueService: SunsethueService,
 ) : EventRemoteDataSource {
-    override suspend fun getUpcomingEvents(place: Place): List<Event> {
+    override suspend fun getEvents(place: Place): List<Event> {
         val forecast: ForecastDTO = sunsethueService.getForecast(
             latitude = place.latitude,
             longitude = place.longitude,

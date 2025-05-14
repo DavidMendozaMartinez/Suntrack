@@ -20,5 +20,5 @@ interface EventLocalDataSource {
         overwritePolicy: EventOverwritePolicy,
     )
 
-    fun getUpcomingEventsFlow(placeId: String): Flow<List<Event>>
+    fun getEventsFlow(placeId: String): Flow<List<Event>>
 }

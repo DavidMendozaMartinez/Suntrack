@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface EventDao {
     @Transaction
-    @Query("SELECT * FROM event WHERE place_id = :placeId AND time_millis > :start")
-    fun getUpcomingEventsFlow(
+    @Query("SELECT * FROM event WHERE place_id = :placeId AND time_millis > :start ORDER BY time_millis")
+    fun getEventsFlow(
         placeId: String,
         start: Long,
     ): Flow<List<EventWithPlaceAndAlarmRelation>>
@@ -25,8 +25,11 @@ interface EventDao {
     suspend fun getEvent(id: String): EventWithPlaceAndAlarmRelation?
 
     @Transaction
-    @Query("SELECT * FROM event WHERE type = :type")
-    suspend fun getEvents(type: EventTypeEntity): List<EventWithPlaceAndAlarmRelation>
+    @Query("SELECT * FROM event WHERE type = :type AND time_millis > :start")
+    suspend fun getEvents(
+        type: EventTypeEntity,
+        start: Long,
+    ): List<EventWithPlaceAndAlarmRelation>
 
     @Query("SELECT * FROM event_alert_alarm")
     suspend fun getEventAlertAlarms(): List<EventAlertAlarmEntity>

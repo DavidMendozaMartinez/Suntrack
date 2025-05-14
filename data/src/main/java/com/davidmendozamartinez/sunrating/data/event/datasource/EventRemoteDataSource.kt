@@ -4,5 +4,5 @@ import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
 
 interface EventRemoteDataSource {
-    suspend fun getUpcomingEvents(place: Place): List<Event>
+    suspend fun getEvents(place: Place): List<Event>
 }

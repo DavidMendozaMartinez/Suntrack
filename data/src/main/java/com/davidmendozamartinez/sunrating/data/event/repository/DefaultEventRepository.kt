@@ -25,10 +25,10 @@ class DefaultEventRepository @Inject constructor(
 ) : EventRepository {
     override suspend fun getEvent(id: String): Event? = eventLocalDataSource.getEvent(id = id)
 
-    override suspend fun syncUpcomingEvents(): Result<Unit> = runCatching {
+    override suspend fun syncEvents(): Result<Unit> = runCatching {
         val places: List<Place> = placeLocalDataSource.getPlaces()
         val events: List<Event> = coroutineScope {
-            places.map { async { eventRemoteDataSource.getUpcomingEvents(place = it) } }.awaitAll().flatten()
+            places.map { async { eventRemoteDataSource.getEvents(place = it) } }.awaitAll().flatten()
         }
         val eventsWithAlarm: List<Event> = events.setAlarms()
 
@@ -36,8 +36,8 @@ class DefaultEventRepository @Inject constructor(
         eventLocalDataSource.upsertEvents(events = eventsWithAlarm, overwritePolicy = EventOverwritePolicy.OverwriteAll)
     }
 
-    override fun getUpcomingEventsFlow(placeId: String): Flow<List<Event>> = eventLocalDataSource
-        .getUpcomingEventsFlow(placeId = placeId)
+    override fun getEventsFlow(placeId: String): Flow<List<Event>> = eventLocalDataSource
+        .getEventsFlow(placeId = placeId)
 
     private suspend fun List<Event>.setAlarms(): List<Event> = groupBy { it.type }
         .flatMap { (type: EventType, events: List<Event>) ->

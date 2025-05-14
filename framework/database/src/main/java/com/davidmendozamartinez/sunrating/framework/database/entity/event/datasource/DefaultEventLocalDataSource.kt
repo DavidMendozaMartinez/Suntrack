@@ -24,7 +24,7 @@ class DefaultEventLocalDataSource @Inject constructor(
     override suspend fun getEvent(id: String): Event? = eventDao.getEvent(id = id)?.toEvent()
 
     override suspend fun getEvents(type: EventType): List<Event> = eventDao
-        .getEvents(type = type.toEventTypeEntity())
+        .getEvents(type = type.toEventTypeEntity(), start = Clock.System.now().toEpochMilliseconds())
         .map { it.toEvent() }
 
     override suspend fun getEventAlertAlarms(): List<Alarm.EventAlertAlarm> = eventDao
@@ -44,8 +44,8 @@ class DefaultEventLocalDataSource @Inject constructor(
         overwritePolicy = overwritePolicy.toEventOverwritePolicyEntity(),
     )
 
-    override fun getUpcomingEventsFlow(placeId: String): Flow<List<Event>> = eventDao
-        .getUpcomingEventsFlow(placeId = placeId, start = Clock.System.now().toEpochMilliseconds())
+    override fun getEventsFlow(placeId: String): Flow<List<Event>> = eventDao
+        .getEventsFlow(placeId = placeId, start = Clock.System.now().toEpochMilliseconds())
         .distinctUntilChanged()
         .map { entities -> entities.map { it.toEvent() } }
 }
