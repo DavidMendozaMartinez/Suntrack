@@ -15,6 +15,8 @@ class DefaultPlaceLocalDataSource @Inject constructor(
 ) : PlaceLocalDataSource {
     override suspend fun getPlaces(): List<Place> = placeDao.getPlaces().map { it.toPlace() }
 
+    override suspend fun getPlace(id: String): Place? = placeDao.getPlace(id = id)?.toPlace()
+
     override suspend fun getFirstAvailablePlaceIdSortedByName(excludedIds: List<String>): String? =
         placeDao.getFirstAvailablePlaceIdSortedByName(excludedIds = excludedIds)
 

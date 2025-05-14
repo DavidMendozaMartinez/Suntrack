@@ -44,6 +44,16 @@ interface EventDao {
     )
     suspend fun getEventAlertAlarms(eventType: EventTypeEntity): List<EventAlertAlarmEntity>
 
+    @Query(
+        """
+        SELECT alarm.*
+        FROM event_alert_alarm AS alarm
+        INNER JOIN event AS event ON event.id = alarm.event_id
+        WHERE event.place_id = :placeId
+        """
+    )
+    suspend fun getEventAlertAlarms(placeId: String): List<EventAlertAlarmEntity>
+
     @Upsert
     suspend fun upsertEvents(entities: List<EventEntity>)
 
@@ -67,6 +77,11 @@ interface EventDao {
                 deleteEventAlertAlarms(eventType = overwritePolicy.type)
                 deleteEvents(type = overwritePolicy.type)
             }
+
+            is EventOverwritePolicyEntity.OverwriteByPlace -> {
+                deleteEventAlertAlarms(placeId = overwritePolicy.placeId)
+                deleteEvents(placeId = overwritePolicy.placeId)
+            }
         }
         upsertEvents(entities = eventEntities)
         upsertEventAlertAlarms(entities = alarmEntities)
@@ -77,6 +92,9 @@ interface EventDao {
 
     @Query("DELETE FROM event WHERE type = :type")
     suspend fun deleteEvents(type: EventTypeEntity)
+
+    @Query("DELETE FROM event WHERE place_id = :placeId")
+    suspend fun deleteEvents(placeId: String)
 
     @Query("DELETE FROM event_alert_alarm")
     suspend fun deleteEventAlertAlarms()
@@ -92,4 +110,16 @@ interface EventDao {
         """
     )
     suspend fun deleteEventAlertAlarms(eventType: EventTypeEntity)
+
+    @Query(
+        """
+        DELETE FROM event_alert_alarm
+        WHERE event_id IN (
+            SELECT event.id
+            FROM event
+            WHERE event.place_id = :placeId
+        )
+        """
+    )
+    suspend fun deleteEventAlertAlarms(placeId: String)
 }

@@ -35,6 +35,10 @@ class DefaultEventLocalDataSource @Inject constructor(
         .getEventAlertAlarms(eventType = eventType.toEventTypeEntity())
         .map { it.toEventAlertAlarm() }
 
+    override suspend fun getEventAlertAlarms(placeId: String): List<Alarm.EventAlertAlarm> = eventDao
+        .getEventAlertAlarms(placeId = placeId)
+        .map { it.toEventAlertAlarm() }
+
     override suspend fun upsertEvents(
         events: List<Event>,
         overwritePolicy: EventOverwritePolicy,

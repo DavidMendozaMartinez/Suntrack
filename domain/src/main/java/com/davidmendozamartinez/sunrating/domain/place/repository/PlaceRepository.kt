@@ -8,7 +8,7 @@ interface PlaceRepository {
         name: String,
         latitude: Double,
         longitude: Double,
-    ): Result<Unit>
+    ): Result<String>
 
     suspend fun setCurrentPlace(id: String): Result<Unit>
 

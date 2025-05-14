@@ -36,6 +36,21 @@ class DefaultEventRepository @Inject constructor(
         eventLocalDataSource.upsertEvents(events = eventsWithAlarm, overwritePolicy = EventOverwritePolicy.OverwriteAll)
     }
 
+    override suspend fun syncEvents(placeId: String): Result<Unit> = runCatching {
+        val place: Place = placeLocalDataSource.getPlace(id = placeId) ?: throw IllegalArgumentException("Place not found")
+        val events: List<Event> = eventRemoteDataSource.getEvents(place = place)
+        val eventsWithAlarm: List<Event> = events.setAlarms()
+
+        alarmManager.reset(
+            latest = eventsWithAlarm.mapNotNull { it.alarm },
+            current = eventLocalDataSource.getEventAlertAlarms(placeId = placeId),
+        )
+        eventLocalDataSource.upsertEvents(
+            events = eventsWithAlarm,
+            overwritePolicy = EventOverwritePolicy.OverwriteByPlace(placeId = placeId),
+        )
+    }
+
     override fun getEventsFlow(placeId: String): Flow<List<Event>> = eventLocalDataSource
         .getEventsFlow(placeId = placeId)
 

@@ -18,7 +18,7 @@ class DefaultPlaceRepository @Inject constructor(
         name: String,
         latitude: Double,
         longitude: Double,
-    ): Result<Unit> = runCatching {
+    ): Result<String> = runCatching {
         val place = Place(
             id = Place.generateUUID(latitude = latitude, longitude = longitude),
             name = name,
@@ -31,6 +31,8 @@ class DefaultPlaceRepository @Inject constructor(
         if (placePreferencesDataSource.getCurrentPlaceId() == null) {
             placePreferencesDataSource.setCurrentPlaceId(placeId = place.id)
         }
+
+        place.id
     }
 
     override suspend fun setCurrentPlace(id: String): Result<Unit> = runCatching {

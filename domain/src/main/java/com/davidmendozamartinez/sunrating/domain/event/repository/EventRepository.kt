@@ -8,5 +8,7 @@ interface EventRepository {
 
     suspend fun syncEvents(): Result<Unit>
 
+    suspend fun syncEvents(placeId: String): Result<Unit>
+
     fun getEventsFlow(placeId: String): Flow<List<Event>>
 }

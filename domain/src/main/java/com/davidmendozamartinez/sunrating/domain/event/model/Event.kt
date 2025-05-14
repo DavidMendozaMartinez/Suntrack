@@ -65,4 +65,6 @@ sealed interface EventOverwritePolicy {
     data object OverwriteAll : EventOverwritePolicy
 
     data class OverwriteByType(val type: EventType) : EventOverwritePolicy
+
+    data class OverwriteByPlace(val placeId: String) : EventOverwritePolicy
 }

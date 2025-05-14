@@ -15,6 +15,8 @@ interface EventLocalDataSource {
 
     suspend fun getEventAlertAlarms(eventType: EventType): List<Alarm.EventAlertAlarm>
 
+    suspend fun getEventAlertAlarms(placeId: String): List<Alarm.EventAlertAlarm>
+
     suspend fun upsertEvents(
         events: List<Event>,
         overwritePolicy: EventOverwritePolicy,

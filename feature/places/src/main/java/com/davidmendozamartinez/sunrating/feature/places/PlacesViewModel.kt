@@ -2,6 +2,7 @@ package com.davidmendozamartinez.sunrating.feature.places
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.davidmendozamartinez.sunrating.domain.event.repository.EventRepository
 import com.davidmendozamartinez.sunrating.domain.location.repository.Location
 import com.davidmendozamartinez.sunrating.domain.location.repository.LocationRepository
 import com.davidmendozamartinez.sunrating.domain.place.repository.PlaceRepository
@@ -26,6 +27,7 @@ import kotlinx.coroutines.launch
 class PlacesViewModel @Inject constructor(
     private val placeRepository: PlaceRepository,
     private val locationRepository: LocationRepository,
+    private val eventRepository: EventRepository,
 ) : ViewModel() {
     private val placesFlow: Flow<ImmutableList<PlaceUiState>> = combine(
         placeRepository.getCurrentPlaceFlow(),
@@ -88,7 +90,9 @@ class PlacesViewModel @Inject constructor(
                 name = textFieldUiState.name,
                 latitude = textFieldUiState.latitude.toDoubleOrNull() ?: return@launch,
                 longitude = textFieldUiState.longitude.toDoubleOrNull() ?: return@launch,
-            )
+            ).onSuccess { placeId ->
+                eventRepository.syncEvents(placeId = placeId)
+            }
 
             placeTextFieldUiState.update { it.copy(name = "", latitude = "", longitude = "") }
         }

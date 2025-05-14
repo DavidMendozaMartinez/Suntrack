@@ -17,6 +17,9 @@ interface PlaceDao {
     @Query("SELECT * FROM place")
     suspend fun getPlaces(): List<PlaceEntity>
 
+    @Query("SELECT * FROM place WHERE id = :id")
+    suspend fun getPlace(id: String): PlaceEntity?
+
     @Query("SELECT id FROM place WHERE id NOT IN (:excludedIds) ORDER BY name LIMIT 1")
     suspend fun getFirstAvailablePlaceIdSortedByName(excludedIds: List<String>): String?
 

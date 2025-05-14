@@ -57,6 +57,8 @@ sealed interface EventOverwritePolicyEntity {
     data object OverwriteAll : EventOverwritePolicyEntity
 
     data class OverwriteByType(val type: EventTypeEntity) : EventOverwritePolicyEntity
+
+    data class OverwriteByPlace(val placeId: String) : EventOverwritePolicyEntity
 }
 
 fun Event.toEventEntity(): EventEntity = EventEntity(
@@ -90,4 +92,5 @@ fun EventOverwritePolicy.toEventOverwritePolicyEntity(): EventOverwritePolicyEnt
     is EventOverwritePolicy.NoOverwrite -> EventOverwritePolicyEntity.NoOverwrite
     is EventOverwritePolicy.OverwriteAll -> EventOverwritePolicyEntity.OverwriteAll
     is EventOverwritePolicy.OverwriteByType -> EventOverwritePolicyEntity.OverwriteByType(type = type.toEventTypeEntity())
+    is EventOverwritePolicy.OverwriteByPlace -> EventOverwritePolicyEntity.OverwriteByPlace(placeId = placeId)
 }
