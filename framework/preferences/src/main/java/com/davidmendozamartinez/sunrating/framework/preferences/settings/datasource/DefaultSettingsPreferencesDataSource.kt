@@ -23,7 +23,7 @@ class DefaultSettingsPreferencesDataSource @Inject constructor(
     override suspend fun getEventAlertSettings(eventType: EventType): EventAlertSettings {
         val preferences: Preferences = dataStore.data.first()
         val keys: EventAlertSettingsPreferencesKeys = eventType.toEventAlertSettingsPreferencesKeys()
-        return preferences.getEventAlertSettings(keys = keys)
+        return preferences.getEventAlertSettings(keys = keys, eventType = eventType)
     }
 
     override suspend fun setEventAlertSettings(
@@ -36,12 +36,14 @@ class DefaultSettingsPreferencesDataSource @Inject constructor(
 
     override fun getEventAlertSettingsFlow(eventType: EventType): Flow<EventAlertSettings> {
         val keys: EventAlertSettingsPreferencesKeys = eventType.toEventAlertSettingsPreferencesKeys()
-        return dataStore.data.map { preferences -> preferences.getEventAlertSettings(keys = keys) }
+        return dataStore.data.map { preferences -> preferences.getEventAlertSettings(keys = keys, eventType = eventType) }
     }
 
     private fun Preferences.getEventAlertSettings(
         keys: EventAlertSettingsPreferencesKeys,
+        eventType: EventType,
     ): EventAlertSettings = EventAlertSettings(
+        eventType = eventType,
         advance = get(key = keys.advance)
             ?.let { Duration.parseIsoString(value = it) }
             ?: EventAlertSettingsDefaults.DefaultAdvance,
