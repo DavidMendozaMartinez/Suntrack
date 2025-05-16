@@ -7,10 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface SettingsRepository {
     suspend fun getEventAlertSettings(eventType: EventType): EventAlertSettings
 
-    suspend fun setEventAlertSettings(
-        eventType: EventType,
-        settings: EventAlertSettings,
-    )
+    suspend fun setEventAlertSettings(settings: EventAlertSettings)
 
     fun getEventAlertSettingsFlow(eventType: EventType): Flow<EventAlertSettings>
 }

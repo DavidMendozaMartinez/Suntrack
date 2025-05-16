@@ -19,25 +19,19 @@ class DefaultSettingsRepository @Inject constructor(
     override suspend fun getEventAlertSettings(eventType: EventType): EventAlertSettings =
         settingsPreferencesDataSource.getEventAlertSettings(eventType = eventType)
 
-    override suspend fun setEventAlertSettings(
-        eventType: EventType,
-        settings: EventAlertSettings,
-    ) {
-        settingsPreferencesDataSource.setEventAlertSettings(
-            eventType = eventType,
-            settings = settings,
-        )
+    override suspend fun setEventAlertSettings(settings: EventAlertSettings) {
+        settingsPreferencesDataSource.setEventAlertSettings(settings = settings)
 
-        val events: List<Event> = eventLocalDataSource.getEvents(type = eventType)
+        val events: List<Event> = eventLocalDataSource.getEvents(type = settings.eventType)
         val eventsWithAlarm: List<Event> = events.map { event -> event.setAlarm(settings = settings) }
 
         alarmManager.reset(
             latest = eventsWithAlarm.mapNotNull { it.alarm },
-            current = eventLocalDataSource.getEventAlertAlarms(eventType = eventType),
+            current = eventLocalDataSource.getEventAlertAlarms(eventType = settings.eventType),
         )
         eventLocalDataSource.upsertEvents(
             events = eventsWithAlarm,
-            overwritePolicy = EventOverwritePolicy.OverwriteByType(type = eventType),
+            overwritePolicy = EventOverwritePolicy.OverwriteByType(type = settings.eventType),
         )
     }
 

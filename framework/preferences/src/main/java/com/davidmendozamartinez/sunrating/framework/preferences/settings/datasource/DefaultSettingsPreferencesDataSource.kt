@@ -26,11 +26,8 @@ class DefaultSettingsPreferencesDataSource @Inject constructor(
         return preferences.getEventAlertSettings(keys = keys, eventType = eventType)
     }
 
-    override suspend fun setEventAlertSettings(
-        eventType: EventType,
-        settings: EventAlertSettings,
-    ) {
-        val keys: EventAlertSettingsPreferencesKeys = eventType.toEventAlertSettingsPreferencesKeys()
+    override suspend fun setEventAlertSettings(settings: EventAlertSettings) {
+        val keys: EventAlertSettingsPreferencesKeys = settings.eventType.toEventAlertSettingsPreferencesKeys()
         dataStore.edit { preferences -> preferences.setEventAlertSettings(keys = keys, value = settings) }
     }
 
