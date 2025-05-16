@@ -34,8 +34,8 @@ class EventSynchronizerWorker @AssistedInject constructor(
             .build()
 
         val request: PeriodicWorkRequest = PeriodicWorkRequestBuilder<EventSynchronizerWorker>(
-            repeatInterval = 1,
-            repeatIntervalTimeUnit = TimeUnit.DAYS,
+            repeatInterval = 2,
+            repeatIntervalTimeUnit = TimeUnit.HOURS,
         )
             .setConstraints(constraints = constraints)
             .setBackoffCriteria(
