@@ -117,7 +117,7 @@ private fun Event(
         }
 
         Text(text = uiState.type.name.lowercase().replaceFirstChar { it.titlecase(Locale.getDefault()) })
-        Text(text = "${(uiState.quality * 100) / 10}/10")
+        Text(text = "${String.format(Locale.getDefault(), "%.1f", (uiState.quality * 100) / 10)}/10")
 
         Icon(
             imageVector = if (uiState.hasAlarm) Icons.Filled.Notifications else Icons.Outlined.Notifications,
