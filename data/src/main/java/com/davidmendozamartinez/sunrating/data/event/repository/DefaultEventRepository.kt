@@ -32,8 +32,14 @@ class DefaultEventRepository @Inject constructor(
         }
         val eventsWithAlarm: List<Event> = events.setAlarms()
 
-        alarmManager.reset(latest = eventsWithAlarm.mapNotNull { it.alarm }, current = eventLocalDataSource.getEventAlertAlarms())
-        eventLocalDataSource.upsertEvents(events = eventsWithAlarm, overwritePolicy = EventOverwritePolicy.OverwriteAll)
+        alarmManager.reset(
+            latest = eventsWithAlarm.mapNotNull { it.alarm },
+            current = eventLocalDataSource.getEventAlertAlarms(),
+        )
+        eventLocalDataSource.upsertEvents(
+            events = eventsWithAlarm,
+            overwritePolicy = EventOverwritePolicy.OverwriteAll,
+        )
     }
 
     override suspend fun syncEvents(placeId: String): Result<Unit> = runCatching {
@@ -56,7 +62,7 @@ class DefaultEventRepository @Inject constructor(
 
     private suspend fun List<Event>.setAlarms(): List<Event> = groupBy { it.type }
         .flatMap { (type: EventType, events: List<Event>) ->
-            val settings = settingsPreferencesDataSource.getEventAlertNotificationSettings(eventType = type)
+            val settings = settingsPreferencesDataSource.getEventAlertSettings(eventType = type)
             events.map { event -> event.setAlarm(settings = settings) }
         }
 }

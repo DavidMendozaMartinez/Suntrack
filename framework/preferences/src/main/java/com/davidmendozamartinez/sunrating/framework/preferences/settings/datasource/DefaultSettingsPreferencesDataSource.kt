@@ -6,11 +6,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import com.davidmendozamartinez.sunrating.data.settings.datasource.SettingsPreferencesDataSource
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
-import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertNotificationSettings
-import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertNotificationSettingsDefaults
+import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertSettings
+import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertSettingsDefaults
 import com.davidmendozamartinez.sunrating.framework.preferences.extension.setOrRemove
-import com.davidmendozamartinez.sunrating.framework.preferences.settings.model.EventAlertNotificationSettingsPreferencesKeys
-import com.davidmendozamartinez.sunrating.framework.preferences.settings.model.toEventAlertNotificationSettingsPreferencesKeys
+import com.davidmendozamartinez.sunrating.framework.preferences.settings.model.EventAlertSettingsPreferencesKeys
+import com.davidmendozamartinez.sunrating.framework.preferences.settings.model.toEventAlertSettingsPreferencesKeys
 import javax.inject.Inject
 import kotlin.time.Duration
 import kotlinx.coroutines.flow.Flow
@@ -20,38 +20,38 @@ import kotlinx.coroutines.flow.map
 class DefaultSettingsPreferencesDataSource @Inject constructor(
     private val dataStore: DataStore<Preferences>,
 ) : SettingsPreferencesDataSource {
-    override suspend fun getEventAlertNotificationSettings(eventType: EventType): EventAlertNotificationSettings {
+    override suspend fun getEventAlertSettings(eventType: EventType): EventAlertSettings {
         val preferences: Preferences = dataStore.data.first()
-        val keys: EventAlertNotificationSettingsPreferencesKeys = eventType.toEventAlertNotificationSettingsPreferencesKeys()
-        return preferences.getEventAlertNotificationSettings(keys = keys)
+        val keys: EventAlertSettingsPreferencesKeys = eventType.toEventAlertSettingsPreferencesKeys()
+        return preferences.getEventAlertSettings(keys = keys)
     }
 
-    override suspend fun setEventAlertNotificationSettings(
+    override suspend fun setEventAlertSettings(
         eventType: EventType,
-        settings: EventAlertNotificationSettings,
+        settings: EventAlertSettings,
     ) {
-        val keys: EventAlertNotificationSettingsPreferencesKeys = eventType.toEventAlertNotificationSettingsPreferencesKeys()
-        dataStore.edit { preferences -> preferences.setEventAlertNotificationSettings(keys = keys, value = settings) }
+        val keys: EventAlertSettingsPreferencesKeys = eventType.toEventAlertSettingsPreferencesKeys()
+        dataStore.edit { preferences -> preferences.setEventAlertSettings(keys = keys, value = settings) }
     }
 
-    override fun getEventAlertNotificationSettingsFlow(eventType: EventType): Flow<EventAlertNotificationSettings> {
-        val keys: EventAlertNotificationSettingsPreferencesKeys = eventType.toEventAlertNotificationSettingsPreferencesKeys()
-        return dataStore.data.map { preferences -> preferences.getEventAlertNotificationSettings(keys = keys) }
+    override fun getEventAlertSettingsFlow(eventType: EventType): Flow<EventAlertSettings> {
+        val keys: EventAlertSettingsPreferencesKeys = eventType.toEventAlertSettingsPreferencesKeys()
+        return dataStore.data.map { preferences -> preferences.getEventAlertSettings(keys = keys) }
     }
 
-    private fun Preferences.getEventAlertNotificationSettings(
-        keys: EventAlertNotificationSettingsPreferencesKeys,
-    ): EventAlertNotificationSettings = EventAlertNotificationSettings(
+    private fun Preferences.getEventAlertSettings(
+        keys: EventAlertSettingsPreferencesKeys,
+    ): EventAlertSettings = EventAlertSettings(
         advance = get(key = keys.advance)
             ?.let { Duration.parseIsoString(value = it) }
-            ?: EventAlertNotificationSettingsDefaults.DefaultAdvance,
+            ?: EventAlertSettingsDefaults.DefaultAdvance,
         qualityThreshold = get(key = keys.qualityThreshold)
-            ?: EventAlertNotificationSettingsDefaults.DefaultQualityThreshold,
+            ?: EventAlertSettingsDefaults.DefaultQualityThreshold,
     )
 
-    private fun MutablePreferences.setEventAlertNotificationSettings(
-        keys: EventAlertNotificationSettingsPreferencesKeys,
-        value: EventAlertNotificationSettings
+    private fun MutablePreferences.setEventAlertSettings(
+        keys: EventAlertSettingsPreferencesKeys,
+        value: EventAlertSettings
     ) {
         set(key = keys.advance, value = value.advance.toIsoString())
         setOrRemove(key = keys.qualityThreshold, value = value.qualityThreshold)

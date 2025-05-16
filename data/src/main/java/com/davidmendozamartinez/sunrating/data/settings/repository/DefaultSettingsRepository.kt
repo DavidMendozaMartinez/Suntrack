@@ -6,7 +6,7 @@ import com.davidmendozamartinez.sunrating.domain.alarm.manager.AlarmManager
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.event.model.EventOverwritePolicy
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
-import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertNotificationSettings
+import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertSettings
 import com.davidmendozamartinez.sunrating.domain.settings.repository.SettingsRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
@@ -16,14 +16,14 @@ class DefaultSettingsRepository @Inject constructor(
     private val eventLocalDataSource: EventLocalDataSource,
     private val alarmManager: AlarmManager,
 ) : SettingsRepository {
-    override suspend fun getEventAlertNotificationSettings(eventType: EventType): EventAlertNotificationSettings =
-        settingsPreferencesDataSource.getEventAlertNotificationSettings(eventType = eventType)
+    override suspend fun getEventAlertSettings(eventType: EventType): EventAlertSettings =
+        settingsPreferencesDataSource.getEventAlertSettings(eventType = eventType)
 
-    override suspend fun setEventAlertNotificationSettings(
+    override suspend fun setEventAlertSettings(
         eventType: EventType,
-        settings: EventAlertNotificationSettings,
+        settings: EventAlertSettings,
     ) {
-        settingsPreferencesDataSource.setEventAlertNotificationSettings(
+        settingsPreferencesDataSource.setEventAlertSettings(
             eventType = eventType,
             settings = settings,
         )
@@ -41,6 +41,6 @@ class DefaultSettingsRepository @Inject constructor(
         )
     }
 
-    override fun getEventAlertNotificationSettingsFlow(eventType: EventType): Flow<EventAlertNotificationSettings> =
-        settingsPreferencesDataSource.getEventAlertNotificationSettingsFlow(eventType = eventType)
+    override fun getEventAlertSettingsFlow(eventType: EventType): Flow<EventAlertSettings> =
+        settingsPreferencesDataSource.getEventAlertSettingsFlow(eventType = eventType)
 }

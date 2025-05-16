@@ -2,7 +2,7 @@ package com.davidmendozamartinez.sunrating.domain.event.model
 
 import com.davidmendozamartinez.sunrating.domain.alarm.model.Alarm
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
-import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertNotificationSettings
+import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertSettings
 import java.util.UUID
 import kotlinx.datetime.Instant
 
@@ -16,7 +16,7 @@ data class Event(
 ) {
     val qualityCategory: QualityCategory = QualityCategory.from(quality = quality)
 
-    fun setAlarm(settings: EventAlertNotificationSettings): Event = copy(
+    fun setAlarm(settings: EventAlertSettings): Event = copy(
         alarm = if (settings.qualityThreshold != null && quality >= settings.qualityThreshold) {
             Alarm.EventAlertAlarm(
                 requestCode = Alarm.EventAlertAlarm.generateRequestCode(eventId = id, triggerAt = time - settings.advance),
