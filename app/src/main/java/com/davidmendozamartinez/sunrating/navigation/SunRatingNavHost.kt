@@ -9,6 +9,8 @@ import com.davidmendozamartinez.sunrating.feature.events.EventsRoute
 import com.davidmendozamartinez.sunrating.feature.events.eventsScreen
 import com.davidmendozamartinez.sunrating.feature.places.navigateToPlaces
 import com.davidmendozamartinez.sunrating.feature.places.placesScreen
+import com.davidmendozamartinez.sunrating.feature.settings.navigateToSettings
+import com.davidmendozamartinez.sunrating.feature.settings.settingsScreen
 
 @Composable
 fun SunRatingNavHost(
@@ -24,11 +26,13 @@ fun SunRatingNavHost(
             onNavigationEvent = {
                 when (it) {
                     is EventsNavigation.Places -> navController.navigateToPlaces()
-                    is EventsNavigation.Settings -> Unit // TODO(future)
+                    is EventsNavigation.Settings -> navController.navigateToSettings()
                 }
             },
         )
 
         placesScreen()
+
+        settingsScreen()
     }
 }
