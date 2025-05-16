@@ -17,7 +17,7 @@ data class Event(
     val qualityCategory: QualityCategory = QualityCategory.from(quality = quality)
 
     fun setAlarm(settings: EventAlertSettings): Event = copy(
-        alarm = if (settings.qualityThreshold != null && quality >= settings.qualityThreshold) {
+        alarm = if (settings.isEnabled && quality >= settings.qualityThreshold) {
             Alarm.EventAlertAlarm(
                 requestCode = Alarm.EventAlertAlarm.generateRequestCode(eventId = id, triggerAt = time - settings.advance),
                 triggerAt = time - settings.advance,

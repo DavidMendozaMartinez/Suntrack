@@ -8,7 +8,6 @@ import com.davidmendozamartinez.sunrating.data.settings.datasource.SettingsPrefe
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
 import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertSettings
 import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertSettingsDefaults
-import com.davidmendozamartinez.sunrating.framework.preferences.extension.setOrRemove
 import com.davidmendozamartinez.sunrating.framework.preferences.settings.model.EventAlertSettingsPreferencesKeys
 import com.davidmendozamartinez.sunrating.framework.preferences.settings.model.toEventAlertSettingsPreferencesKeys
 import javax.inject.Inject
@@ -41,6 +40,8 @@ class DefaultSettingsPreferencesDataSource @Inject constructor(
         eventType: EventType,
     ): EventAlertSettings = EventAlertSettings(
         eventType = eventType,
+        isEnabled = get(key = keys.isEnabled)
+            ?: EventAlertSettingsDefaults.DefaultIsEnabled,
         advance = get(key = keys.advance)
             ?.let { Duration.parseIsoString(value = it) }
             ?: EventAlertSettingsDefaults.DefaultAdvance,
@@ -52,7 +53,8 @@ class DefaultSettingsPreferencesDataSource @Inject constructor(
         keys: EventAlertSettingsPreferencesKeys,
         value: EventAlertSettings
     ) {
+        set(key = keys.isEnabled, value = value.isEnabled)
         set(key = keys.advance, value = value.advance.toIsoString())
-        setOrRemove(key = keys.qualityThreshold, value = value.qualityThreshold)
+        set(key = keys.qualityThreshold, value = value.qualityThreshold)
     }
 }

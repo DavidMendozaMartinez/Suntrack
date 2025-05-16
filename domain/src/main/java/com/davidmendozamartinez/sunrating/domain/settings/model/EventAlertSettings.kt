@@ -6,11 +6,14 @@ import kotlin.time.Duration.Companion.minutes
 
 data class EventAlertSettings(
     val eventType: EventType,
+    val isEnabled: Boolean,
     val advance: Duration,
-    val qualityThreshold: Float?,
+    val qualityThreshold: Float,
 )
 
+@Suppress("ConstPropertyName")
 object EventAlertSettingsDefaults {
+    const val DefaultIsEnabled: Boolean = false
     val DefaultAdvance: Duration = 10.minutes
-    val DefaultQualityThreshold: Float? = null
+    const val DefaultQualityThreshold: Float = 0.5f
 }
