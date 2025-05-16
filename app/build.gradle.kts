@@ -26,6 +26,7 @@ dependencies {
     implementation(project(":common"))
     implementation(project(":feature:events"))
     implementation(project(":feature:places"))
+    implementation(project(":feature:settings"))
     implementation(project(":framework:database"))
     implementation(project(":framework:location"))
     implementation(project(":framework:network"))
