@@ -15,6 +15,7 @@ class FeatureConventionPlugin : Plugin<Project> {
             dependencies {
                 add(configurationName = "implementation", dependencyNotation = project(":common"))
                 add(configurationName = "implementation", dependencyNotation = project(":domain"))
+                add(configurationName = "implementation", dependencyNotation = project(":ui"))
                 add(configurationName = "implementation", dependencyNotation = "androidx.hilt:hilt-navigation-compose:1.2.0")
                 add(configurationName = "implementation", dependencyNotation = "org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
             }

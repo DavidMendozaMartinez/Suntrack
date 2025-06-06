@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.davidmendozamartinez.sunrating.navigation.SunRatingNavHost
-import com.davidmendozamartinez.sunrating.ui.theme.SunRatingTheme
+import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

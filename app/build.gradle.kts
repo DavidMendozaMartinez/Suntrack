@@ -33,4 +33,5 @@ dependencies {
     implementation(project(":framework:notification"))
     implementation(project(":framework:preferences"))
     implementation(project(":framework:schedule"))
+    implementation(project(":ui"))
 }
