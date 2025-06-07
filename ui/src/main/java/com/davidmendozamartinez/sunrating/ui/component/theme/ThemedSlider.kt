@@ -10,15 +10,12 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.SliderColors
 import androidx.compose.material3.SliderDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -29,10 +26,10 @@ import com.davidmendozamartinez.sunrating.ui.extension.asDisabled
 fun ThemedSlider(
     value: Float,
     onValueChange: (Float) -> Unit,
-    style: ThemedSliderStyle,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     onValueChangeFinished: (() -> Unit)? = null,
+    colors: SliderColors = ThemedSliderDefaults.primaryColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     @IntRange(from = 0) steps: Int = 0,
     valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
@@ -43,13 +40,13 @@ fun ThemedSlider(
         modifier = modifier,
         enabled = enabled,
         onValueChangeFinished = onValueChangeFinished,
-        colors = style.colors,
+        colors = colors,
         interactionSource = interactionSource,
         steps = steps,
         thumb = {
             SliderDefaults.Thumb(
                 interactionSource = interactionSource,
-                colors = style.colors,
+                colors = colors,
                 enabled = enabled,
                 thumbSize = DpSize(width = ThumbSize, height = ThumbSize)
             )
@@ -59,7 +56,7 @@ fun ThemedSlider(
                 sliderState = sliderState,
                 modifier = Modifier.height(height = TrackHeight),
                 enabled = enabled,
-                colors = style.colors,
+                colors = colors,
                 drawStopIndicator = null,
                 drawTick = { _, _ -> },
                 thumbTrackGapSize = ThumbTrackGapSize,
@@ -70,67 +67,47 @@ fun ThemedSlider(
     )
 }
 
-@Immutable
-data class ThemedSliderStyle(
-    val colors: SliderColors,
-)
-
-object ThemedSliderStyles {
-    @Composable
-    fun primary(): ThemedSliderStyle = ThemedSliderStyle(
-        colors = SliderDefaults.colors(
-            thumbColor = SunRatingTheme.colorScheme.primary,
-            activeTrackColor = SunRatingTheme.colorScheme.primary,
-            activeTickColor = SunRatingTheme.colorScheme.primaryContainer,
-            inactiveTrackColor = SunRatingTheme.colorScheme.primaryContainer,
-            inactiveTickColor = SunRatingTheme.colorScheme.primary,
-            disabledThumbColor = SunRatingTheme.colorScheme.primary.asDisabled(),
-            disabledActiveTrackColor = SunRatingTheme.colorScheme.primary.asDisabled(),
-            disabledActiveTickColor = SunRatingTheme.colorScheme.primaryContainer.asDisabled(),
-            disabledInactiveTrackColor = SunRatingTheme.colorScheme.primaryContainer.asDisabled(),
-            disabledInactiveTickColor = SunRatingTheme.colorScheme.primary.asDisabled()
-        ),
-    )
-
-    @Composable
-    fun tertiary(): ThemedSliderStyle = ThemedSliderStyle(
-        colors = SliderDefaults.colors(
-            thumbColor = SunRatingTheme.colorScheme.tertiary,
-            activeTrackColor = SunRatingTheme.colorScheme.tertiary,
-            activeTickColor = SunRatingTheme.colorScheme.tertiaryContainer,
-            inactiveTrackColor = SunRatingTheme.colorScheme.tertiaryContainer,
-            inactiveTickColor = SunRatingTheme.colorScheme.tertiary,
-            disabledThumbColor = SunRatingTheme.colorScheme.tertiary.asDisabled(),
-            disabledActiveTrackColor = SunRatingTheme.colorScheme.tertiary.asDisabled(),
-            disabledActiveTickColor = SunRatingTheme.colorScheme.tertiaryContainer.asDisabled(),
-            disabledInactiveTrackColor = SunRatingTheme.colorScheme.tertiaryContainer.asDisabled(),
-            disabledInactiveTickColor = SunRatingTheme.colorScheme.tertiary.asDisabled()
-        ),
-    )
-}
-
 @Preview
 @Composable
-private fun ThemedSliderPreview(
-    @PreviewParameter(provider = ThemedSliderPreviewParameterProvider::class) getStyle: @Composable () -> ThemedSliderStyle,
-) {
+private fun ThemedSliderPreview() {
     SunRatingTheme {
         var sliderValue: Float by remember { mutableFloatStateOf(value = 0.5f) }
 
         ThemedSlider(
             value = sliderValue,
             onValueChange = { sliderValue = it },
-            style = getStyle(),
         )
     }
 }
 
-private class ThemedSliderPreviewParameterProvider : PreviewParameterProvider<@Composable () -> ThemedSliderStyle> {
-    override val values: Sequence<@Composable () -> ThemedSliderStyle>
-        get() = sequenceOf(
-            { ThemedSliderStyles.primary() },
-            { ThemedSliderStyles.tertiary() },
-        )
+object ThemedSliderDefaults {
+    @Composable
+    fun primaryColors(): SliderColors = SliderDefaults.colors(
+        thumbColor = SunRatingTheme.colorScheme.primary,
+        activeTrackColor = SunRatingTheme.colorScheme.primary,
+        activeTickColor = SunRatingTheme.colorScheme.primaryContainer,
+        inactiveTrackColor = SunRatingTheme.colorScheme.primaryContainer,
+        inactiveTickColor = SunRatingTheme.colorScheme.primary,
+        disabledThumbColor = SunRatingTheme.colorScheme.primary.asDisabled(),
+        disabledActiveTrackColor = SunRatingTheme.colorScheme.primary.asDisabled(),
+        disabledActiveTickColor = SunRatingTheme.colorScheme.primaryContainer.asDisabled(),
+        disabledInactiveTrackColor = SunRatingTheme.colorScheme.primaryContainer.asDisabled(),
+        disabledInactiveTickColor = SunRatingTheme.colorScheme.primary.asDisabled()
+    )
+
+    @Composable
+    fun tertiaryColors(): SliderColors = SliderDefaults.colors(
+        thumbColor = SunRatingTheme.colorScheme.tertiary,
+        activeTrackColor = SunRatingTheme.colorScheme.tertiary,
+        activeTickColor = SunRatingTheme.colorScheme.tertiaryContainer,
+        inactiveTrackColor = SunRatingTheme.colorScheme.tertiaryContainer,
+        inactiveTickColor = SunRatingTheme.colorScheme.tertiary,
+        disabledThumbColor = SunRatingTheme.colorScheme.tertiary.asDisabled(),
+        disabledActiveTrackColor = SunRatingTheme.colorScheme.tertiary.asDisabled(),
+        disabledActiveTickColor = SunRatingTheme.colorScheme.tertiaryContainer.asDisabled(),
+        disabledInactiveTrackColor = SunRatingTheme.colorScheme.tertiaryContainer.asDisabled(),
+        disabledInactiveTickColor = SunRatingTheme.colorScheme.tertiary.asDisabled()
+    )
 }
 
 private val ThumbSize: Dp = 20.dp
