@@ -1,0 +1,4 @@
+<resources>
+    <string name="button_back_content_description">Back</string>
+    <string name="button_close_content_description">Close</string>
+</resources>
