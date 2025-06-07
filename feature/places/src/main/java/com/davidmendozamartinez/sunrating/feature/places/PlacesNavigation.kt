@@ -1,5 +1,7 @@
 package com.davidmendozamartinez.sunrating.feature.places
 
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,7 +27,14 @@ fun NavController.navigateToPlaces(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.placesScreen(onNavigationEvent: (PlacesNavigation) -> Unit) {
-    composable<PlacesRoute> {
+    composable<PlacesRoute>(
+        enterTransition = {
+            slideIntoContainer(towards = SlideDirection.Up, animationSpec = tween(durationMillis = TRANSITION_DURATION_MILLIS))
+        },
+        exitTransition = {
+            slideOutOfContainer(towards = SlideDirection.Down, animationSpec = tween(durationMillis = TRANSITION_DURATION_MILLIS))
+        },
+    ) {
         PlacesRoute(onNavigationEvent = onNavigationEvent)
     }
 }
@@ -51,3 +60,5 @@ internal fun PlacesRoute(
         modifier = modifier,
     )
 }
+
+private const val TRANSITION_DURATION_MILLIS: Int = 500

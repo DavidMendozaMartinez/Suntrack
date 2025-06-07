@@ -53,6 +53,7 @@ class PlacesViewModel @Inject constructor(
     fun onPlaceClick(placeId: String) {
         viewModelScope.launch {
             placeRepository.setCurrentPlace(id = placeId)
+            _navigation.value = PlacesNavigation.Back
         }
     }
 
