@@ -7,24 +7,17 @@ sealed interface PlacesUiState {
     data object Loading : PlacesUiState
 
     data class Success(
-        val places: ImmutableList<PlaceUiState>,
-        val placeTextFieldUiState: PlaceTextFieldUiState,
+        val items: ImmutableList<PlaceItemUiState>,
     ) : PlacesUiState
 }
 
-data class PlaceUiState(
+data class PlaceItemUiState(
     val id: String,
     val name: String,
     val isSelected: Boolean,
 )
 
-data class PlaceTextFieldUiState(
-    val name: String = "",
-    val latitude: String = "",
-    val longitude: String = "",
-)
-
-fun Place.toPlaceUiState(isSelected: Boolean): PlaceUiState = PlaceUiState(
+fun Place.toPlaceItemUiState(isSelected: Boolean): PlaceItemUiState = PlaceItemUiState(
     id = id,
     name = name,
     isSelected = isSelected,

@@ -2,14 +2,10 @@ package com.davidmendozamartinez.sunrating.feature.places
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.davidmendozamartinez.sunrating.domain.event.repository.EventRepository
-import com.davidmendozamartinez.sunrating.domain.location.repository.Location
-import com.davidmendozamartinez.sunrating.domain.location.repository.LocationRepository
 import com.davidmendozamartinez.sunrating.domain.place.repository.PlaceRepository
-import com.davidmendozamartinez.sunrating.feature.places.model.PlaceTextFieldUiState
-import com.davidmendozamartinez.sunrating.feature.places.model.PlaceUiState
+import com.davidmendozamartinez.sunrating.feature.places.model.PlaceItemUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlacesUiState
-import com.davidmendozamartinez.sunrating.feature.places.model.toPlaceUiState
+import com.davidmendozamartinez.sunrating.feature.places.model.toPlaceItemUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.collections.immutable.ImmutableList
@@ -18,33 +14,28 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class PlacesViewModel @Inject constructor(
     private val placeRepository: PlaceRepository,
-    private val locationRepository: LocationRepository,
-    private val eventRepository: EventRepository,
+//    private val locationRepository: LocationRepository,
+//    private val eventRepository: EventRepository,
 ) : ViewModel() {
-    private val placesFlow: Flow<ImmutableList<PlaceUiState>> = combine(
+    private val itemsFlow: Flow<ImmutableList<PlaceItemUiState>> = combine(
         placeRepository.getCurrentPlaceFlow(),
         placeRepository.getPlacesSortedByNameFlow(),
     ) { currentPlace, places ->
-        places.map { it.toPlaceUiState(isSelected = it.id == currentPlace?.id) }.toImmutableList()
+        places.map { it.toPlaceItemUiState(isSelected = it.id == currentPlace?.id) }.toImmutableList()
     }
 
-    private val placeTextFieldUiState: MutableStateFlow<PlaceTextFieldUiState> = MutableStateFlow(value = PlaceTextFieldUiState())
-
-    val uiState: StateFlow<PlacesUiState> = combine(
-        placesFlow,
-        placeTextFieldUiState,
-    ) { places, placeTextFieldUiState ->
+    val uiState: StateFlow<PlacesUiState> = itemsFlow.map {
         PlacesUiState.Success(
-            places = places,
-            placeTextFieldUiState = placeTextFieldUiState,
+            items = it,
         )
     }.stateIn(
         scope = viewModelScope,
@@ -52,49 +43,44 @@ class PlacesViewModel @Inject constructor(
         initialValue = PlacesUiState.Loading
     )
 
+    private val _navigation: MutableStateFlow<PlacesNavigation?> = MutableStateFlow(value = null)
+    val navigation: StateFlow<PlacesNavigation?> = _navigation.asStateFlow()
+
+    fun onBackClick() {
+        _navigation.value = PlacesNavigation.Back
+    }
+
     fun onPlaceClick(placeId: String) {
         viewModelScope.launch {
             placeRepository.setCurrentPlace(id = placeId)
         }
     }
 
-    fun onDeletePlaceClick(placeId: String) {
-        viewModelScope.launch {
-            placeRepository.deletePlace(id = placeId)
-        }
-    }
+//    fun onDeletePlaceClick(placeId: String) {
+//        viewModelScope.launch {
+//            placeRepository.deletePlace(id = placeId)
+//        }
+//    }
 
-    fun onNameValueChange(value: String) {
-        placeTextFieldUiState.update { it.copy(name = value) }
-    }
+//    fun onLocateClick() {
+//        viewModelScope.launch {
+//            val location: Location = locationRepository.getCurrentLocation() ?: return@launch
+//        }
+//    }
 
-    fun onLatitudeValueChange(value: String) {
-        placeTextFieldUiState.update { it.copy(latitude = value) }
-    }
+//    fun onCreateClick() {
+//        viewModelScope.launch {
+//            placeRepository.createPlace(
+//                name = ,
+//                latitude = ,
+//                longitude = ,
+//            ).onSuccess { placeId ->
+//                eventRepository.syncEvents(placeId = placeId)
+//            }
+//        }
+//    }
 
-    fun onLongitudeValueChange(value: String) {
-        placeTextFieldUiState.update { it.copy(longitude = value) }
-    }
-
-    fun onLocateClick() {
-        viewModelScope.launch {
-            val location: Location = locationRepository.getCurrentLocation() ?: return@launch
-            placeTextFieldUiState.update { it.copy(latitude = location.first.toString(), longitude = location.second.toString()) }
-        }
-    }
-
-    fun onCreateClick() {
-        viewModelScope.launch {
-            val textFieldUiState: PlaceTextFieldUiState = placeTextFieldUiState.value
-            placeRepository.createPlace(
-                name = textFieldUiState.name,
-                latitude = textFieldUiState.latitude.toDoubleOrNull() ?: return@launch,
-                longitude = textFieldUiState.longitude.toDoubleOrNull() ?: return@launch,
-            ).onSuccess { placeId ->
-                eventRepository.syncEvents(placeId = placeId)
-            }
-
-            placeTextFieldUiState.update { it.copy(name = "", latitude = "", longitude = "") }
-        }
+    fun onNavigationEventConsumed() {
+        _navigation.value = null
     }
 }

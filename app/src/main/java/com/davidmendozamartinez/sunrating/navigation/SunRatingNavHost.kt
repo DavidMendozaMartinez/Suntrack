@@ -7,6 +7,7 @@ import androidx.navigation.compose.NavHost
 import com.davidmendozamartinez.sunrating.feature.events.EventsNavigation
 import com.davidmendozamartinez.sunrating.feature.events.EventsRoute
 import com.davidmendozamartinez.sunrating.feature.events.eventsScreen
+import com.davidmendozamartinez.sunrating.feature.places.PlacesNavigation
 import com.davidmendozamartinez.sunrating.feature.places.navigateToPlaces
 import com.davidmendozamartinez.sunrating.feature.places.placesScreen
 import com.davidmendozamartinez.sunrating.feature.settings.navigateToSettings
@@ -31,7 +32,13 @@ fun SunRatingNavHost(
             },
         )
 
-        placesScreen()
+        placesScreen(
+            onNavigationEvent = {
+                when (it) {
+                    is PlacesNavigation.Back -> navController.popBackStack()
+                }
+            }
+        )
 
         settingsScreen()
     }

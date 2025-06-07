@@ -1,6 +1,7 @@
 package com.davidmendozamartinez.sunrating.feature.places
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -15,32 +16,38 @@ import kotlinx.serialization.Serializable
 @Serializable
 object PlacesRoute
 
+sealed interface PlacesNavigation {
+    data object Back : PlacesNavigation
+}
+
 fun NavController.navigateToPlaces(navOptions: NavOptions? = null) {
     navigate(route = PlacesRoute, navOptions = navOptions)
 }
 
-fun NavGraphBuilder.placesScreen() {
+fun NavGraphBuilder.placesScreen(onNavigationEvent: (PlacesNavigation) -> Unit) {
     composable<PlacesRoute> {
-        PlacesRoute()
+        PlacesRoute(onNavigationEvent = onNavigationEvent)
     }
 }
 
 @Composable
 internal fun PlacesRoute(
+    onNavigationEvent: (PlacesNavigation) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: PlacesViewModel = hiltViewModel(),
 ) {
     val uiState: PlacesUiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val navigation: PlacesNavigation? by viewModel.navigation.collectAsStateWithLifecycle()
+
+    LaunchedEffect(key1 = navigation) {
+        navigation?.let { onNavigationEvent(it) }
+        viewModel.onNavigationEventConsumed()
+    }
 
     PlacesScreen(
         uiState = uiState,
+        onBackClick = viewModel::onBackClick,
         onPlaceClick = viewModel::onPlaceClick,
-        onDeletePlaceClick = viewModel::onDeletePlaceClick,
-        onNameValueChange = viewModel::onNameValueChange,
-        onLatitudeValueChange = viewModel::onLatitudeValueChange,
-        onLongitudeValueChange = viewModel::onLongitudeValueChange,
-        onLocateClick = viewModel::onLocateClick,
-        onCreateClick = viewModel::onCreateClick,
         modifier = modifier,
     )
 }

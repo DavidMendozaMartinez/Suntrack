@@ -21,7 +21,7 @@ import com.davidmendozamartinez.sunrating.feature.places.model.preview.buildFake
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
 
 @Composable
-fun PlaceItem(
+internal fun PlaceItem(
     uiState: PlaceItemUiState,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
