@@ -1,4 +1,4 @@
-package com.davidmendozamartinez.sunrating.ui.component
+package com.davidmendozamartinez.sunrating.ui.component.custom
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

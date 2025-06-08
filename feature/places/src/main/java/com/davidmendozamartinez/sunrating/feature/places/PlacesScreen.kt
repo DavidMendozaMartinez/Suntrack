@@ -20,7 +20,7 @@ import com.davidmendozamartinez.sunrating.feature.places.model.PlacesUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.preview.buildFakePlaceItemUiState
 import com.davidmendozamartinez.sunrating.ui.R
 import com.davidmendozamartinez.sunrating.ui.component.CloseButton
-import com.davidmendozamartinez.sunrating.ui.component.SkylineBackground
+import com.davidmendozamartinez.sunrating.ui.component.custom.SkylineBackground
 import com.davidmendozamartinez.sunrating.ui.component.theme.ThemedTopAppBar
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
 import kotlinx.collections.immutable.toImmutableList
