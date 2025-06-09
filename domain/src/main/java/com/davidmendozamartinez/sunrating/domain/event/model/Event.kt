@@ -29,6 +29,8 @@ data class Event(
     )
 
     companion object {
+        const val QUALITY_SCALE: Int = 5
+
         fun generateUUID(
             placeId: String,
             time: String,
@@ -50,10 +52,10 @@ enum class QualityCategory {
 
     companion object {
         fun from(quality: Float): QualityCategory = when {
-            quality < 0.2f -> POOR
-            quality < 0.4f -> FAIR
-            quality < 0.6f -> GOOD
-            quality < 0.8f -> GREAT
+            quality < 1f -> POOR
+            quality < 2f -> FAIR
+            quality < 3f -> GOOD
+            quality < 4f -> GREAT
             else -> EXCELLENT
         }
     }

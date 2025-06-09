@@ -35,7 +35,7 @@ fun EventDTO.toEvent(place: Place): Event? = try {
         place = place,
         time = Instant.parse(input = time).also { require(value = it > Clock.System.now()) },
         type = type.toEventType(),
-        quality = requireNotNull(value = quality),
+        quality = requireNotNull(value = quality) * Event.QUALITY_SCALE,
         alarm = null,
     )
 } catch (expected: IllegalArgumentException) {

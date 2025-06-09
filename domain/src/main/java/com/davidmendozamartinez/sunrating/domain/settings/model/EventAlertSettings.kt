@@ -15,5 +15,5 @@ data class EventAlertSettings(
 object EventAlertSettingsDefaults {
     const val DefaultIsEnabled: Boolean = false
     val DefaultAdvance: Duration = 10.minutes
-    const val DefaultQualityThreshold: Float = 0.5f
+    const val DefaultQualityThreshold: Float = 2.5f
 }
