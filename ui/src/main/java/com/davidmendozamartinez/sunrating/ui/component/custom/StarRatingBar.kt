@@ -12,9 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.drawscope.translate
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -58,7 +60,11 @@ private fun Star(
 ) {
     val painter: Painter = painterResource(id = R.drawable.ic_star_filled)
 
-    Canvas(modifier = modifier.size(size = StarSize)) {
+    Canvas(
+        modifier = modifier
+            .size(size = StarSize)
+            .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen),
+    ) {
         val base: ImageBitmap = painter.toImageBitmap(
             density = this,
             layoutDirection = layoutDirection,
@@ -74,7 +80,7 @@ private fun Star(
 
         translate(left = StarStrokeWidth.toPx(), top = StarStrokeWidth.toPx()) {
             clipRect(left = mask.width * fillFraction) {
-                drawImage(image = mask, blendMode = BlendMode.DstOut)
+                drawImage(image = mask, blendMode = BlendMode.Xor)
             }
         }
     }
