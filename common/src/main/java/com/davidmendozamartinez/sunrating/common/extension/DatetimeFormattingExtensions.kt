@@ -3,20 +3,16 @@ package com.davidmendozamartinez.sunrating.common.extension
 
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.time.format.TextStyle
-import java.util.Locale
-import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalTime
-import kotlinx.datetime.toJavaLocalTime
+import kotlinx.datetime.toJavaLocalDate
 
 /**
  * Uses java.time for formatting since kotlinx.datetime currently lacks
  * localization support.
  */
-fun LocalTime.format(): String = DateTimeFormatter
-    .ofLocalizedTime(FormatStyle.SHORT)
-    .format(toJavaLocalTime())
+fun LocalDate.format(): String = DateTimeFormatter
+    .ofLocalizedDate(FormatStyle.SHORT).also { println(this) }
+    .format(toJavaLocalDate())
 
-fun DayOfWeek.format(
-    locale: Locale = Locale.getDefault(),
-): String = getDisplayName(TextStyle.SHORT, locale)
+fun LocalTime.format(): String = LocalTime(hour = hour, minute = minute).toString()
