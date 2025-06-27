@@ -15,6 +15,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.Instant
 
 class DefaultEventRepository @Inject constructor(
     private val eventRemoteDataSource: EventRemoteDataSource,
@@ -57,8 +58,15 @@ class DefaultEventRepository @Inject constructor(
         )
     }
 
-    override fun getEventsFlow(placeId: String): Flow<List<Event>> = eventLocalDataSource
-        .getEventsFlow(placeId = placeId)
+    override fun getEventsFlow(
+        placeId: String,
+        start: Instant,
+        endInclusive: Instant,
+    ): Flow<List<Event>> = eventLocalDataSource.getEventsFlow(
+        placeId = placeId,
+        start = start,
+        endInclusive = endInclusive,
+    )
 
     private suspend fun List<Event>.setAlarms(): List<Event> = groupBy { it.type }
         .flatMap { (type: EventType, events: List<Event>) ->

@@ -22,7 +22,7 @@ class DefaultSettingsRepository @Inject constructor(
     override suspend fun setEventAlertSettings(settings: EventAlertSettings) {
         settingsPreferencesDataSource.setEventAlertSettings(settings = settings)
 
-        val events: List<Event> = eventLocalDataSource.getEvents(type = settings.eventType)
+        val events: List<Event> = eventLocalDataSource.getUpcomingEvents(type = settings.eventType)
         val eventsWithAlarm: List<Event> = events.map { event -> event.setAlarm(settings = settings) }
 
         alarmManager.reset(

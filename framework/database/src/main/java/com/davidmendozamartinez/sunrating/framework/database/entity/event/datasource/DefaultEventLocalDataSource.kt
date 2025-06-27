@@ -17,13 +17,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 
 class DefaultEventLocalDataSource @Inject constructor(
     private val eventDao: EventDao,
 ) : EventLocalDataSource {
     override suspend fun getEvent(id: String): Event? = eventDao.getEvent(id = id)?.toEvent()
 
-    override suspend fun getEvents(type: EventType): List<Event> = eventDao
+    override suspend fun getUpcomingEvents(type: EventType): List<Event> = eventDao
         .getEvents(type = type.toEventTypeEntity(), start = Clock.System.now().toEpochMilliseconds())
         .map { it.toEvent() }
 
@@ -48,8 +49,16 @@ class DefaultEventLocalDataSource @Inject constructor(
         overwritePolicy = overwritePolicy.toEventOverwritePolicyEntity(),
     )
 
-    override fun getEventsFlow(placeId: String): Flow<List<Event>> = eventDao
-        .getEventsFlow(placeId = placeId, start = Clock.System.now().toEpochMilliseconds())
+    override fun getEventsFlow(
+        placeId: String,
+        start: Instant,
+        endInclusive: Instant,
+    ): Flow<List<Event>> = eventDao
+        .getEventsFlow(
+            placeId = placeId,
+            start = start.toEpochMilliseconds(),
+            endInclusive = endInclusive.toEpochMilliseconds(),
+        )
         .distinctUntilChanged()
         .map { entities -> entities.map { it.toEvent() } }
 }

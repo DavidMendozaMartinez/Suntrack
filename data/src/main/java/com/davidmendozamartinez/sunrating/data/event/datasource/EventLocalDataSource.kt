@@ -5,11 +5,12 @@ import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.event.model.EventOverwritePolicy
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.Instant
 
 interface EventLocalDataSource {
     suspend fun getEvent(id: String): Event?
 
-    suspend fun getEvents(type: EventType): List<Event>
+    suspend fun getUpcomingEvents(type: EventType): List<Event>
 
     suspend fun getEventAlertAlarms(): List<Alarm.EventAlertAlarm>
 
@@ -22,5 +23,9 @@ interface EventLocalDataSource {
         overwritePolicy: EventOverwritePolicy,
     )
 
-    fun getEventsFlow(placeId: String): Flow<List<Event>>
+    fun getEventsFlow(
+        placeId: String,
+        start: Instant,
+        endInclusive: Instant,
+    ): Flow<List<Event>>
 }
