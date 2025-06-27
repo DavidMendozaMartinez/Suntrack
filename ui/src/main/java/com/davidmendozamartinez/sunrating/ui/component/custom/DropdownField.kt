@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,6 +35,7 @@ fun DropdownField(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     colors: DropdownFieldColors = DropdownFieldDefaults.surfaceColors(),
+    contentPadding: PaddingValues = DropdownFieldDefaults.ContentPadding,
     interactionSource: MutableInteractionSource? = null
 ) {
     Row(
@@ -47,7 +49,7 @@ fun DropdownField(
                 onClick = onClick
             )
             .background(color = colors.containerColor.enabled(enabled = enabled))
-            .padding(horizontal = SunRatingTheme.spacing.space4, vertical = SunRatingTheme.spacing.space2),
+            .padding(paddingValues = contentPadding),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
     ) {
@@ -88,6 +90,12 @@ object DropdownFieldDefaults {
         containerColor = SunRatingTheme.colorScheme.surface,
         contentColor = SunRatingTheme.colorScheme.onSurface,
     )
+
+    val ContentPadding: PaddingValues
+        @Composable get() = PaddingValues(
+            horizontal = SunRatingTheme.spacing.space4,
+            vertical = SunRatingTheme.spacing.space2,
+        )
 }
 
 @Immutable
