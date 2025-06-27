@@ -33,7 +33,7 @@ fun ThemedTopAppBar(
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
     scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
-    TopAppBar(
+    ThemedTopAppBar(
         title = {
             Text(
                 text = title,
@@ -41,6 +41,27 @@ fun ThemedTopAppBar(
                 style = SunRatingTheme.typography.titleMedium,
             )
         },
+        modifier = modifier,
+        navigationIcon = navigationIcon,
+        actions = actions,
+        expandedHeight = expandedHeight,
+        windowInsets = windowInsets,
+        scrollBehavior = scrollBehavior,
+    )
+}
+
+@Composable
+fun ThemedTopAppBar(
+    title: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    navigationIcon: @Composable () -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {},
+    expandedHeight: Dp = ThemedTopAppBarDefaults.ContainerHeight,
+    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    scrollBehavior: TopAppBarScrollBehavior? = null
+) {
+    TopAppBar(
+        title = title,
         modifier = modifier,
         navigationIcon = navigationIcon,
         actions = actions,
