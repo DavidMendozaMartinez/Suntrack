@@ -1,5 +1,6 @@
 package com.davidmendozamartinez.sunrating.common.extension
 
+import kotlin.time.Duration.Companion.days
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
@@ -17,8 +18,8 @@ fun Instant.toLocalTime(timeZone: TimeZone = TimeZone.currentSystemDefault()): L
 fun Clock.System.today(timeZone: TimeZone = TimeZone.currentSystemDefault()): LocalDate =
     now().toLocalDate(timeZone = timeZone)
 
-fun LocalDate.isToday(timeZone: TimeZone = TimeZone.currentSystemDefault()): Boolean =
-    this == Clock.System.today(timeZone = timeZone)
+fun Clock.System.tomorrow(timeZone: TimeZone = TimeZone.currentSystemDefault()): LocalDate =
+    (now() + 1.days).toLocalDate(timeZone = timeZone)
 
 fun LocalDate.startOfDay(timeZone: TimeZone = TimeZone.currentSystemDefault()): Instant =
     atStartOfDayIn(timeZone = timeZone)

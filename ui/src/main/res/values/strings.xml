@@ -7,5 +7,6 @@
     <string name="event_type_sunrise">Sunrise</string>
     <string name="event_type_sunset">Sunset</string>
 
-    <string name="date_format_today">Today</string>
+    <string name="format_date_today">Today</string>
+    <string name="format_date_tomorrow">Tomorrow</string>
 </resources>

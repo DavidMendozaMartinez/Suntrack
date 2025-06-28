@@ -2,15 +2,18 @@ package com.davidmendozamartinez.sunrating.feature.events
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.davidmendozamartinez.sunrating.common.extension.startOfDay
+import com.davidmendozamartinez.sunrating.common.extension.today
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.event.repository.EventRepository
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import com.davidmendozamartinez.sunrating.domain.place.repository.PlaceRepository
-import com.davidmendozamartinez.sunrating.feature.events.model.EventsTopAppBarUiState
+import com.davidmendozamartinez.sunrating.feature.events.model.EventPagerUiState
 import com.davidmendozamartinez.sunrating.feature.events.model.EventsUiState
-import com.davidmendozamartinez.sunrating.feature.events.model.toEventUiState
+import com.davidmendozamartinez.sunrating.feature.events.model.toEventPagerPageUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.days
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -23,6 +26,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
@@ -34,21 +38,32 @@ class EventsViewModel @Inject constructor(
 
     private val eventsFlow: Flow<List<Event>> = currentPlaceFlow.flatMapLatest {
         if (it == null) return@flatMapLatest flowOf(emptyList())
-        eventRepository.getEventsFlow(placeId = it.id)
+        eventRepository.getEventsFlow(
+            placeId = it.id,
+            start = Clock.System.today().startOfDay(),
+            end = Clock.System.today().startOfDay() + 3.days,
+        )
     }
 
     val uiState: StateFlow<EventsUiState> = combine(
         currentPlaceFlow,
         eventsFlow,
     ) { currentPlace, events ->
-        EventsUiState.Success(
-            topAppBarUiState = EventsTopAppBarUiState.Success(title = currentPlace?.name.orEmpty()),
-            events = events.map { it.toEventUiState() }.toImmutableList(),
-        )
+        if (currentPlace == null) {
+            EventsUiState.NoCurrentPlace
+        } else {
+            EventsUiState.Success(
+                currentPlaceName = currentPlace.name,
+                eventPagerUiState = EventPagerUiState(
+                    initialPage = events.indexOfFirst { it.time > Clock.System.now() }.takeIf { it != -1 } ?: events.lastIndex,
+                    pages = events.map { it.toEventPagerPageUiState() }.toImmutableList(),
+                ),
+            )
+        }
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-        initialValue = EventsUiState.Loading
+        initialValue = EventsUiState.NoCurrentPlace,
     )
 
     private val _navigation: MutableStateFlow<EventsNavigation?> = MutableStateFlow(value = null)

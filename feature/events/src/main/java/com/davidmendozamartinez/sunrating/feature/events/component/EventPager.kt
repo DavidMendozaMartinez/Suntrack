@@ -46,7 +46,7 @@ fun EventPager(
             PageIndicator(
                 pageCount = pagerState.pageCount,
                 currentPage = pagerState.currentPage,
-                modifier = Modifier.padding(top = SunRatingTheme.spacing.space8),
+                modifier = Modifier.padding(top = SunRatingTheme.spacing.space20),
             )
         }
     }

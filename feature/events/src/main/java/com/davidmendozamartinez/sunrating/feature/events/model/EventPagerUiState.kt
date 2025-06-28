@@ -5,9 +5,10 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.davidmendozamartinez.sunrating.common.extension.format
-import com.davidmendozamartinez.sunrating.common.extension.isToday
 import com.davidmendozamartinez.sunrating.common.extension.toLocalDate
 import com.davidmendozamartinez.sunrating.common.extension.toLocalTime
+import com.davidmendozamartinez.sunrating.common.extension.today
+import com.davidmendozamartinez.sunrating.common.extension.tomorrow
 import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
 import com.davidmendozamartinez.sunrating.ui.R
@@ -15,7 +16,9 @@ import com.davidmendozamartinez.sunrating.ui.component.custom.StarRatingBarColor
 import com.davidmendozamartinez.sunrating.ui.component.custom.StarRatingBarDefaults
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
 
 data class EventPagerUiState(
     val initialPage: Int,
@@ -36,8 +39,10 @@ data class EventPagerPageUiState(
         @Composable get() = eventTypeUiState.displayName
 
     val formattedDate: String
-        @Composable get() = with(time.toLocalDate()) {
-            if (isToday()) stringResource(id = R.string.date_format_today) else format()
+        @Composable get() = when (val date: LocalDate = time.toLocalDate()) {
+            Clock.System.today() -> stringResource(id = R.string.format_date_today)
+            Clock.System.tomorrow() -> stringResource(id = R.string.format_date_tomorrow)
+            else -> date.format()
         }
 
     val formattedTime: String
