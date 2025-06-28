@@ -14,6 +14,6 @@ interface EventRepository {
     fun getEventsFlow(
         placeId: String,
         start: Instant,
-        endInclusive: Instant,
+        end: Instant,
     ): Flow<List<Event>>
 }

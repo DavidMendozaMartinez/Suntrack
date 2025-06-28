@@ -61,11 +61,11 @@ class DefaultEventRepository @Inject constructor(
     override fun getEventsFlow(
         placeId: String,
         start: Instant,
-        endInclusive: Instant,
+        end: Instant,
     ): Flow<List<Event>> = eventLocalDataSource.getEventsFlow(
         placeId = placeId,
         start = start,
-        endInclusive = endInclusive,
+        end = end,
     )
 
     private suspend fun List<Event>.setAlarms(): List<Event> = groupBy { it.type }

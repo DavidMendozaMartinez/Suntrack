@@ -52,12 +52,12 @@ class DefaultEventLocalDataSource @Inject constructor(
     override fun getEventsFlow(
         placeId: String,
         start: Instant,
-        endInclusive: Instant,
+        end: Instant,
     ): Flow<List<Event>> = eventDao
         .getEventsFlow(
             placeId = placeId,
             start = start.toEpochMilliseconds(),
-            endInclusive = endInclusive.toEpochMilliseconds(),
+            end = end.toEpochMilliseconds(),
         )
         .distinctUntilChanged()
         .map { entities -> entities.map { it.toEvent() } }

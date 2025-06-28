@@ -20,14 +20,14 @@ interface EventDao {
         FROM event 
         WHERE place_id = :placeId 
             AND time_millis >= :start 
-            AND time_millis <= :endInclusive 
+            AND time_millis < :end 
         ORDER BY time_millis
         """
     )
     fun getEventsFlow(
         placeId: String,
         start: Long,
-        endInclusive: Long,
+        end: Long,
     ): Flow<List<EventWithPlaceAndAlarmRelation>>
 
     @Transaction
