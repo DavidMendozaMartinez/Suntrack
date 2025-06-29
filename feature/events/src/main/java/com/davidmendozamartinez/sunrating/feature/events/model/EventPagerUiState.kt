@@ -48,10 +48,20 @@ data class EventPagerPageUiState(
     val formattedTime: String
         @Composable get() = time.toLocalTime().format()
 
-    val colors: EventPagerPageColors
-        @Composable get() = when (eventTypeUiState) {
-            EventTypeUiState.SUNRISE -> EventPagerPageColors.PrimaryColors
-            EventTypeUiState.SUNSET -> EventPagerPageColors.TertiaryColors
+    val colors: EventPagerPageColors = when (eventTypeUiState) {
+        EventTypeUiState.SUNRISE -> EventPagerPageColors.PrimaryColors
+        EventTypeUiState.SUNSET -> EventPagerPageColors.TertiaryColors
+    }
+}
+
+enum class EventTypeUiState {
+    SUNRISE,
+    SUNSET;
+
+    val displayName: String
+        @Composable get() = when (this) {
+            SUNRISE -> stringResource(id = R.string.event_type_sunrise)
+            SUNSET -> stringResource(id = R.string.event_type_sunset)
         }
 }
 

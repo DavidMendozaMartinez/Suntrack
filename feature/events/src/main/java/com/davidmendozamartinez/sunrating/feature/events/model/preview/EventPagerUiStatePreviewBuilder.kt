@@ -1,5 +1,6 @@
 package com.davidmendozamartinez.sunrating.feature.events.model.preview
 
+import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.feature.events.model.EventPagerPageUiState
 import com.davidmendozamartinez.sunrating.feature.events.model.EventTypeUiState
 import kotlinx.datetime.Clock
@@ -10,7 +11,7 @@ fun buildFakeEventPagerPageUiState(
     time: Instant = Clock.System.now(),
     eventTypeUiState: EventTypeUiState = EventTypeUiState.SUNRISE,
     quality: Float = 2.5f,
-    qualityScale: Int = 5,
+    qualityScale: Int = Event.QUALITY_SCALE,
     hasAlarm: Boolean = false,
 ): EventPagerPageUiState = EventPagerPageUiState(
     id = id,

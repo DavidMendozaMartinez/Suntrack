@@ -7,6 +7,18 @@
     <string name="event_type_sunrise">Sunrise</string>
     <string name="event_type_sunset">Sunset</string>
 
+
+    <string name="settings_event_alert_title_sunrise">Sunrise alert</string>
+    <string name="settings_event_alert_title_sunset">Sunset alert</string>
+
     <string name="format_date_today">Today</string>
     <string name="format_date_tomorrow">Tomorrow</string>
+    <plurals name="format_duration_minutes">
+        <item quantity="one">1 minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+    <plurals name="format_duration_hours">
+        <item quantity="one">1 hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
 </resources>
