@@ -72,7 +72,19 @@ fun EventAlertSettings.toEventAlertSettingsUiState(): EventAlertSettingsUiState 
     qualityThresholdSettingsUiState = QualityThresholdSettingsUiState(value = qualityThreshold),
 )
 
+fun EventAlertSettingsUiState.toEventAlertSettings(): EventAlertSettings = EventAlertSettings(
+    eventType = typeUiState.toEventType(),
+    isEnabled = isEnabled,
+    advance = advanceSettingsUiState.selected.duration,
+    qualityThreshold = qualityThresholdSettingsUiState.value,
+)
+
 private fun EventType.toEventAlertSettingsTypeUiState(): EventAlertSettingsTypeUiState = when (this) {
     EventType.SUNRISE -> EventAlertSettingsTypeUiState.SUNRISE
     EventType.SUNSET -> EventAlertSettingsTypeUiState.SUNSET
+}
+
+private fun EventAlertSettingsTypeUiState.toEventType(): EventType = when (this) {
+    EventAlertSettingsTypeUiState.SUNRISE -> EventType.SUNRISE
+    EventAlertSettingsTypeUiState.SUNSET -> EventType.SUNSET
 }
