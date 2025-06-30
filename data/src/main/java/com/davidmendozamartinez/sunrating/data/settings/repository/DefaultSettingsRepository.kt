@@ -10,6 +10,7 @@ import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertSettin
 import com.davidmendozamartinez.sunrating.domain.settings.repository.SettingsRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.combine
 
 class DefaultSettingsRepository @Inject constructor(
     private val settingsPreferencesDataSource: SettingsPreferencesDataSource,
@@ -35,6 +36,7 @@ class DefaultSettingsRepository @Inject constructor(
         )
     }
 
-    override fun getEventAlertSettingsFlow(eventType: EventType): Flow<EventAlertSettings> =
-        settingsPreferencesDataSource.getEventAlertSettingsFlow(eventType = eventType)
+    override fun getEventAlertSettingsFlow(): Flow<List<EventAlertSettings>> = combine(
+        EventType.entries.map { settingsPreferencesDataSource.getEventAlertSettingsFlow(eventType = it) }
+    ) { settings -> settings.toList() }
 }

@@ -10,6 +10,8 @@
 
     <string name="settings_event_alert_title_sunrise">Sunrise alert</string>
     <string name="settings_event_alert_title_sunset">Sunset alert</string>
+    <string name="settings_event_alert_advance">Notification advance</string>
+    <string name="settings_event_alert_quality_threshold">Notification from</string>
 
     <string name="format_date_today">Today</string>
     <string name="format_date_tomorrow">Tomorrow</string>

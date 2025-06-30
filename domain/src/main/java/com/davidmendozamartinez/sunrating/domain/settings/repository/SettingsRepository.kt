@@ -9,5 +9,5 @@ interface SettingsRepository {
 
     suspend fun setEventAlertSettings(settings: EventAlertSettings)
 
-    fun getEventAlertSettingsFlow(eventType: EventType): Flow<EventAlertSettings>
+    fun getEventAlertSettingsFlow(): Flow<List<EventAlertSettings>>
 }

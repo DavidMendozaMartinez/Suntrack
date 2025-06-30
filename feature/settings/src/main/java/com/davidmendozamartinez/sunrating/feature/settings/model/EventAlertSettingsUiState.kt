@@ -5,7 +5,6 @@ import androidx.compose.material3.SwitchColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.res.stringResource
-import com.davidmendozamartinez.sunrating.domain.event.model.Event
 import com.davidmendozamartinez.sunrating.domain.event.model.EventType
 import com.davidmendozamartinez.sunrating.domain.settings.model.EventAlertSettings
 import com.davidmendozamartinez.sunrating.ui.R
@@ -18,8 +17,7 @@ data class EventAlertSettingsUiState(
     val typeUiState: EventAlertSettingsTypeUiState,
     val isEnabled: Boolean,
     val advanceSettingsUiState: AdvanceSettingsUiState,
-    val qualityThreshold: Float,
-    val qualityScale: Int,
+    val qualityThresholdSettingsUiState: QualityThresholdSettingsUiState,
 ) {
     val title: String
         @Composable get() = typeUiState.displayName
@@ -71,8 +69,7 @@ fun EventAlertSettings.toEventAlertSettingsUiState(): EventAlertSettingsUiState 
     advanceSettingsUiState = AdvanceSettingsUiState(
         selected = AdvanceUiState.from(duration = advance) ?: AdvanceUiState.TEN_MINUTES,
     ),
-    qualityThreshold = qualityThreshold,
-    qualityScale = Event.QUALITY_SCALE,
+    qualityThresholdSettingsUiState = QualityThresholdSettingsUiState(value = qualityThreshold),
 )
 
 private fun EventType.toEventAlertSettingsTypeUiState(): EventAlertSettingsTypeUiState = when (this) {
