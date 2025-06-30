@@ -43,7 +43,7 @@ internal fun PlaceItem(
             )
             .padding(
                 horizontal = SunRatingTheme.spacing.space4,
-                vertical = SunRatingTheme.spacing.space2,
+                vertical = SunRatingTheme.spacing.space3,
             ),
         verticalAlignment = Alignment.CenterVertically,
     ) {

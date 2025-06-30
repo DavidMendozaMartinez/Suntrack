@@ -92,7 +92,7 @@ private fun ThemedTopAppBarPreview() {
     }
 }
 
-private object ThemedTopAppBarDefaults {
+object ThemedTopAppBarDefaults {
     val windowInsets: WindowInsets
         @Composable
         get() = TopAppBarDefaults.windowInsets
