@@ -10,6 +10,7 @@ import com.davidmendozamartinez.sunrating.feature.events.eventsScreen
 import com.davidmendozamartinez.sunrating.feature.places.PlacesNavigation
 import com.davidmendozamartinez.sunrating.feature.places.navigateToPlaces
 import com.davidmendozamartinez.sunrating.feature.places.placesScreen
+import com.davidmendozamartinez.sunrating.feature.settings.SettingsNavigation
 import com.davidmendozamartinez.sunrating.feature.settings.navigateToSettings
 import com.davidmendozamartinez.sunrating.feature.settings.settingsScreen
 
@@ -40,6 +41,12 @@ fun SunRatingNavHost(
             }
         )
 
-        settingsScreen()
+        settingsScreen(
+            onNavigationEvent = {
+                when (it) {
+                    is SettingsNavigation.Back -> navController.popBackStack()
+                }
+            }
+        )
     }
 }

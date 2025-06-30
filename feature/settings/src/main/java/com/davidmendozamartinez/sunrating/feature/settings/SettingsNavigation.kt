@@ -1,6 +1,9 @@
 package com.davidmendozamartinez.sunrating.feature.settings
 
+import androidx.compose.animation.AnimatedContentTransitionScope.SlideDirection
+import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -15,22 +18,46 @@ import kotlinx.serialization.Serializable
 @Serializable
 object SettingsRoute
 
+sealed interface SettingsNavigation {
+    data object Back : SettingsNavigation
+}
+
 fun NavController.navigateToSettings(navOptions: NavOptions? = null) {
     navigate(route = SettingsRoute, navOptions = navOptions)
 }
 
-fun NavGraphBuilder.settingsScreen() {
-    composable<SettingsRoute> {
-        SettingsRoute()
+fun NavGraphBuilder.settingsScreen(onNavigationEvent: (SettingsNavigation) -> Unit) {
+    composable<SettingsRoute>(
+        enterTransition = {
+            slideIntoContainer(
+                towards = SlideDirection.Left,
+                animationSpec = tween(durationMillis = TRANSITION_DURATION_MILLIS),
+            )
+        },
+        exitTransition = {
+            slideOutOfContainer(
+                towards = SlideDirection.Right,
+                animationSpec = tween(durationMillis = TRANSITION_DURATION_MILLIS),
+            )
+        },
+    ) {
+        SettingsRoute(onNavigationEvent = onNavigationEvent)
     }
 }
 
 @Composable
 internal fun SettingsRoute(
+    onNavigationEvent: (SettingsNavigation) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = hiltViewModel(),
 ) {
     val uiState: SettingsUiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val navigation: SettingsNavigation? by viewModel.navigation.collectAsStateWithLifecycle()
+
+    LaunchedEffect(key1 = navigation) {
+        navigation?.let { onNavigationEvent(it) }
+        viewModel.onNavigationEventConsumed()
+    }
 
     SettingsScreen(
         uiState = uiState,
@@ -42,3 +69,5 @@ internal fun SettingsRoute(
         modifier = modifier,
     )
 }
+
+private const val TRANSITION_DURATION_MILLIS: Int = 400
