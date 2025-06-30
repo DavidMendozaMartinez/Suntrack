@@ -7,11 +7,12 @@
     <string name="event_type_sunrise">Sunrise</string>
     <string name="event_type_sunset">Sunset</string>
 
-
+    <string name="settings_title">Settings</string>
     <string name="settings_event_alert_title_sunrise">Sunrise alert</string>
     <string name="settings_event_alert_title_sunset">Sunset alert</string>
     <string name="settings_event_alert_advance">Notification advance</string>
     <string name="settings_event_alert_quality_threshold">Notification from</string>
+    <string name="settings_button_save">Save changes</string>
 
     <string name="format_date_today">Today</string>
     <string name="format_date_tomorrow">Tomorrow</string>
