@@ -21,20 +21,20 @@ enum class AdvanceUiState(val duration: Duration) {
     THIRTY_MINUTES(duration = 30.minutes),
     ONE_HOUR(duration = 1.hours);
 
-    @Composable
-    fun format(): String = when {
-        duration < 1.hours -> pluralStringResource(
-            id = R.plurals.format_duration_minutes,
-            count = duration.inWholeMinutes.toInt(),
-            formatArgs = arrayOf(duration.inWholeMinutes),
-        )
+    val displayName: String
+        @Composable get() = when {
+            duration < 1.hours -> pluralStringResource(
+                id = R.plurals.format_duration_minutes,
+                count = duration.inWholeMinutes.toInt(),
+                formatArgs = arrayOf(duration.inWholeMinutes),
+            )
 
-        else -> pluralStringResource(
-            id = R.plurals.format_duration_hours,
-            count = duration.inWholeHours.toInt(),
-            formatArgs = arrayOf(duration.inWholeHours),
-        )
-    }
+            else -> pluralStringResource(
+                id = R.plurals.format_duration_hours,
+                count = duration.inWholeHours.toInt(),
+                formatArgs = arrayOf(duration.inWholeHours),
+            )
+        }
 
     companion object {
         fun from(duration: Duration): AdvanceUiState? = entries.find { it.duration == duration }

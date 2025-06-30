@@ -6,12 +6,17 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.davidmendozamartinez.sunrating.feature.settings.model.AdvanceSettingsUiState
+import com.davidmendozamartinez.sunrating.feature.settings.model.AdvanceUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.EventAlertSettingsColors
 import com.davidmendozamartinez.sunrating.feature.settings.model.EventAlertSettingsUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.QualityThresholdSettingsUiState
@@ -26,6 +32,8 @@ import com.davidmendozamartinez.sunrating.feature.settings.model.preview.buildFa
 import com.davidmendozamartinez.sunrating.ui.R
 import com.davidmendozamartinez.sunrating.ui.component.custom.DropdownField
 import com.davidmendozamartinez.sunrating.ui.component.custom.StarRatingBar
+import com.davidmendozamartinez.sunrating.ui.component.theme.ThemedDropdownMenu
+import com.davidmendozamartinez.sunrating.ui.component.theme.ThemedDropdownMenuItem
 import com.davidmendozamartinez.sunrating.ui.component.theme.ThemedSlider
 import com.davidmendozamartinez.sunrating.ui.component.theme.ThemedSwitch
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
@@ -34,6 +42,7 @@ import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
 internal fun EventAlertSettings(
     uiState: EventAlertSettingsUiState,
     onEnableCheckedChange: (Boolean) -> Unit,
+    onAdvanceItemClick: (AdvanceUiState) -> Unit,
     onQualityThresholdValueChange: (Float) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -59,7 +68,10 @@ internal fun EventAlertSettings(
             exit = fadeOut() + shrinkVertically(),
         ) {
             Column(modifier = Modifier.padding(top = SunRatingTheme.spacing.space6)) {
-                AdvanceSettings(uiState = uiState.advanceSettingsUiState)
+                AdvanceSettings(
+                    uiState = uiState.advanceSettingsUiState,
+                    onItemClick = onAdvanceItemClick,
+                )
 
                 QualityThresholdSettings(
                     uiState = uiState.qualityThresholdSettingsUiState,
@@ -75,6 +87,7 @@ internal fun EventAlertSettings(
 @Composable
 private fun AdvanceSettings(
     uiState: AdvanceSettingsUiState,
+    onItemClick: (AdvanceUiState) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -87,13 +100,34 @@ private fun AdvanceSettings(
             style = SunRatingTheme.typography.bodyMedium,
         )
 
-        DropdownField(
-            value = uiState.selected.format(),
-            onClick = {},
+        Box(
             modifier = Modifier
                 .padding(start = SunRatingTheme.spacing.space6)
                 .weight(weight = 1f),
-        )
+        ) {
+            var expanded by remember { mutableStateOf(value = false) }
+
+            DropdownField(
+                value = uiState.selected.displayName,
+                onClick = { expanded = true },
+                modifier = Modifier.fillMaxWidth(),
+            )
+
+            ThemedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+            ) {
+                uiState.items.forEach {
+                    ThemedDropdownMenuItem(
+                        text = it.displayName,
+                        onClick = {
+                            expanded = false
+                            onItemClick(it)
+                        },
+                    )
+                }
+            }
+        }
     }
 }
 
@@ -152,6 +186,7 @@ private fun EventAlertSettingsPreview(
         EventAlertSettings(
             uiState = uiState,
             onEnableCheckedChange = {},
+            onAdvanceItemClick = {},
             onQualityThresholdValueChange = {},
         )
     }

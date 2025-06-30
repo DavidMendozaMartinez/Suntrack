@@ -48,6 +48,7 @@ internal fun SettingsSuccessState(
                 EventAlertSettings(
                     uiState = itemUiState,
                     onEnableCheckedChange = { onEventAlertEnableCheckedChange(itemUiState.typeUiState, it) },
+                    onAdvanceItemClick = { onEventAlertAdvanceItemClick(itemUiState.typeUiState, it) },
                     onQualityThresholdValueChange = { onEventAlertQualityThresholdValueChange(itemUiState.typeUiState, it) },
                 )
             }
