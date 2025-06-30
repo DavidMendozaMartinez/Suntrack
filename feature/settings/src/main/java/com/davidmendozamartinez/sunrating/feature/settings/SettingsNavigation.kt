@@ -34,9 +34,11 @@ internal fun SettingsRoute(
 
     SettingsScreen(
         uiState = uiState,
-        onEventAlertEnabledCheckedChange = viewModel::onEventAlertEnabledCheckedChange,
+        onBackClick = viewModel::onBackClick,
+        onEventAlertEnableCheckedChange = viewModel::onEventAlertEnableCheckedChange,
         onEventAlertAdvanceItemClick = viewModel::onEventAlertAdvanceItemClick,
         onEventAlertQualityThresholdValueChange = viewModel::onEventAlertQualityThresholdValueChange,
+        onSaveClick = viewModel::onSaveClick,
         modifier = modifier,
     )
 }

@@ -34,6 +34,8 @@ internal fun EventsScreen(
     Scaffold(
         modifier = modifier,
         topBar = { ThemedTopAppBar(title = { Logotype() }, actions = { SettingsButton(onClick = onSettingsClick) }) },
+        containerColor = SunRatingTheme.colorScheme.background,
+        contentColor = SunRatingTheme.colorScheme.onBackground,
     ) { contentPadding ->
         SkylineBackground()
 
