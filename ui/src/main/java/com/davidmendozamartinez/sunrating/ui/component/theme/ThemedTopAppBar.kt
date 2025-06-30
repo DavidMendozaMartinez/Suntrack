@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
@@ -29,9 +30,10 @@ fun ThemedTopAppBar(
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
-    expandedHeight: Dp = ThemedTopAppBarDefaults.ContainerHeight,
-    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
-    scrollBehavior: TopAppBarScrollBehavior? = null
+    expandedHeight: Dp = ThemedTopAppBarDefaults.TopAppBarExpandedHeight,
+    windowInsets: WindowInsets = ThemedTopAppBarDefaults.windowInsets,
+    colors: TopAppBarColors = ThemedTopAppBarDefaults.onBackgroundColors(),
+    scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     ThemedTopAppBar(
         title = {
@@ -46,6 +48,7 @@ fun ThemedTopAppBar(
         actions = actions,
         expandedHeight = expandedHeight,
         windowInsets = windowInsets,
+        colors = colors,
         scrollBehavior = scrollBehavior,
     )
 }
@@ -56,9 +59,10 @@ fun ThemedTopAppBar(
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {},
     actions: @Composable RowScope.() -> Unit = {},
-    expandedHeight: Dp = ThemedTopAppBarDefaults.ContainerHeight,
-    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
-    scrollBehavior: TopAppBarScrollBehavior? = null
+    expandedHeight: Dp = ThemedTopAppBarDefaults.TopAppBarExpandedHeight,
+    windowInsets: WindowInsets = ThemedTopAppBarDefaults.windowInsets,
+    colors: TopAppBarColors = ThemedTopAppBarDefaults.onBackgroundColors(),
+    scrollBehavior: TopAppBarScrollBehavior? = null,
 ) {
     TopAppBar(
         title = title,
@@ -67,13 +71,7 @@ fun ThemedTopAppBar(
         actions = actions,
         expandedHeight = expandedHeight,
         windowInsets = windowInsets,
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color.Transparent,
-            scrolledContainerColor = Color.Transparent,
-            navigationIconContentColor = SunRatingTheme.colorScheme.onBackground,
-            titleContentColor = SunRatingTheme.colorScheme.onBackground,
-            actionIconContentColor = SunRatingTheme.colorScheme.onBackground,
-        ),
+        colors = colors,
         scrollBehavior = scrollBehavior,
     )
 }
@@ -95,5 +93,18 @@ private fun ThemedTopAppBarPreview() {
 }
 
 private object ThemedTopAppBarDefaults {
-    val ContainerHeight = 72.dp
+    val windowInsets: WindowInsets
+        @Composable
+        get() = TopAppBarDefaults.windowInsets
+
+    @Composable
+    fun onBackgroundColors(): TopAppBarColors = TopAppBarDefaults.topAppBarColors(
+        containerColor = Color.Transparent,
+        scrolledContainerColor = Color.Transparent,
+        navigationIconContentColor = SunRatingTheme.colorScheme.onBackground,
+        titleContentColor = SunRatingTheme.colorScheme.onBackground,
+        actionIconContentColor = SunRatingTheme.colorScheme.onBackground,
+    )
+
+    val TopAppBarExpandedHeight: Dp = 72.dp
 }
