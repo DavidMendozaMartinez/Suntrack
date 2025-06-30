@@ -40,7 +40,7 @@ class EventsViewModel @Inject constructor(
         if (it == null) return@flatMapLatest flowOf(emptyList())
         eventRepository.getEventsFlow(
             placeId = it.id,
-            start = Clock.System.today().startOfDay(),
+            start = Clock.System.now(),
             end = Clock.System.today().startOfDay() + 3.days,
         )
     }
