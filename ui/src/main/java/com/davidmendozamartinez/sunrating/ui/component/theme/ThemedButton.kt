@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
-import androidx.compose.ui.unit.dp
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
 import com.davidmendozamartinez.sunrating.ui.extension.asDisabled
 
@@ -71,11 +70,11 @@ object ThemedButtonDefaults {
 
     @Composable
     fun buttonElevation(): ButtonElevation = ButtonDefaults.buttonElevation(
-        defaultElevation = 0.dp,
-        pressedElevation = 0.dp,
-        focusedElevation = 0.dp,
-        hoveredElevation = 1.dp,
-        disabledElevation = 0.dp,
+        defaultElevation = SunRatingTheme.elevation.level0,
+        pressedElevation = SunRatingTheme.elevation.level0,
+        focusedElevation = SunRatingTheme.elevation.level0,
+        hoveredElevation = SunRatingTheme.elevation.level1,
+        disabledElevation = SunRatingTheme.elevation.level0,
     )
 
     val ContentPadding: PaddingValues

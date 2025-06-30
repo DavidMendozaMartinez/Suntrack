@@ -20,7 +20,7 @@ class ComposeConventionPlugin : Plugin<Project> {
             commonExtension?.buildFeatures?.compose = true
 
             dependencies {
-                add(configurationName = "implementation", dependencyNotation = platform("androidx.compose:compose-bom:2025.05.00"))
+                add(configurationName = "implementation", dependencyNotation = platform("androidx.compose:compose-bom:2025.06.01"))
                 add(configurationName = "implementation", dependencyNotation = "androidx.compose.material3:material3")
                 add(configurationName = "implementation", dependencyNotation = "androidx.compose.ui:ui-tooling-preview")
                 add(configurationName = "debugImplementation", dependencyNotation = "androidx.compose.ui:ui-tooling")
