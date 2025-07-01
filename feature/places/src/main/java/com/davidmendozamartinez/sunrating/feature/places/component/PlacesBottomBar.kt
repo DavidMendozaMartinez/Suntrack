@@ -45,7 +45,8 @@ fun PlacesBottomBar(
     Row(
         modifier = modifier
             .windowInsetsPadding(insets = windowInsets)
-            .padding(all = SunRatingTheme.spacing.space4)
+            .padding(horizontal = SunRatingTheme.spacing.space4)
+            .padding(bottom = SunRatingTheme.spacing.space4)
             .clip(shape = SunRatingTheme.shape.large)
             .background(color = SunRatingTheme.colorScheme.background)
             .padding(all = SunRatingTheme.spacing.space4),
