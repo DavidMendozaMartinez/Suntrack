@@ -47,7 +47,6 @@ internal fun PlacesScreen(
                 uiState = uiState.bottomBarUiState,
                 onPlaceNameValueChange = onPlaceNameValueChange,
                 onCreatePlaceClick = onCreatePlaceClick,
-                modifier = Modifier,
             )
         },
         containerColor = SunRatingTheme.colorScheme.background,

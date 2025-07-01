@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.foundation.text.KeyboardActionScope
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -16,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -40,16 +38,16 @@ fun PlacesBottomBar(
     onPlaceNameValueChange: (String) -> Unit,
     onCreatePlaceClick: () -> Unit,
     modifier: Modifier = Modifier,
-    shape: Shape = PlacesBottomBarDefaults.shape,
     windowInsets: WindowInsets = PlacesBottomBarDefaults.windowInsets
 ) {
     val softwareKeyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
 
     Row(
         modifier = modifier
-            .clip(shape = shape)
-            .background(color = SunRatingTheme.colorScheme.background)
             .windowInsetsPadding(insets = windowInsets)
+            .padding(all = SunRatingTheme.spacing.space4)
+            .clip(shape = SunRatingTheme.shape.large)
+            .background(color = SunRatingTheme.colorScheme.background)
             .padding(all = SunRatingTheme.spacing.space4),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -131,10 +129,4 @@ private class PlacesBottomBarPreviewParameterProvider : PreviewParameterProvider
 object PlacesBottomBarDefaults {
     val windowInsets: WindowInsets
         @Composable get() = WindowInsets.navigationBars.union(insets = WindowInsets.ime)
-
-    val shape: Shape
-        @Composable get() = SunRatingTheme.shape.large.copy(
-            bottomStart = ZeroCornerSize,
-            bottomEnd = ZeroCornerSize,
-        )
 }
