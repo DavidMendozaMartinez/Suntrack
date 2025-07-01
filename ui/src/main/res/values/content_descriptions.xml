@@ -2,6 +2,7 @@
     <string name="button_back_content_description">Back</string>
     <string name="button_close_content_description">Close</string>
     <string name="button_settings_content_description">Settings</string>
+    <string name="button_more_content_description">More options</string>
 
     <string name="alarm_scheduled_content_description">Scheduled alarm</string>
     <string name="alarm_unscheduled_content_description">Unscheduled alarm</string>

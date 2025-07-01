@@ -3,6 +3,7 @@ package com.davidmendozamartinez.sunrating.ui.component
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.outlined.Close
 import androidx.compose.material.icons.outlined.Settings
@@ -83,6 +84,28 @@ fun SettingsButton(
         Icon(
             imageVector = Icons.Outlined.Settings,
             contentDescription = stringResource(id = R.string.button_settings_content_description),
+        )
+    }
+}
+
+@Composable
+fun MoreButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource? = null,
+    enforceMinInteractiveSize: Boolean = true,
+) {
+    BaseIconButton(
+        onClick = onClick,
+        modifier = modifier,
+        enabled = enabled,
+        interactionSource = interactionSource,
+        enforceMinInteractiveSize = enforceMinInteractiveSize,
+    ) {
+        Icon(
+            imageVector = Icons.Default.MoreVert,
+            contentDescription = stringResource(id = R.string.button_more_content_description),
         )
     }
 }

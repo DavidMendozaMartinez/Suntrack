@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
@@ -133,4 +134,6 @@ object ThemedMenuDefaults {
             horizontal = SunRatingTheme.spacing.space4,
             vertical = SunRatingTheme.spacing.space2,
         )
+
+    val TrailingIconSize: Dp = 24.dp
 }
