@@ -3,6 +3,8 @@
     <string name="logotype_emphasized">Sun</string>
 
     <string name="places_title">Select a place</string>
+    <string name="places_field_name_placeholder">Name of your current location</string>
+    <string name="places_button_create">Create</string>
 
     <string name="event_type_sunrise">Sunrise</string>
     <string name="event_type_sunset">Sunset</string>

@@ -3,12 +3,17 @@ package com.davidmendozamartinez.sunrating.feature.places.model
 import com.davidmendozamartinez.sunrating.domain.place.model.Place
 import kotlinx.collections.immutable.ImmutableList
 
-sealed interface PlacesUiState {
-    data object Loading : PlacesUiState
+data class PlacesUiState(
+    val bottomBarUiState: PlacesBottomBarUiState,
+    val contentUiState: PlacesContentUiState,
+)
+
+sealed interface PlacesContentUiState {
+    data object Loading : PlacesContentUiState
 
     data class Success(
         val items: ImmutableList<PlaceItemUiState>,
-    ) : PlacesUiState
+    ) : PlacesContentUiState
 }
 
 data class PlaceItemUiState(

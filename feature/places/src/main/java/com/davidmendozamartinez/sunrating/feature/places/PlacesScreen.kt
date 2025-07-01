@@ -3,10 +3,7 @@
 package com.davidmendozamartinez.sunrating.feature.places
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -15,7 +12,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
-import com.davidmendozamartinez.sunrating.feature.places.component.PlaceItem
+import com.davidmendozamartinez.sunrating.feature.places.component.PlacesBottomBar
+import com.davidmendozamartinez.sunrating.feature.places.component.content.PlacesContentSuccessState
+import com.davidmendozamartinez.sunrating.feature.places.model.PlacesBottomBarUiState
+import com.davidmendozamartinez.sunrating.feature.places.model.PlacesContentUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlacesUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.preview.buildFakePlaceItemUiState
 import com.davidmendozamartinez.sunrating.ui.R
@@ -30,6 +30,8 @@ internal fun PlacesScreen(
     uiState: PlacesUiState,
     onBackClick: () -> Unit,
     onPlaceClick: (String) -> Unit,
+    onPlaceNameValueChange: (String) -> Unit,
+    onCreatePlaceClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -40,24 +42,26 @@ internal fun PlacesScreen(
                 actions = { CloseButton(onClick = onBackClick) },
             )
         },
+        bottomBar = {
+            PlacesBottomBar(
+                uiState = uiState.bottomBarUiState,
+                onPlaceNameValueChange = onPlaceNameValueChange,
+                onCreatePlaceClick = onCreatePlaceClick,
+                modifier = Modifier,
+            )
+        },
         containerColor = SunRatingTheme.colorScheme.background,
         contentColor = SunRatingTheme.colorScheme.onBackground,
     ) { contentPadding ->
         SkylineBackground()
 
         Box(modifier = Modifier.padding(paddingValues = contentPadding)) {
-            when (uiState) {
-                is PlacesUiState.Loading -> Unit
-                is PlacesUiState.Success -> LazyColumn(
-                    contentPadding = PaddingValues(vertical = SunRatingTheme.spacing.space8),
-                ) {
-                    items(items = uiState.items, key = { it.id }) { itemUiState ->
-                        PlaceItem(
-                            uiState = itemUiState,
-                            onClick = { onPlaceClick(itemUiState.id) },
-                        )
-                    }
-                }
+            when (val contentUiState = uiState.contentUiState) {
+                is PlacesContentUiState.Loading -> Unit
+                is PlacesContentUiState.Success -> PlacesContentSuccessState(
+                    uiState = contentUiState,
+                    onPlaceClick = onPlaceClick,
+                )
             }
         }
     }
@@ -73,6 +77,8 @@ private fun PlacesScreenPreview(
             uiState = uiState,
             onBackClick = {},
             onPlaceClick = {},
+            onPlaceNameValueChange = {},
+            onCreatePlaceClick = {},
         )
     }
 }
@@ -80,8 +86,13 @@ private fun PlacesScreenPreview(
 private class PlacesScreenPreviewParameterProvider : PreviewParameterProvider<PlacesUiState> {
     override val values: Sequence<PlacesUiState>
         get() = sequenceOf(
-            PlacesUiState.Success(
-                items = List(size = 5) { buildFakePlaceItemUiState(id = it.toString(), isSelected = it == 3) }.toImmutableList(),
+            PlacesUiState(
+                bottomBarUiState = PlacesBottomBarUiState(),
+                contentUiState = PlacesContentUiState.Success(
+                    items = List(size = 5) {
+                        buildFakePlaceItemUiState(id = it.toString(), isSelected = it == 3)
+                    }.toImmutableList(),
+                ),
             ),
         )
 }
