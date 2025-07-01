@@ -21,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.davidmendozamartinez.sunrating.feature.places.component.PlacesBottomBar
+import com.davidmendozamartinez.sunrating.feature.places.component.content.PlacesContentEmptyState
 import com.davidmendozamartinez.sunrating.feature.places.component.content.PlacesContentSuccessState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlaceItemOptionUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlacesBottomBarUiState
@@ -93,6 +94,7 @@ internal fun PlacesScreen(
         Box(modifier = Modifier.padding(paddingValues = contentPadding)) {
             when (val contentUiState = uiState.contentUiState) {
                 is PlacesContentUiState.Loading -> Unit
+                is PlacesContentUiState.Empty -> PlacesContentEmptyState()
                 is PlacesContentUiState.Success -> PlacesContentSuccessState(
                     uiState = contentUiState,
                     onPlaceClick = onPlaceClick,
@@ -148,6 +150,10 @@ private fun PlacesScreenPreview(
 private class PlacesScreenPreviewParameterProvider : PreviewParameterProvider<PlacesUiState> {
     override val values: Sequence<PlacesUiState>
         get() = sequenceOf(
+            PlacesUiState(
+                bottomBarUiState = PlacesBottomBarUiState(),
+                contentUiState = PlacesContentUiState.Empty,
+            ),
             PlacesUiState(
                 bottomBarUiState = PlacesBottomBarUiState(),
                 contentUiState = PlacesContentUiState.Success(

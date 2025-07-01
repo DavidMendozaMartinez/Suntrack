@@ -3,6 +3,8 @@
     <string name="logotype_emphasized">Sun</string>
 
     <string name="places_title">Select a place</string>
+    <string name="places_state_empty_title">No saved places yet!</string>
+    <string name="places_state_empty_subtitle">Add places to get sunrise and sunset forecasts for your favorite spots</string>
     <string name="places_item_option_delete">Delete</string>
     <string name="places_field_name_placeholder">Name of your current location</string>
     <string name="places_button_create">Create</string>
