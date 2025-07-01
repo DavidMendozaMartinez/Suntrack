@@ -22,6 +22,8 @@ data class CustomColorScheme(
     val onBackground: Color = Color.Unspecified,
     val surface: Color = Color.Unspecified,
     val onSurface: Color = Color.Unspecified,
+    val inverseSurface: Color = Color.Unspecified,
+    val inverseOnSurface: Color = Color.Unspecified,
     val surfaceLow: Color = Color.Unspecified,
     val onSurfaceLow: Color = Color.Unspecified,
 //    val surfaceVariant: Color = Color.Unspecified,
