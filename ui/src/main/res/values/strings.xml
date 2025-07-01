@@ -26,4 +26,7 @@
         <item quantity="one">1 hour</item>
         <item quantity="other">%d hours</item>
     </plurals>
+
+    <string name="snackbar_permission_location_message">Location access is only required to create a place from your current position. You can disable it afterward.</string>
+    <string name="snackbar_permission_location_action">Go to Settings</string>
 </resources>
