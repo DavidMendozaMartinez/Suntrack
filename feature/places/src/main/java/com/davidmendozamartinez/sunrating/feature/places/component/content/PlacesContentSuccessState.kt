@@ -1,5 +1,6 @@
 package com.davidmendozamartinez.sunrating.feature.places.component.content
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -22,7 +23,10 @@ fun PlacesContentSuccessState(
     onPlaceOptionClick: (String, PlaceItemOptionUiState) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(modifier = modifier.fillMaxSize()) {
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        contentPadding = PaddingValues(vertical = SunRatingTheme.spacing.space4),
+    ) {
         items(items = uiState.items, key = { it.id }) { itemUiState ->
             PlaceItem(
                 uiState = itemUiState,

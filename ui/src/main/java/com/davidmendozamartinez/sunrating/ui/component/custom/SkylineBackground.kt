@@ -29,7 +29,7 @@ fun SkylineBackground(
             contentDescription = null,
             modifier = Modifier
                 .align(alignment = Alignment.BottomStart)
-                .alpha(alpha = 0.1f),
+                .alpha(alpha = 0.08f),
         )
     }
 }
