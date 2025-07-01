@@ -3,6 +3,8 @@ package com.davidmendozamartinez.sunrating.feature.places
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.davidmendozamartinez.sunrating.domain.event.repository.EventRepository
+import com.davidmendozamartinez.sunrating.domain.location.repository.Location
+import com.davidmendozamartinez.sunrating.domain.location.repository.LocationRepository
 import com.davidmendozamartinez.sunrating.domain.place.repository.PlaceRepository
 import com.davidmendozamartinez.sunrating.feature.places.model.PlaceItemUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlaceNameTextFieldUiState
@@ -27,6 +29,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class PlacesViewModel @Inject constructor(
     private val placeRepository: PlaceRepository,
+    private val locationRepository: LocationRepository,
     private val eventRepository: EventRepository,
 ) : ViewModel() {
     private val itemsFlow: Flow<ImmutableList<PlaceItemUiState>> = combine(
@@ -87,10 +90,12 @@ class PlacesViewModel @Inject constructor(
     }
 
     private suspend fun createPlace() {
+        val location: Location = locationRepository.getCurrentLocation() ?: return
+
         placeRepository.createPlace(
             name = bottomBarUiState.value.placeNameTextFieldUiState.value.trim(),
-            latitude = 0.0,
-            longitude = 0.0,
+            latitude = location.first,
+            longitude = location.second,
         ).onSuccess { placeId ->
             bottomBarUiState.value = PlacesBottomBarUiState()
             eventRepository.syncEvents(placeId = placeId)
