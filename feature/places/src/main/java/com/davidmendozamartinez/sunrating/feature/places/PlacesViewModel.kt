@@ -48,7 +48,7 @@ class PlacesViewModel @Inject constructor(
     ) { items, bottomBarUiState ->
         PlacesUiState(
             bottomBarUiState = bottomBarUiState,
-            contentUiState = PlacesContentUiState.Success(items = items),
+            contentUiState = if (items.isNotEmpty()) PlacesContentUiState.Success(items = items) else PlacesContentUiState.Empty,
         )
     }.stateIn(
         scope = viewModelScope,

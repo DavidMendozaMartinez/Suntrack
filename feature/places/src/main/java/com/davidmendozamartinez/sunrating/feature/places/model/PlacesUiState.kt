@@ -10,6 +10,8 @@ data class PlacesUiState(
 sealed interface PlacesContentUiState {
     data object Loading : PlacesContentUiState
 
+    data object Empty : PlacesContentUiState
+
     data class Success(
         val items: ImmutableList<PlaceItemUiState>,
     ) : PlacesContentUiState
