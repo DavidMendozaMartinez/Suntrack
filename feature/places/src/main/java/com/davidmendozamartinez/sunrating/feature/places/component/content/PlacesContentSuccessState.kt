@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.davidmendozamartinez.sunrating.feature.places.component.PlaceItem
+import com.davidmendozamartinez.sunrating.feature.places.model.PlaceItemOptionUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlacesContentUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.preview.buildFakePlaceItemUiState
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
@@ -18,6 +19,7 @@ import kotlinx.collections.immutable.toImmutableList
 fun PlacesContentSuccessState(
     uiState: PlacesContentUiState.Success,
     onPlaceClick: (String) -> Unit,
+    onPlaceOptionClick: (String, PlaceItemOptionUiState) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
@@ -25,13 +27,14 @@ fun PlacesContentSuccessState(
             PlaceItem(
                 uiState = itemUiState,
                 onClick = { onPlaceClick(itemUiState.id) },
+                onOptionClick = { onPlaceOptionClick(itemUiState.id, it) },
                 modifier = Modifier.animateItem(),
             )
         }
     }
 }
 
-@Preview
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 private fun PlacesContentSuccessStatePreview(
     @PreviewParameter(provider = PlacesContentSuccessStatePreviewParameterProvider::class) uiState: PlacesContentUiState.Success,
@@ -40,6 +43,7 @@ private fun PlacesContentSuccessStatePreview(
         PlacesContentSuccessState(
             uiState = uiState,
             onPlaceClick = {},
+            onPlaceOptionClick = { _, _ -> },
         )
     }
 }

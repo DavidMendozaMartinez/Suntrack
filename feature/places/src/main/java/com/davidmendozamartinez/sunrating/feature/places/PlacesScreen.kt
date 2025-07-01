@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.davidmendozamartinez.sunrating.feature.places.component.PlacesBottomBar
 import com.davidmendozamartinez.sunrating.feature.places.component.content.PlacesContentSuccessState
+import com.davidmendozamartinez.sunrating.feature.places.model.PlaceItemOptionUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlacesBottomBarUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlacesContentUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlacesSnackbar
@@ -47,6 +48,7 @@ internal fun PlacesScreen(
     uiState: PlacesUiState,
     onBackClick: () -> Unit,
     onPlaceClick: (String) -> Unit,
+    onPlaceOptionClick: (String, PlaceItemOptionUiState) -> Unit,
     onPlaceNameValueChange: (String) -> Unit,
     onCreatePlaceClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -94,6 +96,7 @@ internal fun PlacesScreen(
                 is PlacesContentUiState.Success -> PlacesContentSuccessState(
                     uiState = contentUiState,
                     onPlaceClick = onPlaceClick,
+                    onPlaceOptionClick = onPlaceOptionClick,
                 )
             }
         }
@@ -135,6 +138,7 @@ private fun PlacesScreenPreview(
             uiState = uiState,
             onBackClick = {},
             onPlaceClick = {},
+            onPlaceOptionClick = { _, _ -> },
             onPlaceNameValueChange = {},
             onCreatePlaceClick = {},
         )

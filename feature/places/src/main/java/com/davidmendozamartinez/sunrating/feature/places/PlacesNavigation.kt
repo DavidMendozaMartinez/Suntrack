@@ -57,6 +57,7 @@ internal fun PlacesRoute(
         uiState = uiState,
         onBackClick = viewModel::onBackClick,
         onPlaceClick = viewModel::onPlaceClick,
+        onPlaceOptionClick = viewModel::onPlaceOptionClick,
         onPlaceNameValueChange = viewModel::onPlaceNameValueChange,
         onCreatePlaceClick = viewModel::onCreatePlaceClick,
         modifier = modifier,

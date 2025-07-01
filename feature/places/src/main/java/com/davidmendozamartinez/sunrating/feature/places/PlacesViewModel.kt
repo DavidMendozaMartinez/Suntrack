@@ -6,6 +6,7 @@ import com.davidmendozamartinez.sunrating.domain.event.repository.EventRepositor
 import com.davidmendozamartinez.sunrating.domain.location.repository.Location
 import com.davidmendozamartinez.sunrating.domain.location.repository.LocationRepository
 import com.davidmendozamartinez.sunrating.domain.place.repository.PlaceRepository
+import com.davidmendozamartinez.sunrating.feature.places.model.PlaceItemOptionUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlaceItemUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlaceNameTextFieldUiState
 import com.davidmendozamartinez.sunrating.feature.places.model.PlacesBottomBarUiState
@@ -69,6 +70,15 @@ class PlacesViewModel @Inject constructor(
         viewModelScope.launch {
             placeRepository.setCurrentPlace(id = placeId)
             _navigation.value = PlacesNavigation.Back
+        }
+    }
+
+    fun onPlaceOptionClick(
+        placeId: String,
+        optionUiState: PlaceItemOptionUiState,
+    ) {
+        when (optionUiState) {
+            PlaceItemOptionUiState.DELETE -> viewModelScope.launch { placeRepository.deletePlace(id = placeId) }
         }
     }
 
