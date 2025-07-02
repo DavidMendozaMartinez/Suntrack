@@ -35,7 +35,7 @@ import com.davidmendozamartinez.sunrating.ui.component.custom.SkylineBackground
 import com.davidmendozamartinez.sunrating.ui.component.theme.ThemedSnackbar
 import com.davidmendozamartinez.sunrating.ui.component.theme.ThemedTopAppBar
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
-import com.davidmendozamartinez.sunrating.ui.extension.navigateToApplicationDetailsSettings
+import com.davidmendozamartinez.sunrating.ui.extension.navigateToApplicationSettings
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
@@ -123,7 +123,7 @@ private fun rememberLocationPermissionState(
                     val result: SnackbarResult = snackbarHostState.showSnackbar(
                         visuals = PlacesSnackbar.LocationPermission.getVisuals(context = context),
                     )
-                    if (result == SnackbarResult.ActionPerformed) context.navigateToApplicationDetailsSettings()
+                    if (result == SnackbarResult.ActionPerformed) context.navigateToApplicationSettings()
                 }
             }
         },
