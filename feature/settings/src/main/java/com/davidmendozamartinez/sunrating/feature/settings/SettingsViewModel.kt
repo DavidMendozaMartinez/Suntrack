@@ -102,7 +102,8 @@ class SettingsViewModel @Inject constructor(
 
     private suspend fun saveSettings() {
         val currentUiState: SettingsUiState.Success = uiState.value as? SettingsUiState.Success ?: return
-        settingsRepository.setEventAlertSettings(settings = currentUiState.items.map { it.toEventAlertSettings() })
+        val modifiedSettings: List<EventAlertSettingsUiState> = currentUiState.items.minus(elements = initialSettings)
+        settingsRepository.setEventAlertSettings(settings = modifiedSettings.map { it.toEventAlertSettings() })
     }
 
     private fun SettingsUiState.updateEventAlertSettings(
