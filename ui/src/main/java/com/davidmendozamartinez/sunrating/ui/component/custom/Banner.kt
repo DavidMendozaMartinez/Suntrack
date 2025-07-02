@@ -28,14 +28,14 @@ import com.davidmendozamartinez.sunrating.ui.component.theme.ThemedTextButtonDef
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
 
 @Composable
-fun ActionRequired(
+fun Banner(
     message: String,
     actionLabel: String,
     onActionClick: () -> Unit,
     modifier: Modifier = Modifier,
     iconPainter: Painter? = null,
-    colors: ActionRequiredColors = ActionRequiredDefaults.warningColors(),
-    contentPadding: PaddingValues = ActionRequiredDefaults.ContentPadding,
+    colors: BannerColors = BannerDefaults.warningColors(),
+    contentPadding: PaddingValues = BannerDefaults.ContentPadding,
 ) {
     Row(
         modifier = modifier
@@ -74,9 +74,9 @@ fun ActionRequired(
 
 @Preview
 @Composable
-private fun ActionRequiredPreview() {
+private fun BannerPreview() {
     SunRatingTheme {
-        ActionRequired(
+        Banner(
             message = LoremIpsum(words = 9).values.first(),
             actionLabel = LoremIpsum(words = 2).values.first(),
             onActionClick = {},
@@ -85,9 +85,9 @@ private fun ActionRequiredPreview() {
     }
 }
 
-object ActionRequiredDefaults {
+object BannerDefaults {
     @Composable
-    fun warningColors(): ActionRequiredColors = ActionRequiredColors(
+    fun warningColors(): BannerColors = BannerColors(
         containerColor = SunRatingTheme.colorScheme.warningContainer,
         iconColor = SunRatingTheme.colorScheme.onWarning,
         contentColor = SunRatingTheme.colorScheme.onWarningContainer,
@@ -102,7 +102,7 @@ object ActionRequiredDefaults {
 }
 
 @Immutable
-data class ActionRequiredColors(
+data class BannerColors(
     val containerColor: Color,
     val iconColor: Color,
     val contentColor: Color,
