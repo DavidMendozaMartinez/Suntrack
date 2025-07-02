@@ -10,6 +10,7 @@ import com.davidmendozamartinez.sunrating.feature.settings.model.AdvanceUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.EventAlertSettingsTypeUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.EventAlertSettingsUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.QualityThresholdSettingsUiState
+import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsActionRequiredUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.toEventAlertSettings
 import com.davidmendozamartinez.sunrating.feature.settings.model.toEventAlertSettingsUiState
@@ -87,7 +88,15 @@ class SettingsViewModel @Inject constructor(
     }
 
     fun onNotificationsPermissionResult() {
-        // Remove required action
+        _uiState.update {
+            val currentUiState: SettingsUiState.Success = it as? SettingsUiState.Success ?: return@update it
+            if (notificationManager.areNotificationsEnabled()) {
+                val requiredActions = currentUiState.requiredActions - SettingsActionRequiredUiState.NotificationsPermission
+                return@update currentUiState.copy(requiredActions = requiredActions.toImmutableList())
+            }
+
+            currentUiState
+        }
     }
 
     fun onNavigationEventConsumed() {
@@ -101,6 +110,7 @@ class SettingsViewModel @Inject constructor(
                 initialSettings = it
 
                 _uiState.value = SettingsUiState.Success(
+                    requiredActions = buildRequiredActions(settings = it),
                     items = it,
                     isSaveButtonEnabled = false,
                 )
@@ -128,4 +138,17 @@ class SettingsViewModel @Inject constructor(
             isSaveButtonEnabled = modifiedSettings != initialSettings,
         )
     }
+
+    private fun buildRequiredActions(settings: List<EventAlertSettingsUiState>): ImmutableList<SettingsActionRequiredUiState> =
+        buildList {
+            val isAnyAlertSettingsEnabled: Boolean = settings.any { it.isEnabled }
+
+            if (isAnyAlertSettingsEnabled && !notificationManager.areNotificationsEnabled()) {
+                add(element = SettingsActionRequiredUiState.NotificationsPermission)
+            }
+
+            if (isAnyAlertSettingsEnabled && !alarmManager.canScheduleExactAlarms()) {
+                add(element = SettingsActionRequiredUiState.ExactAlarm)
+            }
+        }.toImmutableList()
 }

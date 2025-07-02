@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.davidmendozamartinez.sunrating.feature.settings.component.EventAlertSettings
 import com.davidmendozamartinez.sunrating.feature.settings.model.AdvanceUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.EventAlertSettingsTypeUiState
+import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsActionRequiredUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.preview.buildFakeEventAlertSettingsUiState
 import com.davidmendozamartinez.sunrating.ui.R
@@ -85,6 +86,10 @@ private class SettingsSuccessStatePreviewParameterProvider : PreviewParameterPro
     override val values: Sequence<SettingsUiState.Success>
         get() = sequenceOf(
             SettingsUiState.Success(
+                requiredActions = persistentListOf(
+                    SettingsActionRequiredUiState.NotificationsPermission,
+                    SettingsActionRequiredUiState.ExactAlarm,
+                ),
                 items = persistentListOf(
                     buildFakeEventAlertSettingsUiState(typeUiState = EventAlertSettingsTypeUiState.SUNRISE, isEnabled = false),
                     buildFakeEventAlertSettingsUiState(typeUiState = EventAlertSettingsTypeUiState.SUNSET, isEnabled = true),
