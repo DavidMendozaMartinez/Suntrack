@@ -11,4 +11,6 @@ interface AlarmManager {
         latest: List<Alarm>,
         current: List<Alarm>,
     )
+
+    fun canScheduleExactAlarms(): Boolean
 }

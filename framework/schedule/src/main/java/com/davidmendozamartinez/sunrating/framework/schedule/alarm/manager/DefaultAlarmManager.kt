@@ -43,4 +43,6 @@ class DefaultAlarmManager @Inject constructor(
         alarmsToCancel.forEach { cancel(alarm = it) }
         alarmsToSchedule.forEach { schedule(alarm = it) }
     }
+
+    override fun canScheduleExactAlarms(): Boolean = AndroidAlarmManagerCompat.canScheduleExactAlarms(androidAlarmManager)
 }
