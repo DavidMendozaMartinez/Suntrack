@@ -6,7 +6,7 @@ sealed interface SettingsUiState {
     data object Loading : SettingsUiState
 
     data class Success(
-        val requiredActions: ImmutableList<SettingsActionRequiredUiState>,
+        val warnings: ImmutableList<SettingsWarningUiState>,
         val items: ImmutableList<EventAlertSettingsUiState>,
         val isSaveButtonEnabled: Boolean,
     ) : SettingsUiState

@@ -10,8 +10,8 @@ import com.davidmendozamartinez.sunrating.feature.settings.model.AdvanceUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.EventAlertSettingsTypeUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.EventAlertSettingsUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.QualityThresholdSettingsUiState
-import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsActionRequiredUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsUiState
+import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsWarningUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.toEventAlertSettings
 import com.davidmendozamartinez.sunrating.feature.settings.model.toEventAlertSettingsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -91,8 +91,8 @@ class SettingsViewModel @Inject constructor(
         _uiState.update {
             val currentUiState: SettingsUiState.Success = it as? SettingsUiState.Success ?: return@update it
             if (notificationManager.areNotificationsEnabled()) {
-                val requiredActions = currentUiState.requiredActions - SettingsActionRequiredUiState.NotificationsPermission
-                return@update currentUiState.copy(requiredActions = requiredActions.toImmutableList())
+                val warnings = currentUiState.warnings - SettingsWarningUiState.NotificationsPermission
+                return@update currentUiState.copy(warnings = warnings.toImmutableList())
             }
 
             currentUiState
@@ -110,7 +110,7 @@ class SettingsViewModel @Inject constructor(
                 initialSettings = it
 
                 _uiState.value = SettingsUiState.Success(
-                    requiredActions = buildRequiredActions(settings = it),
+                    warnings = buildWarningList(settings = it),
                     items = it,
                     isSaveButtonEnabled = false,
                 )
@@ -139,16 +139,16 @@ class SettingsViewModel @Inject constructor(
         )
     }
 
-    private fun buildRequiredActions(settings: List<EventAlertSettingsUiState>): ImmutableList<SettingsActionRequiredUiState> =
+    private fun buildWarningList(settings: List<EventAlertSettingsUiState>): ImmutableList<SettingsWarningUiState> =
         buildList {
             val isAnyAlertSettingsEnabled: Boolean = settings.any { it.isEnabled }
 
             if (isAnyAlertSettingsEnabled && !notificationManager.areNotificationsEnabled()) {
-                add(element = SettingsActionRequiredUiState.NotificationsPermission)
+                add(element = SettingsWarningUiState.NotificationsPermission)
             }
 
             if (isAnyAlertSettingsEnabled && !alarmManager.canScheduleExactAlarms()) {
-                add(element = SettingsActionRequiredUiState.ExactAlarm)
+                add(element = SettingsWarningUiState.ExactAlarm)
             }
         }.toImmutableList()
 }

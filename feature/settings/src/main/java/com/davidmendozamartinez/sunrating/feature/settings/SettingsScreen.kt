@@ -16,8 +16,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.davidmendozamartinez.sunrating.feature.settings.model.AdvanceUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.EventAlertSettingsTypeUiState
-import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsActionRequiredUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsUiState
+import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsWarningUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.preview.buildFakeEventAlertSettingsUiState
 import com.davidmendozamartinez.sunrating.feature.settings.state.SettingsSuccessState
 import com.davidmendozamartinez.sunrating.ui.R
@@ -111,9 +111,9 @@ private class SettingsScreenPreviewParameterProvider : PreviewParameterProvider<
     override val values: Sequence<SettingsUiState>
         get() = sequenceOf(
             SettingsUiState.Success(
-                requiredActions = persistentListOf(
-                    SettingsActionRequiredUiState.NotificationsPermission,
-                    SettingsActionRequiredUiState.ExactAlarm,
+                warnings = persistentListOf(
+                    SettingsWarningUiState.NotificationsPermission,
+                    SettingsWarningUiState.ExactAlarm,
                 ),
                 items = persistentListOf(
                     buildFakeEventAlertSettingsUiState(typeUiState = EventAlertSettingsTypeUiState.SUNRISE, isEnabled = false),
