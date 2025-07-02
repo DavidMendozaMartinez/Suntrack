@@ -19,6 +19,10 @@
     <string name="settings_event_alert_advance">Notification advance</string>
     <string name="settings_event_alert_quality_threshold">Notification from</string>
     <string name="settings_button_save">Save changes</string>
+    <string name="settings_action_required_permission_notifications_message">To receive alerts for sunrises and sunsets, please enable notifications permission.</string>
+    <string name="settings_action_required_permission_notifications_action">Enable</string>
+    <string name="settings_action_required_exact_alarm_message">To ensure alerts trigger at the right time, please enable exact alarm settings in your device.</string>
+    <string name="settings_action_required_exact_alarm_action">Enable</string>
 
     <string name="snackbar_permission_location_message">Location access is only required to create a place from your current position. You can disable it afterward.</string>
     <string name="snackbar_permission_location_action">Go to Settings</string>
