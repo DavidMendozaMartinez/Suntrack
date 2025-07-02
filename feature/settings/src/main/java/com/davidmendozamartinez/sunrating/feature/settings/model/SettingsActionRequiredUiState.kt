@@ -17,14 +17,14 @@ sealed interface SettingsActionRequiredUiState {
     val message: String
 
     @get:Composable
-    val action: String
+    val actionLabel: String
 
     data object NotificationsPermission : SettingsActionRequiredUiState {
         override val iconPainter: Painter
             @Composable get() = rememberVectorPainter(image = Icons.Outlined.NotificationsActive)
         override val message: String
             @Composable get() = stringResource(id = R.string.settings_action_required_permission_notifications_message)
-        override val action: String
+        override val actionLabel: String
             @Composable get() = stringResource(id = R.string.settings_action_required_permission_notifications_action)
     }
 
@@ -33,7 +33,7 @@ sealed interface SettingsActionRequiredUiState {
             @Composable get() = rememberVectorPainter(image = Icons.Outlined.Alarm)
         override val message: String
             @Composable get() = stringResource(id = R.string.settings_action_required_exact_alarm_message)
-        override val action: String
+        override val actionLabel: String
             @Composable get() = stringResource(id = R.string.settings_action_required_exact_alarm_action)
     }
 }

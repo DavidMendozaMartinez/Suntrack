@@ -38,4 +38,6 @@ class DefaultNotificationManager @Inject constructor(
             notificationUiState.build(context = context, channelId = notificationChannelUiState.id),
         )
     }
+
+    override fun areNotificationsEnabled(): Boolean = androidNotificationManager.areNotificationsEnabled()
 }

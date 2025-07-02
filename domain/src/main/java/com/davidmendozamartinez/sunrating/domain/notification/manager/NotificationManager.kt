@@ -8,4 +8,6 @@ interface NotificationManager {
         notification: Notification,
         notificationChannel: NotificationChannel,
     )
+
+    fun areNotificationsEnabled(): Boolean
 }

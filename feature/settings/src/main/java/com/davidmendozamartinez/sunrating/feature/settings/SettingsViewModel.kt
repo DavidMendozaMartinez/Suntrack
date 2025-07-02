@@ -2,6 +2,8 @@ package com.davidmendozamartinez.sunrating.feature.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.davidmendozamartinez.sunrating.domain.alarm.manager.AlarmManager
+import com.davidmendozamartinez.sunrating.domain.notification.manager.NotificationManager
 import com.davidmendozamartinez.sunrating.domain.settings.repository.SettingsRepository
 import com.davidmendozamartinez.sunrating.feature.settings.model.AdvanceSettingsUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.AdvanceUiState
@@ -28,6 +30,8 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
+    private val notificationManager: NotificationManager,
+    private val alarmManager: AlarmManager,
 ) : ViewModel() {
     private var initialSettings: ImmutableList<EventAlertSettingsUiState> = persistentListOf()
 
