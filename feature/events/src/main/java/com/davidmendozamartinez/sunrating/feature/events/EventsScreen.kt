@@ -16,6 +16,7 @@ import com.davidmendozamartinez.sunrating.feature.events.model.EventPagerUiState
 import com.davidmendozamartinez.sunrating.feature.events.model.EventTypeUiState
 import com.davidmendozamartinez.sunrating.feature.events.model.EventsUiState
 import com.davidmendozamartinez.sunrating.feature.events.model.preview.buildFakeEventPagerPageUiState
+import com.davidmendozamartinez.sunrating.feature.events.state.EventsNoCurrentPlaceState
 import com.davidmendozamartinez.sunrating.feature.events.state.EventsSuccessState
 import com.davidmendozamartinez.sunrating.ui.component.SettingsButton
 import com.davidmendozamartinez.sunrating.ui.component.custom.Logotype
@@ -29,6 +30,7 @@ internal fun EventsScreen(
     uiState: EventsUiState,
     onCurrentPlaceClick: () -> Unit,
     onSettingsClick: () -> Unit,
+    onCreatePlaceClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -41,7 +43,10 @@ internal fun EventsScreen(
 
         Box(modifier = Modifier.padding(paddingValues = contentPadding)) {
             when (uiState) {
-                is EventsUiState.NoCurrentPlace -> Unit
+                is EventsUiState.NoCurrentPlace -> EventsNoCurrentPlaceState(
+                    onCreatePlaceClick = onCreatePlaceClick,
+                )
+
                 is EventsUiState.Success -> EventsSuccessState(
                     uiState = uiState,
                     onCurrentPlaceClick = onCurrentPlaceClick,
@@ -61,6 +66,7 @@ private fun EventsScreenPreview(
             uiState = uiState,
             onCurrentPlaceClick = {},
             onSettingsClick = {},
+            onCreatePlaceClick = {},
         )
     }
 }

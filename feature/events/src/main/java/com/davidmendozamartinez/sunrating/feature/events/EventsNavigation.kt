@@ -44,6 +44,7 @@ internal fun EventsRoute(
         uiState = uiState,
         onCurrentPlaceClick = viewModel::onCurrentPlaceClick,
         onSettingsClick = viewModel::onSettingsClick,
+        onCreatePlaceClick = viewModel::onCreatePlaceClick,
         modifier = modifier,
     )
 }

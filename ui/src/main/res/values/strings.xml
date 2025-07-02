@@ -2,6 +2,10 @@
     <string name="logotype_base">Suntrack</string>
     <string name="logotype_emphasized">Sun</string>
 
+    <string name="events_state_no_current_place_title">Let\'s get started!</string>
+    <string name="events_state_no_current_place_subtitle">Start by adding a place and discover what the sun’s got planned for today!</string>
+    <string name="events_state_no_current_place_button">Add a place</string>
+
     <string name="places_title">Select a place</string>
     <string name="places_state_empty_title">No saved places yet!</string>
     <string name="places_state_empty_subtitle">Add places to get sunrise and sunset forecasts for your favorite spots</string>
@@ -9,15 +13,18 @@
     <string name="places_field_name_placeholder">Name of your current location</string>
     <string name="places_button_create">Create</string>
 
-    <string name="event_type_sunrise">Sunrise</string>
-    <string name="event_type_sunset">Sunset</string>
-
     <string name="settings_title">Settings</string>
     <string name="settings_event_alert_title_sunrise">Sunrise alert</string>
     <string name="settings_event_alert_title_sunset">Sunset alert</string>
     <string name="settings_event_alert_advance">Notification advance</string>
     <string name="settings_event_alert_quality_threshold">Notification from</string>
     <string name="settings_button_save">Save changes</string>
+
+    <string name="snackbar_permission_location_message">Location access is only required to create a place from your current position. You can disable it afterward.</string>
+    <string name="snackbar_permission_location_action">Go to Settings</string>
+
+    <string name="event_type_sunrise">Sunrise</string>
+    <string name="event_type_sunset">Sunset</string>
 
     <string name="format_date_today">Today</string>
     <string name="format_date_tomorrow">Tomorrow</string>
@@ -29,7 +36,4 @@
         <item quantity="one">1 hour</item>
         <item quantity="other">%d hours</item>
     </plurals>
-
-    <string name="snackbar_permission_location_message">Location access is only required to create a place from your current position. You can disable it afterward.</string>
-    <string name="snackbar_permission_location_action">Go to Settings</string>
 </resources>

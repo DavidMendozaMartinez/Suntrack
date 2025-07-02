@@ -83,6 +83,10 @@ class EventsViewModel @Inject constructor(
         _navigation.value = EventsNavigation.Settings
     }
 
+    fun onCreatePlaceClick() {
+        _navigation.value = EventsNavigation.Places
+    }
+
     fun onNavigationEventConsumed() {
         _navigation.value = null
     }
