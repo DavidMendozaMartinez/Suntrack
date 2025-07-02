@@ -22,6 +22,13 @@ val customTypography = CustomTypography(
         lineHeight = 56.sp,
         letterSpacing = 0.sp,
     ),
+    headline = TextStyle(
+        fontFamily = afacad,
+        fontWeight = FontWeight.Normal,
+        fontSize = 32.sp,
+        lineHeight = 44.sp,
+        letterSpacing = 0.sp,
+    ),
     titleLarge = TextStyle(
         fontFamily = afacad,
         fontWeight = FontWeight.Normal,
@@ -69,6 +76,13 @@ val customTypography = CustomTypography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 48.sp,
         lineHeight = 56.sp,
+        letterSpacing = 0.sp,
+    ),
+    headlineEmphasized = TextStyle(
+        fontFamily = afacad,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 32.sp,
+        lineHeight = 44.sp,
         letterSpacing = 0.sp,
     ),
     titleLargeEmphasized = TextStyle(
