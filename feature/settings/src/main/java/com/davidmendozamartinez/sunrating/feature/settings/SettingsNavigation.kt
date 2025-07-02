@@ -66,6 +66,7 @@ internal fun SettingsRoute(
         onEventAlertAdvanceItemClick = viewModel::onEventAlertAdvanceItemClick,
         onEventAlertQualityThresholdValueChange = viewModel::onEventAlertQualityThresholdValueChange,
         onSaveClick = viewModel::onSaveClick,
+        onNotificationsPermissionResult = viewModel::onNotificationsPermissionResult,
         modifier = modifier,
     )
 }

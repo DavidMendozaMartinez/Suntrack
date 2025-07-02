@@ -1,7 +1,9 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalPermissionsApi::class)
 
 package com.davidmendozamartinez.sunrating.feature.settings
 
+import android.Manifest
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,6 +24,10 @@ import com.davidmendozamartinez.sunrating.ui.component.BackButton
 import com.davidmendozamartinez.sunrating.ui.component.custom.SkylineBackground
 import com.davidmendozamartinez.sunrating.ui.component.theme.ThemedTopAppBar
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 import kotlinx.collections.immutable.persistentListOf
 
 @Composable
@@ -32,8 +38,13 @@ internal fun SettingsScreen(
     onEventAlertAdvanceItemClick: (EventAlertSettingsTypeUiState, AdvanceUiState) -> Unit,
     onEventAlertQualityThresholdValueChange: (EventAlertSettingsTypeUiState, Float) -> Unit,
     onSaveClick: () -> Unit,
+    onNotificationsPermissionResult: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val notificationsPermissionState: PermissionState = rememberNotificationsPermissionState(
+        onPermissionResult = { onNotificationsPermissionResult() },
+    )
+
     Scaffold(
         modifier = modifier,
         topBar = {
@@ -52,7 +63,13 @@ internal fun SettingsScreen(
                 is SettingsUiState.Loading -> Unit
                 is SettingsUiState.Success -> SettingsSuccessState(
                     uiState = uiState,
-                    onEventAlertEnableCheckedChange = onEventAlertEnableCheckedChange,
+                    onEventAlertEnableCheckedChange = { typeUiState, isChecked ->
+                        onEventAlertEnableCheckedChange(typeUiState, isChecked)
+
+                        if (isChecked && !notificationsPermissionState.status.isGranted) {
+                            notificationsPermissionState.launchPermissionRequest()
+                        }
+                    },
                     onEventAlertAdvanceItemClick = onEventAlertAdvanceItemClick,
                     onEventAlertQualityThresholdValueChange = onEventAlertQualityThresholdValueChange,
                     onSaveClick = onSaveClick,
@@ -61,6 +78,15 @@ internal fun SettingsScreen(
         }
     }
 }
+
+@SuppressLint("InlinedApi")
+@Composable
+private fun rememberNotificationsPermissionState(
+    onPermissionResult: (Boolean) -> Unit,
+): PermissionState = rememberPermissionState(
+    permission = Manifest.permission.POST_NOTIFICATIONS,
+    onPermissionResult = onPermissionResult,
+)
 
 @Preview
 @Composable
@@ -75,6 +101,7 @@ private fun SettingsScreenPreview(
             onEventAlertAdvanceItemClick = { _, _ -> },
             onEventAlertQualityThresholdValueChange = { _, _ -> },
             onSaveClick = {},
+            onNotificationsPermissionResult = {},
         )
     }
 }

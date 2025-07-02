@@ -86,6 +86,10 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch { saveSettings() }
     }
 
+    fun onNotificationsPermissionResult() {
+        // Remove required action
+    }
+
     fun onNavigationEventConsumed() {
         _navigation.value = null
     }
