@@ -22,6 +22,7 @@ class ComposeConventionPlugin : Plugin<Project> {
             dependencies {
                 add(configurationName = "implementation", dependencyNotation = platform("androidx.compose:compose-bom:2025.06.01"))
                 add(configurationName = "implementation", dependencyNotation = "androidx.compose.material3:material3")
+                add(configurationName = "implementation", dependencyNotation = "androidx.compose.material:material-icons-extended")
                 add(configurationName = "implementation", dependencyNotation = "androidx.compose.ui:ui-tooling-preview")
                 add(configurationName = "debugImplementation", dependencyNotation = "androidx.compose.ui:ui-tooling")
                 add(configurationName = "implementation", dependencyNotation = "androidx.navigation:navigation-compose:2.8.9")

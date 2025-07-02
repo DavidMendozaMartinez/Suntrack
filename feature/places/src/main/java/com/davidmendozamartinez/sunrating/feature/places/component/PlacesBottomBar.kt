@@ -1,6 +1,7 @@
 package com.davidmendozamartinez.sunrating.feature.places.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.ime
@@ -38,7 +39,8 @@ fun PlacesBottomBar(
     onPlaceNameValueChange: (String) -> Unit,
     onCreatePlaceClick: () -> Unit,
     modifier: Modifier = Modifier,
-    windowInsets: WindowInsets = PlacesBottomBarDefaults.windowInsets
+    contentPadding: PaddingValues = PlacesBottomBarDefaults.ContentPadding,
+    windowInsets: WindowInsets = PlacesBottomBarDefaults.windowInsets,
 ) {
     val softwareKeyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
 
@@ -49,7 +51,7 @@ fun PlacesBottomBar(
             .padding(bottom = SunRatingTheme.spacing.space4)
             .clip(shape = SunRatingTheme.shape.large)
             .background(color = SunRatingTheme.colorScheme.background)
-            .padding(all = SunRatingTheme.spacing.space4),
+            .padding(paddingValues = contentPadding),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         PlaceNameTextField(
@@ -128,6 +130,12 @@ private class PlacesBottomBarPreviewParameterProvider : PreviewParameterProvider
 }
 
 object PlacesBottomBarDefaults {
+    val ContentPadding: PaddingValues
+        @Composable get() = PaddingValues(
+            horizontal = SunRatingTheme.spacing.space4,
+            vertical = SunRatingTheme.spacing.space2,
+        )
+
     val windowInsets: WindowInsets
         @Composable get() = WindowInsets.navigationBars.union(insets = WindowInsets.ime)
 }
