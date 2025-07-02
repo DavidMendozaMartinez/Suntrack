@@ -41,8 +41,8 @@ internal fun SettingsSuccessState(
     ) {
         LazyColumn(
             modifier = Modifier.weight(weight = 1f),
-            contentPadding = PaddingValues(top = SunRatingTheme.spacing.space4),
-            verticalArrangement = Arrangement.spacedBy(space = SunRatingTheme.spacing.space16),
+            contentPadding = PaddingValues(vertical = SunRatingTheme.spacing.space4),
+            verticalArrangement = Arrangement.spacedBy(space = SunRatingTheme.spacing.space8),
         ) {
             items(items = uiState.items) { itemUiState ->
                 EventAlertSettings(
@@ -65,7 +65,7 @@ internal fun SettingsSuccessState(
     }
 }
 
-@Preview
+@Preview(showBackground = true, backgroundColor = 0xFFFFFFFF)
 @Composable
 private fun SettingsSuccessStatePreview(
     @PreviewParameter(provider = SettingsSuccessStatePreviewParameterProvider::class) uiState: SettingsUiState.Success,
