@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.davidmendozamartinez.sunrating.data.place.datasource.PlacePreferencesDataSource
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
@@ -31,5 +32,7 @@ class DefaultPlacePreferencesDataSource @Inject constructor(
     }
 
     override fun getCurrentPlaceIdFlow(): Flow<String?> =
-        dataStore.data.map { preferences -> preferences[PreferencesKeys.CURRENT_PLACE_ID] }
+        dataStore.data
+            .map { preferences -> preferences[PreferencesKeys.CURRENT_PLACE_ID] }
+            .distinctUntilChanged()
 }

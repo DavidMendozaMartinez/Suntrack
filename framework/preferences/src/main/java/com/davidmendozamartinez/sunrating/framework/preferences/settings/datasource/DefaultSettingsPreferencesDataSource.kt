@@ -13,6 +13,7 @@ import com.davidmendozamartinez.sunrating.framework.preferences.settings.model.t
 import javax.inject.Inject
 import kotlin.time.Duration
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
@@ -25,14 +26,18 @@ class DefaultSettingsPreferencesDataSource @Inject constructor(
         return preferences.getEventAlertSettings(keys = keys, eventType = eventType)
     }
 
-    override suspend fun setEventAlertSettings(settings: EventAlertSettings) {
-        val keys: EventAlertSettingsPreferencesKeys = settings.eventType.toEventAlertSettingsPreferencesKeys()
-        dataStore.edit { preferences -> preferences.setEventAlertSettings(keys = keys, value = settings) }
+    override suspend fun setEventAlertSettings(settings: List<EventAlertSettings>) {
+        val settingsByKey = settings.associateBy { it.eventType.toEventAlertSettingsPreferencesKeys() }
+        dataStore.edit { preferences ->
+            settingsByKey.forEach { (keys, value) -> preferences.setEventAlertSettings(keys = keys, value = value) }
+        }
     }
 
-    override fun getEventAlertSettingsFlow(eventType: EventType): Flow<EventAlertSettings> {
-        val keys: EventAlertSettingsPreferencesKeys = eventType.toEventAlertSettingsPreferencesKeys()
-        return dataStore.data.map { preferences -> preferences.getEventAlertSettings(keys = keys, eventType = eventType) }
+    override fun getEventAlertSettingsFlow(): Flow<List<EventAlertSettings>> {
+        val keysByEventType = EventType.entries.associateWith { it.toEventAlertSettingsPreferencesKeys() }
+        return dataStore.data.map { preferences ->
+            keysByEventType.map { (eventType, keys) -> preferences.getEventAlertSettings(keys = keys, eventType = eventType) }
+        }.distinctUntilChanged()
     }
 
     private fun Preferences.getEventAlertSettings(

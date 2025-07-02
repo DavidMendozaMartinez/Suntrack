@@ -1,5 +1,3 @@
-@file:OptIn(FlowPreview::class)
-
 package com.davidmendozamartinez.sunrating.feature.settings
 
 import androidx.lifecycle.ViewModel
@@ -15,15 +13,12 @@ import com.davidmendozamartinez.sunrating.feature.settings.model.toEventAlertSet
 import com.davidmendozamartinez.sunrating.feature.settings.model.toEventAlertSettingsUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import kotlin.time.Duration.Companion.milliseconds
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -93,7 +88,6 @@ class SettingsViewModel @Inject constructor(
 
     private fun collectEventAlertSettingsFlow() {
         settingsRepository.getEventAlertSettingsFlow()
-            .debounce(timeout = 50.milliseconds)
             .map { settings -> settings.map { it.toEventAlertSettingsUiState() }.toImmutableList() }
             .onEach {
                 initialSettings = it
@@ -108,7 +102,7 @@ class SettingsViewModel @Inject constructor(
 
     private suspend fun saveSettings() {
         val currentUiState: SettingsUiState.Success = uiState.value as? SettingsUiState.Success ?: return
-        currentUiState.items.forEach { settingsRepository.setEventAlertSettings(settings = it.toEventAlertSettings()) }
+        settingsRepository.setEventAlertSettings(settings = currentUiState.items.map { it.toEventAlertSettings() })
     }
 
     private fun SettingsUiState.updateEventAlertSettings(
