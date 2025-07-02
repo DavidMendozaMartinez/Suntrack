@@ -55,7 +55,7 @@ class EventsViewModel @Inject constructor(
             EventsUiState.Success(
                 currentPlaceName = currentPlace.name,
                 eventPagerUiState = EventPagerUiState(
-                    initialPage = events.indexOfFirst { it.time > Clock.System.now() }.takeIf { it != -1 } ?: events.lastIndex,
+                    initialPage = 0,
                     pages = events.map { it.toEventPagerPageUiState() }.toImmutableList(),
                 ),
             )

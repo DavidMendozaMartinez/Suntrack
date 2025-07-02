@@ -11,6 +11,7 @@ import com.davidmendozamartinez.sunrating.domain.settings.repository.SettingsRep
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 class DefaultSettingsRepository @Inject constructor(
     private val settingsPreferencesDataSource: SettingsPreferencesDataSource,
@@ -38,5 +39,5 @@ class DefaultSettingsRepository @Inject constructor(
 
     override fun getEventAlertSettingsFlow(): Flow<List<EventAlertSettings>> = combine(
         EventType.entries.map { settingsPreferencesDataSource.getEventAlertSettingsFlow(eventType = it) }
-    ) { settings -> settings.toList() }
+    ) { settings -> settings.toList() }.distinctUntilChanged()
 }
