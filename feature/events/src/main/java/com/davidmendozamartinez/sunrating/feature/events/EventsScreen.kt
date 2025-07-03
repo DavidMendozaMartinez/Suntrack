@@ -43,6 +43,7 @@ internal fun EventsScreen(
 
         Box(modifier = Modifier.padding(paddingValues = contentPadding)) {
             when (uiState) {
+                is EventsUiState.Loading -> Unit
                 is EventsUiState.NoCurrentPlace -> EventsNoCurrentPlaceState(
                     onCreatePlaceClick = onCreatePlaceClick,
                 )

@@ -63,7 +63,7 @@ class EventsViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-        initialValue = EventsUiState.NoCurrentPlace,
+        initialValue = EventsUiState.Loading,
     )
 
     private val _navigation: MutableStateFlow<EventsNavigation?> = MutableStateFlow(value = null)
