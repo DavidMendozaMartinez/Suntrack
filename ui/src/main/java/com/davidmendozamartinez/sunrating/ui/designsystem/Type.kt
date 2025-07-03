@@ -115,7 +115,7 @@ val customTypography = CustomTypography(
     ),
     bodyMediumEmphasized = TextStyle(
         fontFamily = afacad,
-        fontWeight = FontWeight.SemiBold,
+        fontWeight = FontWeight.Bold,
         fontSize = 16.sp,
         lineHeight = 20.sp,
         letterSpacing = 0.sp,
