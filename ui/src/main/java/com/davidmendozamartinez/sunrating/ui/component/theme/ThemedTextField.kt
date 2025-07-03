@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
@@ -91,7 +92,7 @@ fun ThemedTextField(
                         value = value,
                         visualTransformation = visualTransformation,
                         innerTextField = innerTextField,
-                        placeholder = textOrNull(value = placeholder, style = SunRatingTheme.typography.bodyMedium),
+                        placeholder = textOrNull(value = placeholder, style = SunRatingTheme.typography.bodySmall),
                         label = null,
                         leadingIcon = leadingIcon,
                         trailingIcon = trailingIcon,
@@ -117,7 +118,7 @@ private fun textOrNull(
     style: TextStyle,
 ): @Composable (() -> Unit)? =
     if (value != null) {
-        { Text(text = value, style = style) }
+        { Text(text = value, overflow = TextOverflow.Ellipsis, maxLines = 1, style = style) }
     } else {
         null
     }
