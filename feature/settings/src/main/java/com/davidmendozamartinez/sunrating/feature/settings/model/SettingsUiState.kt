@@ -9,5 +9,7 @@ sealed interface SettingsUiState {
         val warnings: ImmutableList<SettingsWarningUiState>,
         val items: ImmutableList<EventAlertSettingsUiState>,
         val isSaveButtonEnabled: Boolean,
-    ) : SettingsUiState
+    ) : SettingsUiState {
+        val displayedWarning: SettingsWarningUiState? = warnings.firstOrNull()
+    }
 }

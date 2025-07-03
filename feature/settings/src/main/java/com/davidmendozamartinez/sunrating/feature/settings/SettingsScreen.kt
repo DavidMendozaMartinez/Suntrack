@@ -35,15 +35,16 @@ import kotlinx.collections.immutable.persistentListOf
 internal fun SettingsScreen(
     uiState: SettingsUiState,
     onBackClick: () -> Unit,
+    onNotificationsPermissionResult: (Boolean) -> Unit,
+    onWarningActionResult: (SettingsWarningUiState) -> Unit,
     onEventAlertEnableCheckedChange: (EventAlertSettingsTypeUiState, Boolean) -> Unit,
     onEventAlertAdvanceItemClick: (EventAlertSettingsTypeUiState, AdvanceUiState) -> Unit,
     onEventAlertQualityThresholdValueChange: (EventAlertSettingsTypeUiState, Float) -> Unit,
     onSaveClick: () -> Unit,
-    onNotificationsPermissionResult: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val notificationsPermissionState: PermissionState = rememberNotificationsPermissionState(
-        onPermissionResult = { onNotificationsPermissionResult() },
+        onPermissionResult = onNotificationsPermissionResult,
     )
 
     Scaffold(
@@ -64,6 +65,7 @@ internal fun SettingsScreen(
                 is SettingsUiState.Loading -> Unit
                 is SettingsUiState.Success -> SettingsSuccessState(
                     uiState = uiState,
+                    onWarningActionResult = onWarningActionResult,
                     onEventAlertEnableCheckedChange = { typeUiState, isChecked ->
                         onEventAlertEnableCheckedChange(typeUiState, isChecked)
 
@@ -98,11 +100,12 @@ private fun SettingsScreenPreview(
         SettingsScreen(
             uiState = uiState,
             onBackClick = {},
+            onNotificationsPermissionResult = {},
+            onWarningActionResult = {},
             onEventAlertEnableCheckedChange = { _, _ -> },
             onEventAlertAdvanceItemClick = { _, _ -> },
             onEventAlertQualityThresholdValueChange = { _, _ -> },
             onSaveClick = {},
-            onNotificationsPermissionResult = {},
         )
     }
 }

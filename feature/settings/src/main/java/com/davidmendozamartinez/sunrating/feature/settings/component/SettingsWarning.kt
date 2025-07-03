@@ -6,6 +6,18 @@ import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.AnimatedContentScope
+import androidx.compose.animation.AnimatedVisibilityScope
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
+import androidx.compose.animation.togetherWith
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -13,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsWarningUiState
+import com.davidmendozamartinez.sunrating.ui.animation.AnimatedVisibility
 import com.davidmendozamartinez.sunrating.ui.component.custom.Banner
 import com.davidmendozamartinez.sunrating.ui.component.custom.BannerDefaults
 import com.davidmendozamartinez.sunrating.ui.designsystem.SunRatingTheme
@@ -43,6 +56,42 @@ fun SettingsWarning(
         modifier = modifier,
         iconPainter = uiState.iconPainter,
         colors = BannerDefaults.warningColors(),
+    )
+}
+
+@Composable
+fun AnimatedSettingsWarningVisibility(
+    value: SettingsWarningUiState?,
+    modifier: Modifier = Modifier,
+    content: @Composable AnimatedVisibilityScope.(SettingsWarningUiState) -> Unit,
+) {
+    AnimatedVisibility(
+        value = value,
+        modifier = modifier,
+        enter = fadeIn(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
+                expandVertically(animationSpec = spring(stiffness = Spring.StiffnessLow)),
+        exit = fadeOut(animationSpec = spring(stiffness = Spring.StiffnessLow)) +
+                shrinkVertically(animationSpec = spring(stiffness = Spring.StiffnessLow)),
+        label = "AnimatedSettingsWarningVisibility",
+        content = content,
+    )
+}
+
+@Composable
+fun AnimatedSettingsWarningContent(
+    targetState: SettingsWarningUiState,
+    modifier: Modifier = Modifier,
+    content: @Composable AnimatedContentScope.(SettingsWarningUiState) -> Unit,
+) {
+    AnimatedContent(
+        targetState = targetState,
+        modifier = modifier,
+        transitionSpec = {
+            slideInHorizontally(animationSpec = spring(stiffness = Spring.StiffnessLow), initialOffsetX = { it }) togetherWith
+                    slideOutHorizontally(animationSpec = spring(stiffness = Spring.StiffnessLow), targetOffsetX = { -it })
+        },
+        label = "AnimatedSettingsWarningContent",
+        content = content,
     )
 }
 

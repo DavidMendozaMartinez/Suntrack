@@ -62,11 +62,12 @@ internal fun SettingsRoute(
     SettingsScreen(
         uiState = uiState,
         onBackClick = viewModel::onBackClick,
+        onNotificationsPermissionResult = viewModel::onNotificationsPermissionResult,
+        onWarningActionResult = viewModel::onWarningActionResult,
         onEventAlertEnableCheckedChange = viewModel::onEventAlertEnableCheckedChange,
         onEventAlertAdvanceItemClick = viewModel::onEventAlertAdvanceItemClick,
         onEventAlertQualityThresholdValueChange = viewModel::onEventAlertQualityThresholdValueChange,
         onSaveClick = viewModel::onSaveClick,
-        onNotificationsPermissionResult = viewModel::onNotificationsPermissionResult,
         modifier = modifier,
     )
 }

@@ -14,7 +14,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import com.davidmendozamartinez.sunrating.feature.settings.component.AnimatedSettingsWarningContent
+import com.davidmendozamartinez.sunrating.feature.settings.component.AnimatedSettingsWarningVisibility
 import com.davidmendozamartinez.sunrating.feature.settings.component.EventAlertSettings
+import com.davidmendozamartinez.sunrating.feature.settings.component.SettingsWarning
 import com.davidmendozamartinez.sunrating.feature.settings.model.AdvanceUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.EventAlertSettingsTypeUiState
 import com.davidmendozamartinez.sunrating.feature.settings.model.SettingsUiState
@@ -28,21 +31,29 @@ import kotlinx.collections.immutable.persistentListOf
 @Composable
 internal fun SettingsSuccessState(
     uiState: SettingsUiState.Success,
+    onWarningActionResult: (SettingsWarningUiState) -> Unit,
     onEventAlertEnableCheckedChange: (EventAlertSettingsTypeUiState, Boolean) -> Unit,
     onEventAlertAdvanceItemClick: (EventAlertSettingsTypeUiState, AdvanceUiState) -> Unit,
     onEventAlertQualityThresholdValueChange: (EventAlertSettingsTypeUiState, Float) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(horizontal = SunRatingTheme.spacing.space4)
-            .padding(bottom = SunRatingTheme.spacing.space4),
-    ) {
+    Column(modifier = modifier.fillMaxSize()) {
+        AnimatedSettingsWarningVisibility(value = uiState.displayedWarning) { targetState ->
+            AnimatedSettingsWarningContent(targetState = targetState) {
+                SettingsWarning(
+                    uiState = it,
+                    onActionResult = { onWarningActionResult(it) },
+                    modifier = Modifier
+                        .padding(top = SunRatingTheme.spacing.space4)
+                        .padding(horizontal = SunRatingTheme.spacing.space4),
+                )
+            }
+        }
+
         LazyColumn(
             modifier = Modifier.weight(weight = 1f),
-            contentPadding = PaddingValues(vertical = SunRatingTheme.spacing.space4),
+            contentPadding = PaddingValues(all = SunRatingTheme.spacing.space4),
             verticalArrangement = Arrangement.spacedBy(space = SunRatingTheme.spacing.space8),
         ) {
             items(items = uiState.items) { itemUiState ->
@@ -59,7 +70,7 @@ internal fun SettingsSuccessState(
             text = stringResource(id = R.string.settings_button_save),
             onClick = onSaveClick,
             modifier = Modifier
-                .padding(top = SunRatingTheme.spacing.space4)
+                .padding(all = SunRatingTheme.spacing.space4)
                 .fillMaxWidth(),
             enabled = uiState.isSaveButtonEnabled,
         )
@@ -74,6 +85,7 @@ private fun SettingsSuccessStatePreview(
     SunRatingTheme {
         SettingsSuccessState(
             uiState = uiState,
+            onWarningActionResult = {},
             onEventAlertEnableCheckedChange = { _, _ -> },
             onEventAlertAdvanceItemClick = { _, _ -> },
             onEventAlertQualityThresholdValueChange = { _, _ -> },

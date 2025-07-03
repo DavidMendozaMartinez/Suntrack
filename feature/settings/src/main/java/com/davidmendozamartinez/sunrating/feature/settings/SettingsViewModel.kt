@@ -50,6 +50,19 @@ class SettingsViewModel @Inject constructor(
         _navigation.value = SettingsNavigation.Back
     }
 
+    fun onNotificationsPermissionResult(isGranted: Boolean) {
+        if (isGranted) _uiState.update { it.removeWarning(warningUiState = SettingsWarningUiState.NotificationsPermission) }
+    }
+
+    fun onWarningActionResult(warningUiState: SettingsWarningUiState) {
+        val isWarningResolved: Boolean = when (warningUiState) {
+            SettingsWarningUiState.NotificationsPermission -> notificationManager.areNotificationsEnabled()
+            SettingsWarningUiState.ExactAlarm -> alarmManager.canScheduleExactAlarms()
+        }
+
+        if (isWarningResolved) _uiState.update { it.removeWarning(warningUiState = warningUiState) }
+    }
+
     fun onEventAlertEnableCheckedChange(
         typeUiState: EventAlertSettingsTypeUiState,
         isChecked: Boolean,
@@ -87,18 +100,6 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch { saveSettings() }
     }
 
-    fun onNotificationsPermissionResult() {
-        _uiState.update {
-            val currentUiState: SettingsUiState.Success = it as? SettingsUiState.Success ?: return@update it
-            if (notificationManager.areNotificationsEnabled()) {
-                val warnings = currentUiState.warnings - SettingsWarningUiState.NotificationsPermission
-                return@update currentUiState.copy(warnings = warnings.toImmutableList())
-            }
-
-            currentUiState
-        }
-    }
-
     fun onNavigationEventConsumed() {
         _navigation.value = null
     }
@@ -124,6 +125,19 @@ class SettingsViewModel @Inject constructor(
         settingsRepository.setEventAlertSettings(settings = modifiedSettings.map { it.toEventAlertSettings() })
     }
 
+    private fun buildWarningList(settings: List<EventAlertSettingsUiState>): ImmutableList<SettingsWarningUiState> =
+        buildList {
+            val isAnyAlertSettingsEnabled: Boolean = settings.any { it.isEnabled }
+
+            if (isAnyAlertSettingsEnabled && !notificationManager.areNotificationsEnabled()) {
+                add(element = SettingsWarningUiState.NotificationsPermission)
+            }
+
+            if (isAnyAlertSettingsEnabled && !alarmManager.canScheduleExactAlarms()) {
+                add(element = SettingsWarningUiState.ExactAlarm)
+            }
+        }.toImmutableList()
+
     private fun SettingsUiState.updateEventAlertSettings(
         typeUiState: EventAlertSettingsTypeUiState,
         transform: (EventAlertSettingsUiState) -> EventAlertSettingsUiState,
@@ -139,16 +153,9 @@ class SettingsViewModel @Inject constructor(
         )
     }
 
-    private fun buildWarningList(settings: List<EventAlertSettingsUiState>): ImmutableList<SettingsWarningUiState> =
-        buildList {
-            val isAnyAlertSettingsEnabled: Boolean = settings.any { it.isEnabled }
-
-            if (isAnyAlertSettingsEnabled && !notificationManager.areNotificationsEnabled()) {
-                add(element = SettingsWarningUiState.NotificationsPermission)
-            }
-
-            if (isAnyAlertSettingsEnabled && !alarmManager.canScheduleExactAlarms()) {
-                add(element = SettingsWarningUiState.ExactAlarm)
-            }
-        }.toImmutableList()
+    private fun SettingsUiState.removeWarning(warningUiState: SettingsWarningUiState): SettingsUiState {
+        val currentUiState: SettingsUiState.Success = this as? SettingsUiState.Success ?: return this
+        val warnings: List<SettingsWarningUiState> = currentUiState.warnings - warningUiState
+        return currentUiState.copy(warnings = warnings.toImmutableList())
+    }
 }
