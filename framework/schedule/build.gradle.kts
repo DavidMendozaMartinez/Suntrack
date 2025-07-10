@@ -15,5 +15,5 @@ dependencies {
     implementation(project(":common"))
     implementation(libs.androidx.core.ktx)
 
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 }
