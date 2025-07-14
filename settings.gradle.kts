@@ -21,7 +21,7 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SunRating"
+rootProject.name = "Suntrack"
 include(":app")
 include(":common")
 include(":data")
